@@ -6,23 +6,26 @@
 
 // Datos del Hero - Fácil de editar
 const heroContent = {
-	headline: "Diseñamos el jardín que tu hogar merece",
-	subheadline: "Transformamos espacios exteriores en oasis de lujo y tranquilidad. Más de 15 años creando jardines exclusivos que fusionan naturaleza, diseño y elegancia.",
+	headline: "Transformamos espacios en experiencias únicas",
+	subheadline: "Especialistas en jardines, terrazas, pérgolas, celosías de madera y fachadas con porcelánico. Diseño y ejecución de espacios exteriores e interiores que reflejan tu estilo de vida.",
 	ctaPrimary: {
 		label: "Solicitar Presupuesto",
 		href: "#contacto",
 	},
 	ctaSecondary: {
-		label: "Ver Galería",
+		label: "Ver Proyectos",
 		href: "#proyectos",
 	},
-	// Imagen de fondo de Unsplash - Jardín de lujo
-	backgroundImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2832&auto=format&fit=crop",
+	// Imágenes de fondo para slideshow
+	backgroundImages: [
+		"/images/jardin_2.png",
+		"/images/logo_azento.jpg",
+	],
 	// Estadísticas destacadas
 	stats: [
-		{ value: "15+", label: "Años de experiencia" },
-		{ value: "250+", label: "Proyectos realizados" },
-		{ value: "100%", label: "Clientes satisfechos" },
+		{ value: "Desde", label: "2022" },
+		{ value: "100%", label: "Proyectos personalizados" },
+		{ value: "Madrid", label: "y alrededores" },
 	],
 };
 ---
@@ -31,18 +34,24 @@ const heroContent = {
 	id="inicio"
 	class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden"
 >
-	<!-- Background Image con Overlay -->
+	<!-- Background Images Slideshow -->
 	<div class="absolute inset-0 z-0">
-		<img 
-			src={heroContent.backgroundImage}
-			alt="Jardín de lujo diseñado por AZento Home"
-			class="w-full h-full object-cover object-center"
-			loading="eager"
-		/>
-		<!-- Overlay oscuro con gradiente -->
-		<div class="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-900/50 to-forest-950/80"></div>
+		<!-- Contenedor de imágenes con transición -->
+		<div id="hero-slideshow" class="relative w-full h-full">
+			{heroContent.backgroundImages.map((img, index) => (
+				<img 
+					src={img}
+					alt={`AZento Home Solutions - Imagen ${index + 1}`}
+					class={`hero-slide absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+					data-slide-index={index}
+					loading={index === 0 ? "eager" : "lazy"}
+				/>
+			))}
+		</div>
+		<!-- Overlay oscuro con gradiente usando colores de marca -->
+		<div class="absolute inset-0 bg-gradient-to-b from-azento-950/80 via-azento-900/60 to-azento-950/90"></div>
 		<!-- Overlay decorativo con patrón sutil -->
-		<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(26,77,46,0.3)_100%)]"></div>
+		<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(67,95,105,0.4)_100%)]"></div>
 	</div>
 
 	<!-- Contenido Principal -->
@@ -50,9 +59,9 @@ const heroContent = {
 		<!-- Badge superior -->
 		<div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 
 			rounded-full px-4 py-2 mb-8 animate-fade-in">
-			<span class="w-2 h-2 bg-gold-400 rounded-full animate-pulse"></span>
-			<span class="text-sand-100 text-sm font-medium tracking-wide">
-				Diseño de jardines exclusivos
+			<span class="w-2 h-2 bg-accent-400 rounded-full animate-pulse"></span>
+			<span class="text-neutral-100 text-sm font-medium tracking-wide">
+				Jardines · Terrazas · Pérgolas · Fachadas
 			</span>
 		</div>
 
@@ -62,13 +71,13 @@ const heroContent = {
 			style="animation-delay: 0.1s;"
 		>
 			{heroContent.headline.split(' ').slice(0, 3).join(' ')}
-			<span class="block text-gold-300">
+			<span class="block text-accent-300">
 				{heroContent.headline.split(' ').slice(3).join(' ')}
 			</span>
 		</h1>
 
 		<!-- Subtítulo -->
-		<p class="max-w-2xl mx-auto text-lg sm:text-xl text-sand-200/90 leading-relaxed mb-10 
+		<p class="max-w-2xl mx-auto text-lg sm:text-xl text-neutral-200/90 leading-relaxed mb-10 
 			animate-slide-up"
 			style="animation-delay: 0.2s;"
 		>
@@ -83,9 +92,9 @@ const heroContent = {
 			<!-- CTA Principal -->
 			<a 
 				href={heroContent.ctaPrimary.href}
-				class="group inline-flex items-center gap-3 bg-gold-500 text-forest-900 
-					px-8 py-4 rounded-full font-semibold text-lg shadow-2xl shadow-gold-500/30
-					hover:bg-gold-400 hover:shadow-gold-400/40 hover:-translate-y-1 
+				class="group inline-flex items-center gap-3 bg-accent-400 text-neutral-900 
+					px-8 py-4 rounded-full font-semibold text-lg shadow-2xl shadow-accent-500/30
+					hover:bg-accent-300 hover:shadow-accent-400/40 hover:-translate-y-1 
 					transition-all duration-300"
 			>
 				{heroContent.ctaPrimary.label}
@@ -125,10 +134,10 @@ const heroContent = {
 		>
 			{heroContent.stats.map((stat) => (
 				<div class="text-center p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-					<div class="text-3xl sm:text-4xl font-display font-bold text-gold-400 mb-1">
+					<div class="text-3xl sm:text-4xl font-display font-bold text-accent-400 mb-1">
 						{stat.value}
 					</div>
-					<div class="text-xs sm:text-sm text-sand-300 font-medium">
+					<div class="text-xs sm:text-sm text-neutral-300 font-medium">
 						{stat.label}
 					</div>
 				</div>
@@ -147,6 +156,32 @@ const heroContent = {
 	</div>
 
 	<!-- Decorative Elements -->
-	<div class="absolute top-1/4 left-10 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl animate-float"></div>
-	<div class="absolute bottom-1/4 right-10 w-96 h-96 bg-forest-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+	<div class="absolute top-1/4 left-10 w-64 h-64 bg-accent-400/10 rounded-full blur-3xl animate-float"></div>
+	<div class="absolute bottom-1/4 right-10 w-96 h-96 bg-azento-400/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
 </section>
+
+<script>
+	// Hero Slideshow - Intercala imágenes de fondo
+	const slides = document.querySelectorAll('.hero-slide');
+	let currentSlide = 0;
+	const totalSlides = slides.length;
+	const intervalTime = 5000; // 5 segundos entre cambios
+
+	function nextSlide() {
+		// Ocultar slide actual
+		slides[currentSlide].classList.remove('opacity-100');
+		slides[currentSlide].classList.add('opacity-0');
+		
+		// Avanzar al siguiente
+		currentSlide = (currentSlide + 1) % totalSlides;
+		
+		// Mostrar nuevo slide
+		slides[currentSlide].classList.remove('opacity-0');
+		slides[currentSlide].classList.add('opacity-100');
+	}
+
+	// Iniciar slideshow
+	if (totalSlides > 1) {
+		setInterval(nextSlide, intervalTime);
+	}
+</script>

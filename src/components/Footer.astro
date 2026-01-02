@@ -6,37 +6,32 @@
 
 // Datos del footer - Fácil de editar
 const footerData = {
-	logo: {
-		text: "AZento",
-		accent: "Home",
-	},
-	tagline: "Transformando espacios exteriores en obras de arte desde 2010.",
+	tagline: "Transformando espacios en experiencias únicas desde 2022.",
 	
 	// Links de navegación organizados por columnas
 	navigation: [
 		{
-			title: "Empresa",
+			title: "Servicios",
 			links: [
-				{ label: "Sobre nosotros", href: "#" },
-				{ label: "Nuestro equipo", href: "#" },
-				{ label: "Trabaja con nosotros", href: "#" },
-				{ label: "Blog", href: "#" },
+				{ label: "Jardines y Terrazas", href: "#servicios" },
+				{ label: "Pérgolas y Celosías", href: "#servicios" },
+				{ label: "Fachadas", href: "#servicios" },
+				{ label: "Reformas Interiores", href: "#servicios" },
 			],
 		},
 		{
-			title: "Servicios",
+			title: "Contacto",
 			links: [
-				{ label: "Paisajismo", href: "#servicios" },
-				{ label: "Reformas", href: "#servicios" },
-				{ label: "Mantenimiento", href: "#servicios" },
-				{ label: "Consultoría", href: "#contacto" },
+				{ label: "682 412 236", href: "tel:+34682412236" },
+				{ label: "659 136 093", href: "tel:+34659136093" },
+				{ label: "info@azentohome.com", href: "mailto:info@azentohome.com" },
 			],
 		},
 		{
 			title: "Legal",
 			links: [
 				{ label: "Política de privacidad", href: "#" },
-				{ label: "Términos y condiciones", href: "#" },
+				{ label: "Aviso legal", href: "#" },
 				{ label: "Cookies", href: "#" },
 			],
 		},
@@ -44,12 +39,10 @@ const footerData = {
 	
 	// Redes sociales
 	social: [
-		{ name: "Instagram", href: "https://instagram.com", icon: "instagram" },
-		{ name: "Pinterest", href: "https://pinterest.com", icon: "pinterest" },
-		{ name: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+		{ name: "Instagram", href: "https://www.instagram.com/azentohome/", icon: "instagram" },
 	],
 	
-	copyright: "© 2026 AZento Home. Todos los derechos reservados.",
+	copyright: "© 2024 AZento Home Solutions. Todos los derechos reservados.",
 };
 
 // Iconos de redes sociales
@@ -60,19 +53,25 @@ const socialIcons: Record<string, string> = {
 };
 ---
 
-<footer class="bg-forest-900 text-sand-100">
+<footer class="bg-azento-800 text-neutral-100">
 	<!-- Main Footer -->
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-12">
 			<!-- Brand Column -->
 			<div class="lg:col-span-2">
-				<!-- Logo -->
-				<a href="#inicio" class="inline-flex items-center gap-1 text-2xl font-display font-semibold mb-4">
-					<span class="text-white">{footerData.logo.text}</span>
-					<span class="text-gold-400">{footerData.logo.accent}</span>
+				<!-- Logo AZento Home Solutions -->
+				<a href="#inicio" class="inline-block mb-6 group">
+					<div class="bg-white/95 px-4 py-2 rounded-xl inline-block
+						transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-lg">
+						<img 
+							src="/images/logo_azento.jpg" 
+							alt="AZento Home Solutions" 
+							class="h-12 w-auto object-contain"
+						/>
+					</div>
 				</a>
 				
-				<p class="text-sand-300 leading-relaxed mb-6 max-w-sm">
+				<p class="text-neutral-300 leading-relaxed mb-6 max-w-sm">
 					{footerData.tagline}
 				</p>
 
@@ -84,11 +83,11 @@ const socialIcons: Record<string, string> = {
 							target="_blank"
 							rel="noopener noreferrer"
 							aria-label={social.name}
-							class="w-10 h-10 rounded-full bg-forest-800 flex items-center justify-center
-								hover:bg-gold-500 transition-colors duration-300 group"
+							class="w-10 h-10 rounded-full bg-azento-700 flex items-center justify-center
+								hover:bg-accent-400 transition-colors duration-300 group"
 						>
 							<svg 
-								class="w-5 h-5 fill-current text-sand-300 group-hover:text-forest-900 transition-colors"
+								class="w-5 h-5 fill-current text-neutral-300 group-hover:text-azento-800 transition-colors"
 								viewBox="0 0 24 24"
 								set:html={socialIcons[social.icon]}
 							/>
@@ -108,7 +107,7 @@ const socialIcons: Record<string, string> = {
 							<li>
 								<a 
 									href={link.href}
-									class="text-sand-400 hover:text-gold-400 transition-colors duration-200"
+									class="text-neutral-400 hover:text-accent-400 transition-colors duration-200"
 								>
 									{link.label}
 								</a>
@@ -121,17 +120,17 @@ const socialIcons: Record<string, string> = {
 	</div>
 
 	<!-- Bottom Bar -->
-	<div class="border-t border-forest-800">
+	<div class="border-t border-azento-700">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
 			<div class="flex flex-col sm:flex-row items-center justify-between gap-4">
-				<p class="text-sm text-sand-500">
+				<p class="text-sm text-neutral-500">
 					{footerData.copyright}
 				</p>
 				
 				<!-- Back to top -->
 				<a 
 					href="#inicio"
-					class="inline-flex items-center gap-2 text-sm text-sand-400 hover:text-gold-400 transition-colors"
+					class="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-accent-400 transition-colors"
 				>
 					Volver arriba
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

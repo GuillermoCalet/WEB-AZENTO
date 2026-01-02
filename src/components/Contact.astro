@@ -8,26 +8,32 @@
 const sectionData = {
 	tagline: "Contacto",
 	headline: "Hagamos realidad tu proyecto",
-	description: "Cuéntanos tu visión y te ayudaremos a crear el jardín perfecto. Responderemos en menos de 24 horas.",
+	description: "Cuéntanos tu visión y te ayudaremos a transformar tu espacio. Responderemos en menos de 24 horas.",
 };
 
 const contactInfo = [
 	{
 		icon: "phone",
-		label: "Teléfono",
-		value: "+34 912 345 678",
-		href: "tel:+34912345678",
+		label: "Teléfonos",
+		value: "682 412 236 · 659 136 093",
+		href: "tel:+34682412236",
 	},
 	{
 		icon: "email",
 		label: "Email",
-		value: "hola@azentohome.com",
-		href: "mailto:hola@azentohome.com",
+		value: "info@azentohome.com",
+		href: "mailto:info@azentohome.com",
+	},
+	{
+		icon: "instagram",
+		label: "Instagram",
+		value: "@azentohome",
+		href: "https://www.instagram.com/azentohome/",
 	},
 	{
 		icon: "location",
 		label: "Ubicación",
-		value: "Madrid, España",
+		value: "Madrid y alrededores",
 		href: "#",
 	},
 ];
@@ -36,15 +42,16 @@ const contactInfo = [
 const icons: Record<string, string> = {
 	phone: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>`,
 	email: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>`,
+	instagram: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.802.054-1.645.054H3.25a2.25 2.25 0 00-2.25 2.25v9.466a2.25 2.25 0 002.25 2.25h17.5a2.25 2.25 0 002.25-2.25V9.534a2.25 2.25 0 00-2.25-2.25h-.291c-.843 0-1.265 0-1.645-.054a2.31 2.31 0 01-1.641-1.055c-.218-.355-.343-.751-.593-1.545l-.017-.053a9.125 9.125 0 00-.338-.91 2.1 2.1 0 00-.989-1.002C15.009 2.5 14.747 2.5 14.223 2.5H9.777c-.524 0-.786 0-1.013.165a2.1 2.1 0 00-.989 1.002c-.095.214-.19.51-.338.91l-.017.053c-.25.794-.375 1.19-.593 1.545zM12 16a3 3 0 100-6 3 3 0 000 6z"/>`,
 	location: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/>`,
 };
 ---
 
-<section id="contacto" class="py-24 lg:py-32 bg-sand-100 relative overflow-hidden">
+<section id="contacto" class="py-24 lg:py-32 bg-neutral-100 relative overflow-hidden">
 	<!-- Decorative background -->
 	<div class="absolute top-0 left-0 w-full h-full">
-		<div class="absolute top-1/4 -left-20 w-80 h-80 bg-forest-200/30 rounded-full blur-3xl"></div>
-		<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-gold-200/40 rounded-full blur-3xl"></div>
+		<div class="absolute top-1/4 -left-20 w-80 h-80 bg-azento-200/30 rounded-full blur-3xl"></div>
+		<div class="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent-200/40 rounded-full blur-3xl"></div>
 	</div>
 
 	<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,15 +59,15 @@ const icons: Record<string, string> = {
 			<!-- Left Column - Content -->
 			<div>
 				<!-- Section Header -->
-				<span class="inline-block text-gold-600 font-medium text-sm tracking-widest uppercase mb-4">
+				<span class="inline-block text-accent-600 font-medium text-sm tracking-widest uppercase mb-4">
 					{sectionData.tagline}
 				</span>
 				
-				<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-forest-800 mb-6">
+				<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-azento-700 mb-6">
 					{sectionData.headline}
 				</h2>
 				
-				<p class="text-lg text-forest-600/80 leading-relaxed mb-10">
+				<p class="text-lg text-azento-500/80 leading-relaxed mb-10">
 					{sectionData.description}
 				</p>
 
@@ -70,11 +77,11 @@ const icons: Record<string, string> = {
 						<a 
 							href={info.href}
 							class="flex items-center gap-4 p-4 rounded-2xl bg-white/50 backdrop-blur-sm
-								border border-sand-200 hover:border-gold-300 hover:bg-white
+								border border-neutral-200 hover:border-accent-300 hover:bg-white
 								transition-all duration-300 group"
 						>
-							<div class="w-12 h-12 rounded-xl bg-forest-700 flex items-center justify-center
-								group-hover:bg-forest-600 transition-colors">
+							<div class="w-12 h-12 rounded-xl bg-azento-600 flex items-center justify-center
+								group-hover:bg-azento-500 transition-colors">
 								<svg 
 									class="w-5 h-5 text-white" 
 									fill="none" 
@@ -84,8 +91,8 @@ const icons: Record<string, string> = {
 								/>
 							</div>
 							<div>
-								<span class="block text-sm text-forest-500 mb-0.5">{info.label}</span>
-								<span class="font-medium text-forest-800 group-hover:text-forest-700">
+								<span class="block text-sm text-azento-400 mb-0.5">{info.label}</span>
+								<span class="font-medium text-azento-700 group-hover:text-azento-600">
 									{info.value}
 								</span>
 							</div>
@@ -95,15 +102,15 @@ const icons: Record<string, string> = {
 			</div>
 
 			<!-- Right Column - Form -->
-			<div class="bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-10 shadow-xl shadow-forest-900/5 border border-sand-200">
-				<h3 class="font-display text-2xl font-semibold text-forest-800 mb-6">
-					Solicita tu presupuesto gratuito
+			<div class="bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-10 shadow-xl shadow-azento-900/5 border border-neutral-200">
+				<h3 class="font-display text-2xl font-semibold text-azento-700 mb-6">
+					Solicita tu presupuesto
 				</h3>
 
 				<form class="space-y-5">
 					<!-- Name Field -->
 					<div>
-						<label for="name" class="block text-sm font-medium text-forest-700 mb-2">
+						<label for="name" class="block text-sm font-medium text-azento-600 mb-2">
 							Nombre completo
 						</label>
 						<input 
@@ -111,9 +118,9 @@ const icons: Record<string, string> = {
 							id="name" 
 							name="name"
 							placeholder="Tu nombre"
-							class="w-full px-4 py-3 rounded-xl border border-sand-300 bg-white
-								text-forest-800 placeholder:text-forest-400
-								focus:border-forest-500 focus:ring-2 focus:ring-forest-500/20
+							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
+								text-azento-700 placeholder:text-neutral-400
+								focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20
 								transition-all duration-200"
 							required
 						/>
@@ -121,7 +128,7 @@ const icons: Record<string, string> = {
 
 					<!-- Email Field -->
 					<div>
-						<label for="email" class="block text-sm font-medium text-forest-700 mb-2">
+						<label for="email" class="block text-sm font-medium text-azento-600 mb-2">
 							Correo electrónico
 						</label>
 						<input 
@@ -129,9 +136,9 @@ const icons: Record<string, string> = {
 							id="email" 
 							name="email"
 							placeholder="tu@email.com"
-							class="w-full px-4 py-3 rounded-xl border border-sand-300 bg-white
-								text-forest-800 placeholder:text-forest-400
-								focus:border-forest-500 focus:ring-2 focus:ring-forest-500/20
+							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
+								text-azento-700 placeholder:text-neutral-400
+								focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20
 								transition-all duration-200"
 							required
 						/>
@@ -139,7 +146,7 @@ const icons: Record<string, string> = {
 
 					<!-- Phone Field -->
 					<div>
-						<label for="phone" class="block text-sm font-medium text-forest-700 mb-2">
+						<label for="phone" class="block text-sm font-medium text-azento-600 mb-2">
 							Teléfono
 						</label>
 						<input 
@@ -147,23 +154,23 @@ const icons: Record<string, string> = {
 							id="phone" 
 							name="phone"
 							placeholder="+34 600 000 000"
-							class="w-full px-4 py-3 rounded-xl border border-sand-300 bg-white
-								text-forest-800 placeholder:text-forest-400
-								focus:border-forest-500 focus:ring-2 focus:ring-forest-500/20
+							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
+								text-azento-700 placeholder:text-neutral-400
+								focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20
 								transition-all duration-200"
 						/>
 					</div>
 
 					<!-- Service Select -->
 					<div>
-						<label for="service" class="block text-sm font-medium text-forest-700 mb-2">
+						<label for="service" class="block text-sm font-medium text-azento-600 mb-2">
 							Servicio de interés
 						</label>
 						<select 
 							id="service" 
 							name="service"
-							class="w-full px-4 py-3 rounded-xl border border-sand-300 bg-white
-								text-forest-800 focus:border-forest-500 focus:ring-2 focus:ring-forest-500/20
+							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
+								text-azento-700 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20
 								transition-all duration-200"
 						>
 							<option value="">Selecciona un servicio</option>
@@ -176,7 +183,7 @@ const icons: Record<string, string> = {
 
 					<!-- Message Field -->
 					<div>
-						<label for="message" class="block text-sm font-medium text-forest-700 mb-2">
+						<label for="message" class="block text-sm font-medium text-azento-600 mb-2">
 							Cuéntanos tu proyecto
 						</label>
 						<textarea 
@@ -184,9 +191,9 @@ const icons: Record<string, string> = {
 							name="message"
 							rows="4"
 							placeholder="Describe brevemente qué tienes en mente..."
-							class="w-full px-4 py-3 rounded-xl border border-sand-300 bg-white
-								text-forest-800 placeholder:text-forest-400 resize-none
-								focus:border-forest-500 focus:ring-2 focus:ring-forest-500/20
+							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
+								text-azento-700 placeholder:text-neutral-400 resize-none
+								focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20
 								transition-all duration-200"
 						></textarea>
 					</div>
@@ -194,9 +201,9 @@ const icons: Record<string, string> = {
 					<!-- Submit Button -->
 					<button 
 						type="submit"
-						class="w-full flex items-center justify-center gap-2 bg-forest-700 text-white 
-							px-8 py-4 rounded-xl font-semibold shadow-lg shadow-forest-700/25
-							hover:bg-forest-600 hover:shadow-xl hover:shadow-forest-700/30
+						class="w-full flex items-center justify-center gap-2 bg-azento-600 text-white 
+							px-8 py-4 rounded-xl font-semibold shadow-lg shadow-azento-600/25
+							hover:bg-azento-500 hover:shadow-xl hover:shadow-azento-600/30
 							active:scale-[0.98] transition-all duration-300"
 					>
 						Enviar solicitud
@@ -207,9 +214,9 @@ const icons: Record<string, string> = {
 					</button>
 
 					<!-- Privacy Note -->
-					<p class="text-xs text-forest-500 text-center">
+					<p class="text-xs text-azento-400 text-center">
 						Al enviar este formulario, aceptas nuestra 
-						<a href="#" class="underline hover:text-forest-700">política de privacidad</a>.
+						<a href="#" class="underline hover:text-azento-600">política de privacidad</a>.
 					</p>
 				</form>
 			</div>

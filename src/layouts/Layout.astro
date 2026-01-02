@@ -10,13 +10,13 @@ interface Props {
 }
 
 const { 
-	title = "AZento Home | Diseño y Reforma de Jardines de Lujo",
+	title = "AZento Home Solutions | Diseño y Reforma de Jardines de Lujo",
 	description = "Transformamos espacios exteriores en jardines de ensueño. Paisajismo exclusivo, reformas integrales y mantenimiento premium para hogares que buscan la excelencia."
 } = Astro.props;
 
 // Datos SEO y meta tags
 const siteData = {
-	siteName: "AZento Home",
+	siteName: "AZento Home Solutions",
 	siteUrl: "https://azentohome.com",
 	image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1200",
 	twitterHandle: "@azentohome",
@@ -65,9 +65,9 @@ const siteData = {
 		/>
 		
 		<!-- Theme Color para navegadores móviles -->
-		<meta name="theme-color" content="#1A4D2E" />
+		<meta name="theme-color" content="#435f69" />
 	</head>
-	<body class="font-body bg-sand-50 text-forest-900 antialiased overflow-x-hidden">
+	<body class="font-body bg-neutral-50 text-neutral-900 antialiased overflow-x-hidden">
 		<slot />
 	</body>
 </html>
@@ -90,15 +90,15 @@ const siteData = {
 		scroll-behavior: smooth;
 	}
 	
-	/* Selection styling */
+	/* Selection styling - mejor contraste */
 	::selection {
-		background-color: rgba(26, 77, 46, 0.2);
-		color: #1A4D2E;
+		background-color: #c4a882;
+		color: #000000;
 	}
 	
 	/* Focus visible para accesibilidad */
 	:focus-visible {
-		outline: 2px solid #1A4D2E;
+		outline: 2px solid #435f69;
 		outline-offset: 2px;
 	}
 	
@@ -108,15 +108,15 @@ const siteData = {
 	}
 	
 	::-webkit-scrollbar-track {
-		background: #E8DFCA;
+		background: #f5f5f5;
 	}
 	
 	::-webkit-scrollbar-thumb {
-		background: #1A4D2E;
+		background: #435f69;
 		border-radius: 4px;
 	}
 	
 	::-webkit-scrollbar-thumb:hover {
-		background: #2c6f4a;
+		background: #5b727b;
 	}
 </style>

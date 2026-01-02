@@ -3,49 +3,49 @@ export default {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
 		extend: {
-			// Paleta de colores personalizada para AZento Home
+			// Paleta de colores de marca AZento Home Solutions
 			colors: {
-				// Verde bosque profundo - Color principal
-				forest: {
-					50: '#f0f7f2',
-					100: '#dceee2',
-					200: '#bbdcc7',
-					300: '#8ec4a5',
-					400: '#5ea67e',
-					500: '#3d8a5f',
-					600: '#2c6f4a',
-					700: '#1A4D2E', // Color principal
-					800: '#1a4430',
-					900: '#163828',
-					950: '#0b1f16',
+				// Azul/Gris oscuro - Color principal de marca
+				azento: {
+					50: '#f4f6f7',
+					100: '#e3e8ea',
+					200: '#c9d3d7',
+					300: '#a3b3ba',
+					400: '#768d96',
+					500: '#5b727b',
+					600: '#435f69', // Color principal de marca
+					700: '#3a5159',
+					800: '#34454b',
+					900: '#2e3c41',
+					950: '#1a2528',
 				},
-				// Tonos tierra suaves - Color secundario/fondo
-				sand: {
-					50: '#fdfcfa',
-					100: '#f9f6f0',
-					200: '#E8DFCA', // Color principal
-					300: '#ddd0b3',
-					400: '#cdb889',
-					500: '#c0a066',
-					600: '#b08a4f',
-					700: '#937142',
-					800: '#785c3b',
-					900: '#624c33',
-					950: '#35281a',
+				// Grises neutros
+				neutral: {
+					50: '#fafafa',
+					100: '#f5f5f5',
+					200: '#e5e5e5',
+					300: '#d4d4d4',
+					400: '#a6a6a6', // Gris de marca
+					500: '#737373',
+					600: '#525252',
+					700: '#404040',
+					800: '#262626',
+					900: '#171717',
+					950: '#000000', // Negro de marca
 				},
-				// Acentos dorados/bronce
-				gold: {
-					50: '#fbf9eb',
-					100: '#f5f0cc',
-					200: '#ece09c',
-					300: '#dfc863',
-					400: '#d4b03a',
-					500: '#C5A028', // Color principal dorado
-					600: '#a67b1f',
-					700: '#855a1c',
-					800: '#6f491e',
-					900: '#5f3d1f',
-					950: '#371f0e',
+				// Acentos cálidos (bronce/beige del logo)
+				accent: {
+					50: '#faf8f5',
+					100: '#f3efe8',
+					200: '#e6ddd0',
+					300: '#d4c4ae',
+					400: '#c4a882', // Beige cálido
+					500: '#b8956a',
+					600: '#a8815a',
+					700: '#8c6a4b',
+					800: '#735842',
+					900: '#5f4938',
+					950: '#33261d',
 				},
 			},
 			// Tipografías personalizadas
