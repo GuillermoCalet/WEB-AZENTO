@@ -1,22 +1,122 @@
+---
+/**
+ * Layout.astro - Layout principal de AZento Home
+ * Configuración base HTML, SEO meta tags y carga de fuentes
+ */
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = "AZento Home | Diseño y Reforma de Jardines de Lujo",
+	description = "Transformamos espacios exteriores en jardines de ensueño. Paisajismo exclusivo, reformas integrales y mantenimiento premium para hogares que buscan la excelencia."
+} = Astro.props;
+
+// Datos SEO y meta tags
+const siteData = {
+	siteName: "AZento Home",
+	siteUrl: "https://azentohome.com",
+	image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1200",
+	twitterHandle: "@azentohome",
+};
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es" class="scroll-smooth">
 	<head>
+		<!-- Meta tags básicos -->
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		
+		<!-- SEO Meta Tags -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href={siteData.siteUrl} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={siteData.siteUrl} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={siteData.image} />
+		<meta property="og:site_name" content={siteData.siteName} />
+		
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:site" content={siteData.twitterHandle} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={siteData.image} />
+		
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		
+		<!-- Google Fonts: Playfair Display + Inter -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link 
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" 
+			rel="stylesheet" 
+		/>
+		
+		<!-- Theme Color para navegadores móviles -->
+		<meta name="theme-color" content="#1A4D2E" />
 	</head>
-	<body>
+	<body class="font-body bg-sand-50 text-forest-900 antialiased overflow-x-hidden">
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
+<style is:global>
+	/* Reset y estilos base */
+	*, *::before, *::after {
+		box-sizing: border-box;
+	}
+	
+	html, body {
 		margin: 0;
+		padding: 0;
 		width: 100%;
-		height: 100%;
+		min-height: 100%;
+	}
+	
+	/* Smooth scrolling */
+	html {
+		scroll-behavior: smooth;
+	}
+	
+	/* Selection styling */
+	::selection {
+		background-color: rgba(26, 77, 46, 0.2);
+		color: #1A4D2E;
+	}
+	
+	/* Focus visible para accesibilidad */
+	:focus-visible {
+		outline: 2px solid #1A4D2E;
+		outline-offset: 2px;
+	}
+	
+	/* Scrollbar personalizada */
+	::-webkit-scrollbar {
+		width: 8px;
+	}
+	
+	::-webkit-scrollbar-track {
+		background: #E8DFCA;
+	}
+	
+	::-webkit-scrollbar-thumb {
+		background: #1A4D2E;
+		border-radius: 4px;
+	}
+	
+	::-webkit-scrollbar-thumb:hover {
+		background: #2c6f4a;
 	}
 </style>

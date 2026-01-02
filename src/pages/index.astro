@@ -1,11 +1,44 @@
 ---
-import Welcome from '../components/Welcome.astro';
+/**
+ * index.astro - Página principal de AZento Home
+ * Ensambla todos los componentes de la landing page
+ */
+
+// Layout principal
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Componentes de la landing page
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import Services from '../components/Services.astro';
+import Gallery from '../components/Gallery.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+
+// Metadatos de la página (opcional - usa los valores por defecto del Layout)
+const pageTitle = "AZento Home | Diseño y Reforma de Jardines de Lujo";
+const pageDescription = "Transformamos espacios exteriores en jardines de ensueño. Paisajismo exclusivo, reformas integrales y mantenimiento premium en Madrid y toda España.";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={pageTitle} description={pageDescription}>
+	<!-- Navegación -->
+	<Navbar />
+	
+	<!-- Contenido principal -->
+	<main>
+		<!-- Hero Section -->
+		<Hero />
+		
+		<!-- Servicios -->
+		<Services />
+		
+		<!-- Galería de Proyectos -->
+		<Gallery />
+		
+		<!-- Contacto -->
+		<Contact />
+	</main>
+	
+	<!-- Footer -->
+	<Footer />
 </Layout>

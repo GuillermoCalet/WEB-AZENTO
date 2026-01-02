@@ -1,0 +1,152 @@
+---
+/**
+ * Hero.astro - Sección principal a pantalla completa
+ * Imagen de fondo con overlay y CTAs destacados
+ */
+
+// Datos del Hero - Fácil de editar
+const heroContent = {
+	headline: "Diseñamos el jardín que tu hogar merece",
+	subheadline: "Transformamos espacios exteriores en oasis de lujo y tranquilidad. Más de 15 años creando jardines exclusivos que fusionan naturaleza, diseño y elegancia.",
+	ctaPrimary: {
+		label: "Solicitar Presupuesto",
+		href: "#contacto",
+	},
+	ctaSecondary: {
+		label: "Ver Galería",
+		href: "#proyectos",
+	},
+	// Imagen de fondo de Unsplash - Jardín de lujo
+	backgroundImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2832&auto=format&fit=crop",
+	// Estadísticas destacadas
+	stats: [
+		{ value: "15+", label: "Años de experiencia" },
+		{ value: "250+", label: "Proyectos realizados" },
+		{ value: "100%", label: "Clientes satisfechos" },
+	],
+};
+---
+
+<section 
+	id="inicio"
+	class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden"
+>
+	<!-- Background Image con Overlay -->
+	<div class="absolute inset-0 z-0">
+		<img 
+			src={heroContent.backgroundImage}
+			alt="Jardín de lujo diseñado por AZento Home"
+			class="w-full h-full object-cover object-center"
+			loading="eager"
+		/>
+		<!-- Overlay oscuro con gradiente -->
+		<div class="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-900/50 to-forest-950/80"></div>
+		<!-- Overlay decorativo con patrón sutil -->
+		<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(26,77,46,0.3)_100%)]"></div>
+	</div>
+
+	<!-- Contenido Principal -->
+	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+		<!-- Badge superior -->
+		<div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 
+			rounded-full px-4 py-2 mb-8 animate-fade-in">
+			<span class="w-2 h-2 bg-gold-400 rounded-full animate-pulse"></span>
+			<span class="text-sand-100 text-sm font-medium tracking-wide">
+				Diseño de jardines exclusivos
+			</span>
+		</div>
+
+		<!-- Headline Principal -->
+		<h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold 
+			text-white leading-tight mb-6 animate-slide-up"
+			style="animation-delay: 0.1s;"
+		>
+			{heroContent.headline.split(' ').slice(0, 3).join(' ')}
+			<span class="block text-gold-300">
+				{heroContent.headline.split(' ').slice(3).join(' ')}
+			</span>
+		</h1>
+
+		<!-- Subtítulo -->
+		<p class="max-w-2xl mx-auto text-lg sm:text-xl text-sand-200/90 leading-relaxed mb-10 
+			animate-slide-up"
+			style="animation-delay: 0.2s;"
+		>
+			{heroContent.subheadline}
+		</p>
+
+		<!-- Botones CTA -->
+		<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 
+			animate-slide-up"
+			style="animation-delay: 0.3s;"
+		>
+			<!-- CTA Principal -->
+			<a 
+				href={heroContent.ctaPrimary.href}
+				class="group inline-flex items-center gap-3 bg-gold-500 text-forest-900 
+					px-8 py-4 rounded-full font-semibold text-lg shadow-2xl shadow-gold-500/30
+					hover:bg-gold-400 hover:shadow-gold-400/40 hover:-translate-y-1 
+					transition-all duration-300"
+			>
+				{heroContent.ctaPrimary.label}
+				<svg 
+					class="w-5 h-5 group-hover:translate-x-1 transition-transform" 
+					fill="none" 
+					stroke="currentColor" 
+					viewBox="0 0 24 24"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+				</svg>
+			</a>
+
+			<!-- CTA Secundario -->
+			<a 
+				href={heroContent.ctaSecondary.href}
+				class="group inline-flex items-center gap-3 bg-transparent text-white 
+					px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30
+					hover:bg-white/10 hover:border-white/50 hover:-translate-y-1 
+					backdrop-blur-sm transition-all duration-300"
+			>
+				<svg 
+					class="w-5 h-5" 
+					fill="none" 
+					stroke="currentColor" 
+					viewBox="0 0 24 24"
+				>
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+				</svg>
+				{heroContent.ctaSecondary.label}
+			</a>
+		</div>
+
+		<!-- Stats -->
+		<div class="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto animate-slide-up"
+			style="animation-delay: 0.4s;"
+		>
+			{heroContent.stats.map((stat) => (
+				<div class="text-center p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+					<div class="text-3xl sm:text-4xl font-display font-bold text-gold-400 mb-1">
+						{stat.value}
+					</div>
+					<div class="text-xs sm:text-sm text-sand-300 font-medium">
+						{stat.label}
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+
+	<!-- Scroll Indicator -->
+	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+		<a href="#servicios" class="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors">
+			<span class="text-xs tracking-widest uppercase">Scroll</span>
+			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+			</svg>
+		</a>
+	</div>
+
+	<!-- Decorative Elements -->
+	<div class="absolute top-1/4 left-10 w-64 h-64 bg-gold-500/10 rounded-full blur-3xl animate-float"></div>
+	<div class="absolute bottom-1/4 right-10 w-96 h-96 bg-forest-500/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</section>
