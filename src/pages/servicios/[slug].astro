@@ -1,0 +1,324 @@
+---
+/**
+ * [slug].astro - Página de detalle de cada servicio
+ * Ruta dinámica: /servicios/[slug]
+ */
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { services, serviceIcons, getServiceBySlug, type Service } from '../../data/services';
+
+// Generar rutas estáticas para cada servicio
+export function getStaticPaths() {
+	return services.map((service) => ({
+		params: { slug: service.slug },
+		props: { service },
+	}));
+}
+
+// Obtener el servicio de las props (ya validado por getStaticPaths)
+const { service } = Astro.props as { service: Service };
+
+// SEO - Descripción recortada para meta
+const metaDescription = service.longDescription[0].substring(0, 160) + "...";
+const pageTitle = `${service.title} | AZento Home Solutions`;
+---
+
+<Layout title={pageTitle} description={metaDescription}>
+	<Navbar />
+	
+	<main class="pt-24">
+		<!-- Breadcrumb -->
+		<nav class="bg-neutral-100 border-b border-neutral-200">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+				<ol class="flex items-center gap-2 text-sm">
+					<li>
+						<a href="/" class="text-azento-500 hover:text-azento-600 transition-colors">
+							Inicio
+						</a>
+					</li>
+					<li class="text-neutral-400">
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						</svg>
+					</li>
+					<li>
+						<a href="/#servicios" class="text-azento-500 hover:text-azento-600 transition-colors">
+							Servicios
+						</a>
+					</li>
+					<li class="text-neutral-400">
+						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+						</svg>
+					</li>
+					<li class="text-azento-700 font-medium">
+						{service.title}
+					</li>
+				</ol>
+			</div>
+		</nav>
+
+		<!-- Hero Section -->
+		<section class="relative py-16 lg:py-24 bg-gradient-to-br from-azento-700 via-azento-600 to-azento-800 overflow-hidden">
+			<!-- Decorative elements -->
+			<div class="absolute inset-0 opacity-10">
+				<div class="absolute top-0 left-1/4 w-96 h-96 bg-accent-400 rounded-full blur-3xl"></div>
+				<div class="absolute bottom-0 right-1/4 w-64 h-64 bg-white rounded-full blur-3xl"></div>
+			</div>
+			
+			<div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-16">
+					<!-- Icon -->
+					<div class="w-24 h-24 lg:w-32 lg:h-32 rounded-3xl bg-white/10 backdrop-blur-sm 
+						flex items-center justify-center border border-white/20 shadow-2xl">
+						<svg 
+							class="w-12 h-12 lg:w-16 lg:h-16 text-accent-300" 
+							fill="none" 
+							stroke="currentColor" 
+							viewBox="0 0 24 24"
+							set:html={serviceIcons[service.icon]}
+						/>
+					</div>
+					
+					<!-- Content -->
+					<div class="text-center lg:text-left flex-1">
+						<span class="inline-block text-accent-300 font-medium text-sm tracking-widest uppercase mb-4">
+							Nuestros Servicios
+						</span>
+						<h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-white mb-6">
+							{service.title}
+						</h1>
+						<p class="text-xl text-neutral-200/90 max-w-2xl">
+							{service.shortDescription}
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Content Section -->
+		<section class="py-16 lg:py-24 bg-neutral-50">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="grid lg:grid-cols-3 gap-12 lg:gap-16">
+					<!-- Main Content -->
+					<div class="lg:col-span-2 space-y-8">
+						<!-- Long Description -->
+						<div class="prose prose-lg max-w-none">
+							{service.longDescription.map((paragraph) => (
+								<p class="text-azento-600 leading-relaxed mb-6">
+									{paragraph}
+								</p>
+							))}
+						</div>
+
+						<!-- Bullets List -->
+						<div class="bg-white rounded-3xl p-8 lg:p-10 shadow-sm border border-neutral-200">
+							<h2 class="font-display text-2xl font-semibold text-azento-700 mb-6">
+								¿Qué incluye este servicio?
+							</h2>
+							<ul class="grid sm:grid-cols-2 gap-4">
+								{service.bullets.map((bullet) => (
+									<li class="flex items-start gap-3">
+										<span class="flex-shrink-0 w-6 h-6 rounded-full bg-accent-100 flex items-center justify-center mt-0.5">
+											<svg class="w-4 h-4 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+											</svg>
+										</span>
+										<span class="text-azento-600">{bullet}</span>
+									</li>
+								))}
+							</ul>
+						</div>
+					</div>
+
+					<!-- Sidebar -->
+					<aside class="space-y-8">
+						<!-- CTA Card -->
+						<div class="bg-gradient-to-br from-azento-600 to-azento-700 rounded-3xl p-8 text-center shadow-xl">
+							<h3 class="font-display text-2xl font-semibold text-white mb-4">
+								¿Te interesa este servicio?
+							</h3>
+							<p class="text-neutral-200 mb-6">
+								Solicita un presupuesto sin compromiso y te contactamos en menos de 24h.
+							</p>
+							<div class="space-y-3">
+								<a 
+									href={service.cta.primaryHref}
+									class="block w-full bg-accent-400 text-neutral-900 px-6 py-3 rounded-full 
+										font-semibold shadow-lg hover:bg-accent-300 hover:-translate-y-0.5 
+										transition-all duration-300"
+								>
+									{service.cta.primaryText}
+								</a>
+								<a 
+									href={service.cta.secondaryHref}
+									class="block w-full bg-white/10 text-white px-6 py-3 rounded-full 
+										font-semibold border border-white/20 hover:bg-white/20 
+										transition-all duration-300"
+								>
+									{service.cta.secondaryText}
+								</a>
+							</div>
+						</div>
+
+						<!-- Quick Contact -->
+						<div class="bg-white rounded-3xl p-8 shadow-sm border border-neutral-200">
+							<h3 class="font-display text-xl font-semibold text-azento-700 mb-4">
+								Contacto directo
+							</h3>
+							<div class="space-y-4">
+								<a href="tel:+34682412236" class="flex items-center gap-3 text-azento-600 hover:text-accent-600 transition-colors">
+									<span class="w-10 h-10 rounded-full bg-azento-50 flex items-center justify-center">
+										<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
+										</svg>
+									</span>
+									<span class="font-medium">682 412 236</span>
+								</a>
+								<a href="mailto:info@azentohome.com" class="flex items-center gap-3 text-azento-600 hover:text-accent-600 transition-colors">
+									<span class="w-10 h-10 rounded-full bg-azento-50 flex items-center justify-center">
+										<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+										</svg>
+									</span>
+									<span class="font-medium">info@azentohome.com</span>
+								</a>
+							</div>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</section>
+
+		<!-- Gallery Section -->
+		{service.gallery.length > 0 && (
+			<section class="py-16 lg:py-24 bg-white">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="text-center mb-12">
+						<span class="inline-block text-accent-600 font-medium text-sm tracking-widest uppercase mb-4">
+							Galería
+						</span>
+						<h2 class="font-display text-3xl sm:text-4xl font-semibold text-azento-700">
+							Proyectos realizados
+						</h2>
+					</div>
+
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+						{service.gallery.map((image, index) => (
+							<div class="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+								<img 
+									src={image}
+									alt={`${service.title} - Proyecto ${index + 1}`}
+									class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+									loading="lazy"
+								/>
+								<div class="absolute inset-0 bg-gradient-to-t from-azento-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+									<div class="absolute bottom-4 left-4 right-4">
+										<span class="text-white font-medium">{service.title}</span>
+									</div>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			</section>
+		)}
+
+		<!-- FAQ Section -->
+		{service.faq.length > 0 && (
+			<section class="py-16 lg:py-24 bg-neutral-100">
+				<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="text-center mb-12">
+						<span class="inline-block text-accent-600 font-medium text-sm tracking-widest uppercase mb-4">
+							FAQ
+						</span>
+						<h2 class="font-display text-3xl sm:text-4xl font-semibold text-azento-700">
+							Preguntas frecuentes
+						</h2>
+					</div>
+
+					<div class="space-y-4">
+						{service.faq.map((item, index) => (
+							<details class="group bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden">
+								<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
+									<h3 class="font-medium text-azento-700 pr-4">
+										{item.question}
+									</h3>
+									<span class="flex-shrink-0 w-8 h-8 rounded-full bg-azento-50 flex items-center justify-center
+										group-open:bg-azento-600 transition-colors duration-200">
+										<svg class="w-4 h-4 text-azento-600 group-open:text-white group-open:rotate-180 transition-all duration-200" 
+											fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+										</svg>
+									</span>
+								</summary>
+								<div class="px-6 pb-6 pt-0">
+									<p class="text-azento-500 leading-relaxed">
+										{item.answer}
+									</p>
+								</div>
+							</details>
+						))}
+					</div>
+				</div>
+			</section>
+		)}
+
+		<!-- Back to Services -->
+		<section class="py-12 bg-neutral-50 border-t border-neutral-200">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+					<a 
+						href="/#servicios"
+						class="inline-flex items-center gap-2 text-azento-600 font-semibold 
+							hover:text-accent-600 transition-colors group"
+					>
+						<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" 
+							fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+						</svg>
+						Volver a Servicios
+					</a>
+					
+					<a 
+						href="/#contacto"
+						class="inline-flex items-center gap-2 bg-azento-600 text-white px-6 py-3 rounded-full 
+							font-semibold shadow-lg hover:bg-azento-500 hover:-translate-y-0.5 
+							transition-all duration-300"
+					>
+						Solicitar Presupuesto
+						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+						</svg>
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<style>
+	/* FAQ animation */
+	details[open] summary ~ * {
+		animation: slideDown 0.2s ease-out;
+	}
+	
+	@keyframes slideDown {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	
+	/* Remove default marker */
+	details summary::-webkit-details-marker {
+		display: none;
+	}
+</style>
