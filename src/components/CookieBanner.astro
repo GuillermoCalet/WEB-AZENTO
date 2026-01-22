@@ -1,0 +1,342 @@
+---
+/**
+ * CookieBanner.astro - Banner de consentimiento de cookies RGPD
+ * Muestra opciones para aceptar/rechazar cookies
+ * Guarda la preferencia en localStorage
+ */
+---
+
+<div 
+	id="cookie-banner" 
+	class="fixed bottom-0 left-0 right-0 z-50 transform translate-y-full transition-transform duration-500"
+	role="dialog"
+	aria-labelledby="cookie-title"
+	aria-describedby="cookie-description"
+>
+	<div class="bg-white border-t border-neutral-200 shadow-2xl shadow-neutral-900/10">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
+			<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 lg:gap-8">
+				<!-- Texto -->
+				<div class="flex-1">
+					<h3 id="cookie-title" class="font-semibold text-azento-700 mb-1">
+						🍪 Usamos cookies
+					</h3>
+					<p id="cookie-description" class="text-sm text-azento-500 leading-relaxed">
+						Utilizamos cookies propias y de terceros para mejorar tu experiencia de navegación y analizar el tráfico. 
+						Puedes aceptar todas las cookies o configurar tus preferencias.
+						<a href="/politica-cookies" class="text-accent-600 hover:text-accent-500 underline ml-1">
+							Más información
+						</a>
+					</p>
+				</div>
+				
+				<!-- Botones -->
+				<div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+					<button
+						id="cookie-settings-btn"
+						class="px-4 py-2 text-sm font-medium text-azento-600 hover:text-azento-700 
+							border border-neutral-300 rounded-full hover:border-azento-400 
+							transition-colors"
+					>
+						Configurar
+					</button>
+					<button
+						id="cookie-reject-btn"
+						class="px-4 py-2 text-sm font-medium text-azento-600 hover:text-azento-700 
+							border border-neutral-300 rounded-full hover:border-azento-400 
+							transition-colors"
+					>
+						Rechazar
+					</button>
+					<button
+						id="cookie-accept-btn"
+						class="px-6 py-2 text-sm font-semibold text-white bg-azento-600 
+							hover:bg-azento-500 rounded-full shadow-md hover:shadow-lg 
+							transition-all duration-200"
+					>
+						Aceptar todas
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal de configuración de cookies -->
+<div 
+	id="cookie-modal" 
+	class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-azento-900/50 backdrop-blur-sm"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="cookie-modal-title"
+>
+	<div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
+		<!-- Header -->
+		<div class="p-6 border-b border-neutral-200">
+			<div class="flex items-center justify-between">
+				<h3 id="cookie-modal-title" class="font-display text-xl font-semibold text-azento-700">
+					Configurar cookies
+				</h3>
+				<button 
+					id="cookie-modal-close"
+					class="w-8 h-8 rounded-full bg-neutral-100 hover:bg-neutral-200 
+						flex items-center justify-center transition-colors"
+					aria-label="Cerrar"
+				>
+					<svg class="w-4 h-4 text-azento-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+					</svg>
+				</button>
+			</div>
+		</div>
+		
+		<!-- Body -->
+		<div class="p-6 space-y-6">
+			<!-- Cookie necesarias -->
+			<div class="flex items-start justify-between gap-4">
+				<div class="flex-1">
+					<h4 class="font-medium text-azento-700 mb-1">Cookies necesarias</h4>
+					<p class="text-sm text-azento-500">
+						Esenciales para el funcionamiento del sitio. No se pueden desactivar.
+					</p>
+				</div>
+				<div class="flex-shrink-0">
+					<span class="inline-block px-3 py-1 text-xs font-medium text-azento-600 bg-azento-100 rounded-full">
+						Siempre activas
+					</span>
+				</div>
+			</div>
+			
+			<!-- Cookies analíticas -->
+			<div class="flex items-start justify-between gap-4">
+				<div class="flex-1">
+					<h4 class="font-medium text-azento-700 mb-1">Cookies analíticas</h4>
+					<p class="text-sm text-azento-500">
+						Nos ayudan a entender cómo interactúas con el sitio para mejorarlo.
+					</p>
+				</div>
+				<div class="flex-shrink-0">
+					<label class="relative inline-flex items-center cursor-pointer">
+						<input type="checkbox" id="cookie-analytics" class="sr-only peer" checked>
+						<div class="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 
+							peer-focus:ring-accent-300 rounded-full peer 
+							peer-checked:after:translate-x-full peer-checked:after:border-white 
+							after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+							after:bg-white after:border-neutral-300 after:border after:rounded-full 
+							after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-500"></div>
+					</label>
+				</div>
+			</div>
+			
+			<!-- Cookies de marketing -->
+			<div class="flex items-start justify-between gap-4">
+				<div class="flex-1">
+					<h4 class="font-medium text-azento-700 mb-1">Cookies de marketing</h4>
+					<p class="text-sm text-azento-500">
+						Permiten mostrarte anuncios relevantes basados en tus intereses.
+					</p>
+				</div>
+				<div class="flex-shrink-0">
+					<label class="relative inline-flex items-center cursor-pointer">
+						<input type="checkbox" id="cookie-marketing" class="sr-only peer">
+						<div class="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 
+							peer-focus:ring-accent-300 rounded-full peer 
+							peer-checked:after:translate-x-full peer-checked:after:border-white 
+							after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
+							after:bg-white after:border-neutral-300 after:border after:rounded-full 
+							after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-500"></div>
+					</label>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Footer -->
+		<div class="p-6 border-t border-neutral-200 flex flex-col sm:flex-row gap-3">
+			<button
+				id="cookie-save-preferences"
+				class="flex-1 px-6 py-3 text-sm font-semibold text-white bg-azento-600 
+					hover:bg-azento-500 rounded-full shadow-md hover:shadow-lg 
+					transition-all duration-200"
+			>
+				Guardar preferencias
+			</button>
+			<button
+				id="cookie-accept-all"
+				class="flex-1 px-6 py-3 text-sm font-medium text-azento-600 
+					border border-azento-300 rounded-full hover:border-azento-400 
+					transition-colors"
+			>
+				Aceptar todas
+			</button>
+		</div>
+	</div>
+</div>
+
+<script>
+	// Declaración de tipos para funciones globales de Google Analytics
+	declare global {
+		interface Window {
+			loadGoogleAnalytics?: () => void;
+			disableGoogleAnalytics?: () => void;
+			gaLoaded?: boolean;
+		}
+	}
+
+	// Configuración de cookies
+	const COOKIE_CONSENT_KEY = 'azento_cookie_consent';
+	
+	interface CookiePreferences {
+		necessary: boolean;
+		analytics: boolean;
+		marketing: boolean;
+		timestamp: number;
+	}
+	
+	// Elementos del DOM
+	const banner = document.getElementById('cookie-banner');
+	const modal = document.getElementById('cookie-modal');
+	const acceptBtn = document.getElementById('cookie-accept-btn');
+	const rejectBtn = document.getElementById('cookie-reject-btn');
+	const settingsBtn = document.getElementById('cookie-settings-btn');
+	const modalCloseBtn = document.getElementById('cookie-modal-close');
+	const savePreferencesBtn = document.getElementById('cookie-save-preferences');
+	const acceptAllBtn = document.getElementById('cookie-accept-all');
+	const analyticsCheckbox = document.getElementById('cookie-analytics') as HTMLInputElement;
+	const marketingCheckbox = document.getElementById('cookie-marketing') as HTMLInputElement;
+	
+	// Obtener preferencias guardadas
+	function getStoredPreferences(): CookiePreferences | null {
+		try {
+			const stored = localStorage.getItem(COOKIE_CONSENT_KEY);
+			return stored ? JSON.parse(stored) : null;
+		} catch {
+			return null;
+		}
+	}
+	
+	// Guardar preferencias
+	function savePreferences(preferences: Omit<CookiePreferences, 'necessary' | 'timestamp'>) {
+		const fullPreferences: CookiePreferences = {
+			necessary: true, // Siempre activas
+			analytics: preferences.analytics,
+			marketing: preferences.marketing,
+			timestamp: Date.now()
+		};
+		
+		localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(fullPreferences));
+		hideBanner();
+		hideModal();
+		
+		// Aquí puedes activar/desactivar scripts de analytics según las preferencias
+		applyPreferences(fullPreferences);
+	}
+	
+	// Aplicar preferencias (activar/desactivar scripts)
+	function applyPreferences(preferences: CookiePreferences) {
+		// Google Analytics
+		if (preferences.analytics) {
+			// Cargar Google Analytics si el usuario aceptó
+			if (typeof window.loadGoogleAnalytics === 'function') {
+				window.loadGoogleAnalytics();
+			}
+		} else {
+			// Desactivar Google Analytics si el usuario rechazó
+			if (typeof window.disableGoogleAnalytics === 'function') {
+				window.disableGoogleAnalytics();
+			}
+		}
+		
+		// Marketing cookies (para futuras implementaciones)
+		if (preferences.marketing) {
+			console.log('Marketing cookies enabled');
+			// Aquí se cargarían scripts de marketing como Facebook Pixel, etc.
+		}
+	}
+	
+	// Mostrar/ocultar banner
+	function showBanner() {
+		if (banner) {
+			banner.classList.remove('translate-y-full');
+		}
+	}
+	
+	function hideBanner() {
+		if (banner) {
+			banner.classList.add('translate-y-full');
+		}
+	}
+	
+	// Mostrar/ocultar modal
+	function showModal() {
+		if (modal) {
+			modal.classList.remove('hidden');
+			modal.classList.add('flex');
+			document.body.style.overflow = 'hidden';
+		}
+	}
+	
+	function hideModal() {
+		if (modal) {
+			modal.classList.add('hidden');
+			modal.classList.remove('flex');
+			document.body.style.overflow = '';
+		}
+	}
+	
+	// Event listeners
+	acceptBtn?.addEventListener('click', () => {
+		savePreferences({ analytics: true, marketing: true });
+	});
+	
+	rejectBtn?.addEventListener('click', () => {
+		savePreferences({ analytics: false, marketing: false });
+	});
+	
+	settingsBtn?.addEventListener('click', () => {
+		hideBanner();
+		showModal();
+	});
+	
+	modalCloseBtn?.addEventListener('click', () => {
+		hideModal();
+		showBanner();
+	});
+	
+	savePreferencesBtn?.addEventListener('click', () => {
+		savePreferences({
+			analytics: analyticsCheckbox?.checked ?? false,
+			marketing: marketingCheckbox?.checked ?? false
+		});
+	});
+	
+	acceptAllBtn?.addEventListener('click', () => {
+		if (analyticsCheckbox) analyticsCheckbox.checked = true;
+		if (marketingCheckbox) marketingCheckbox.checked = true;
+		savePreferences({ analytics: true, marketing: true });
+	});
+	
+	// Cerrar modal al hacer clic fuera
+	modal?.addEventListener('click', (e) => {
+		if (e.target === modal) {
+			hideModal();
+			showBanner();
+		}
+	});
+	
+	// Inicialización
+	document.addEventListener('DOMContentLoaded', () => {
+		const preferences = getStoredPreferences();
+		
+		if (!preferences) {
+			// No hay preferencias guardadas, mostrar banner
+			setTimeout(showBanner, 1000); // Pequeño delay para mejor UX
+		} else {
+			// Ya hay preferencias, aplicarlas
+			applyPreferences(preferences);
+			
+			// Actualizar checkboxes con las preferencias guardadas
+			if (analyticsCheckbox) analyticsCheckbox.checked = preferences.analytics;
+			if (marketingCheckbox) marketingCheckbox.checked = preferences.marketing;
+		}
+	});
+</script>

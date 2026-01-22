@@ -30,9 +30,9 @@ const footerData = {
 		{
 			title: "Legal",
 			links: [
-				{ label: "Política de privacidad", href: "#" },
-				{ label: "Aviso legal", href: "#" },
-				{ label: "Cookies", href: "#" },
+				{ label: "Política de privacidad", href: "/politica-privacidad" },
+				{ label: "Aviso legal", href: "/aviso-legal" },
+				{ label: "Cookies", href: "#", id: "open-cookie-settings" },
 			],
 		},
 	],
@@ -107,6 +107,7 @@ const socialIcons: Record<string, string> = {
 							<li>
 								<a 
 									href={link.href}
+									id={link.id || undefined}
 									class="text-neutral-400 hover:text-accent-400 transition-colors duration-200"
 								>
 									{link.label}
@@ -141,3 +142,16 @@ const socialIcons: Record<string, string> = {
 		</div>
 	</div>
 </footer>
+
+<script>
+	// Abrir configuración de cookies desde el footer
+	document.getElementById('open-cookie-settings')?.addEventListener('click', (e) => {
+		e.preventDefault();
+		const modal = document.getElementById('cookie-modal');
+		if (modal) {
+			modal.classList.remove('hidden');
+			modal.classList.add('flex');
+			document.body.style.overflow = 'hidden';
+		}
+	});
+</script>

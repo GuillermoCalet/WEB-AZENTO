@@ -1,0 +1,77 @@
+---
+/**
+ * GoogleAnalytics.astro - Script de Google Analytics con carga condicional
+ * Solo se activa si el usuario ha aceptado cookies analíticas
+ * 
+ * Configuración:
+ * - Añade tu ID de medición de GA4 en el archivo .env como PUBLIC_GA_MEASUREMENT_ID
+ * - O reemplaza directamente GA_MEASUREMENT_ID abajo
+ */
+
+// ID de Google Analytics - Reemplazar con tu ID real
+const GA_MEASUREMENT_ID = import.meta.env.PUBLIC_GA_MEASUREMENT_ID || 'G-XXXXXXXXXX';
+---
+
+<!-- Google Analytics Script (se carga dinámicamente según consentimiento) -->
+<script is:inline define:vars={{ GA_MEASUREMENT_ID }}>
+	// Configuración de Google Analytics
+	window.GA_MEASUREMENT_ID = GA_MEASUREMENT_ID;
+	
+	// Función para cargar Google Analytics
+	window.loadGoogleAnalytics = function() {
+		// Evitar cargar múltiples veces
+		if (window.gaLoaded) return;
+		
+		// Crear el script de gtag
+		const script = document.createElement('script');
+		script.async = true;
+		script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+		document.head.appendChild(script);
+		
+		// Inicializar gtag
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		window.gtag = gtag;
+		gtag('js', new Date());
+		gtag('config', GA_MEASUREMENT_ID, {
+			'anonymize_ip': true, // Anonimizar IP para cumplir RGPD
+			'cookie_flags': 'SameSite=None;Secure'
+		});
+		
+		window.gaLoaded = true;
+		console.log('Google Analytics loaded');
+	};
+	
+	// Función para desactivar Google Analytics
+	window.disableGoogleAnalytics = function() {
+		// Establecer opt-out
+		window['ga-disable-' + GA_MEASUREMENT_ID] = true;
+		
+		// Eliminar cookies de GA existentes
+		const cookies = document.cookie.split(';');
+		for (let cookie of cookies) {
+			const cookieName = cookie.split('=')[0].trim();
+			if (cookieName.startsWith('_ga') || cookieName.startsWith('_gid')) {
+				document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + window.location.hostname;
+				document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+			}
+		}
+		
+		console.log('Google Analytics disabled');
+	};
+	
+	// Verificar consentimiento al cargar la página
+	document.addEventListener('DOMContentLoaded', function() {
+		try {
+			const consent = localStorage.getItem('azento_cookie_consent');
+			if (consent) {
+				const preferences = JSON.parse(consent);
+				if (preferences.analytics) {
+					window.loadGoogleAnalytics();
+				}
+			}
+		} catch (e) {
+			console.error('Error checking analytics consent:', e);
+		}
+	});
+</script>

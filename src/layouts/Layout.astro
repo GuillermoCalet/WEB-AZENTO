@@ -4,6 +4,9 @@
  * Configuración base HTML, SEO meta tags y carga de fuentes
  */
 
+import CookieBanner from '../components/CookieBanner.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -66,9 +69,13 @@ const siteData = {
 		
 		<!-- Theme Color para navegadores móviles -->
 		<meta name="theme-color" content="#435f69" />
+		
+		<!-- Google Analytics (carga condicional según consentimiento) -->
+		<GoogleAnalytics />
 	</head>
 	<body class="font-body bg-neutral-50 text-neutral-900 antialiased overflow-x-hidden">
 		<slot />
+		<CookieBanner />
 	</body>
 </html>
 

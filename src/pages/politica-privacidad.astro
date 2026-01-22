@@ -1,0 +1,148 @@
+---
+/**
+ * politica-privacidad.astro - Página de política de privacidad
+ */
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Política de Privacidad | AZento Home Solutions";
+const pageDescription = "Política de privacidad y protección de datos de AZento Home Solutions.";
+
+// Datos de la empresa - Editar según corresponda
+const companyData = {
+	name: "AZento Home Solutions",
+	cif: "B12345678", // TODO: Actualizar con CIF real
+	address: "Madrid, España", // TODO: Actualizar con dirección real
+	email: "info@azentohome.com",
+	phone: "682 412 236"
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+	<Navbar />
+	
+	<main class="pt-24">
+		<!-- Header -->
+		<section class="py-16 bg-gradient-to-br from-azento-700 via-azento-600 to-azento-800">
+			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+				<h1 class="font-display text-4xl sm:text-5xl font-semibold text-white mb-4">
+					Política de Privacidad
+				</h1>
+				<p class="text-neutral-200/90 text-lg">
+					Última actualización: Enero 2026
+				</p>
+			</div>
+		</section>
+
+		<!-- Content -->
+		<section class="py-16 lg:py-24 bg-neutral-50">
+			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-neutral-200 prose prose-lg max-w-none">
+					
+					<h2 class="font-display text-2xl font-semibold text-azento-700 mt-0">1. Responsable del tratamiento</h2>
+					<p class="text-azento-600">
+						<strong>Identidad:</strong> {companyData.name}<br>
+						<strong>CIF:</strong> {companyData.cif}<br>
+						<strong>Dirección:</strong> {companyData.address}<br>
+						<strong>Email:</strong> <a href={`mailto:${companyData.email}`} class="text-accent-600">{companyData.email}</a><br>
+						<strong>Teléfono:</strong> <a href={`tel:+34${companyData.phone.replace(/\s/g, '')}`} class="text-accent-600">{companyData.phone}</a>
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">2. Datos que recopilamos</h2>
+					<p class="text-azento-600">
+						Recopilamos los siguientes datos personales cuando utilizas nuestro sitio web:
+					</p>
+					<ul class="text-azento-600">
+						<li><strong>Datos de contacto:</strong> Nombre, email, teléfono y dirección cuando rellenas nuestro formulario de contacto o solicitas un presupuesto.</li>
+						<li><strong>Datos de navegación:</strong> Dirección IP, tipo de navegador, páginas visitadas y tiempo de permanencia (mediante cookies analíticas, si las aceptas).</li>
+						<li><strong>Datos del proyecto:</strong> Información sobre el servicio que necesitas, ubicación de la obra y cualquier detalle que nos proporciones.</li>
+					</ul>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">3. Finalidad del tratamiento</h2>
+					<p class="text-azento-600">Utilizamos tus datos personales para:</p>
+					<ul class="text-azento-600">
+						<li>Responder a tus consultas y solicitudes de presupuesto.</li>
+						<li>Gestionar la relación comercial y prestación de servicios contratados.</li>
+						<li>Enviarte comunicaciones comerciales sobre nuestros servicios (solo si das tu consentimiento).</li>
+						<li>Mejorar nuestro sitio web y servicios mediante análisis estadísticos.</li>
+						<li>Cumplir con obligaciones legales y fiscales.</li>
+					</ul>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">4. Base legal del tratamiento</h2>
+					<ul class="text-azento-600">
+						<li><strong>Consentimiento:</strong> Para el envío de comunicaciones comerciales y el uso de cookies analíticas.</li>
+						<li><strong>Ejecución de contrato:</strong> Para gestionar presupuestos y servicios solicitados.</li>
+						<li><strong>Interés legítimo:</strong> Para mejorar nuestros servicios y prevenir fraudes.</li>
+						<li><strong>Obligación legal:</strong> Para cumplir con requerimientos fiscales y legales.</li>
+					</ul>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">5. Conservación de datos</h2>
+					<p class="text-azento-600">
+						Conservaremos tus datos personales mientras exista una relación comercial contigo, y posteriormente durante los plazos legalmente establecidos (generalmente 5 años para obligaciones fiscales).
+					</p>
+					<p class="text-azento-600">
+						Los datos de contacto para fines comerciales se conservarán hasta que solicites su supresión.
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">6. Destinatarios de los datos</h2>
+					<p class="text-azento-600">
+						No vendemos ni cedemos tus datos personales a terceros. Únicamente compartimos información con:
+					</p>
+					<ul class="text-azento-600">
+						<li><strong>Proveedores de servicios:</strong> Empresas que nos ayudan a operar el sitio web (hosting, email, análisis).</li>
+						<li><strong>Autoridades públicas:</strong> Cuando estemos legalmente obligados a ello.</li>
+					</ul>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">7. Tus derechos</h2>
+					<p class="text-azento-600">
+						Tienes derecho a:
+					</p>
+					<ul class="text-azento-600">
+						<li><strong>Acceso:</strong> Conocer qué datos personales tenemos sobre ti.</li>
+						<li><strong>Rectificación:</strong> Corregir datos inexactos o incompletos.</li>
+						<li><strong>Supresión:</strong> Solicitar la eliminación de tus datos.</li>
+						<li><strong>Oposición:</strong> Oponerte al tratamiento de tus datos.</li>
+						<li><strong>Limitación:</strong> Solicitar la limitación del tratamiento.</li>
+						<li><strong>Portabilidad:</strong> Recibir tus datos en formato estructurado.</li>
+					</ul>
+					<p class="text-azento-600">
+						Para ejercer estos derechos, envía un email a <a href={`mailto:${companyData.email}`} class="text-accent-600">{companyData.email}</a> indicando tu solicitud y adjuntando copia de tu DNI.
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">8. Seguridad</h2>
+					<p class="text-azento-600">
+						Implementamos medidas técnicas y organizativas apropiadas para proteger tus datos personales contra acceso no autorizado, alteración, divulgación o destrucción.
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">9. Reclamaciones</h2>
+					<p class="text-azento-600">
+						Si consideras que el tratamiento de tus datos no es adecuado, puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD): <a href="https://www.aepd.es" target="_blank" rel="noopener" class="text-accent-600">www.aepd.es</a>
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">10. Modificaciones</h2>
+					<p class="text-azento-600">
+						Nos reservamos el derecho de modificar esta política de privacidad. Cualquier cambio será publicado en esta página con la fecha de actualización.
+					</p>
+				</div>
+
+				<!-- Volver -->
+				<div class="mt-8 text-center">
+					<a 
+						href="/"
+						class="inline-flex items-center gap-2 text-azento-600 font-semibold 
+							hover:text-accent-600 transition-colors group"
+					>
+						<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" 
+							fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+						</svg>
+						Volver al inicio
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>

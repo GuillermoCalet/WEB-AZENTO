@@ -1,0 +1,140 @@
+---
+/**
+ * politica-cookies.astro - Página de política de cookies
+ */
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const pageTitle = "Política de Cookies | AZento Home Solutions";
+const pageDescription = "Información sobre el uso de cookies en el sitio web de AZento Home Solutions.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+	<Navbar />
+	
+	<main class="pt-24">
+		<!-- Header -->
+		<section class="py-16 bg-gradient-to-br from-azento-700 via-azento-600 to-azento-800">
+			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+				<h1 class="font-display text-4xl sm:text-5xl font-semibold text-white mb-4">
+					Política de Cookies
+				</h1>
+				<p class="text-neutral-200/90 text-lg">
+					Última actualización: Enero 2026
+				</p>
+			</div>
+		</section>
+
+		<!-- Content -->
+		<section class="py-16 lg:py-24 bg-neutral-50">
+			<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="bg-white rounded-3xl p-8 lg:p-12 shadow-sm border border-neutral-200 prose prose-lg max-w-none">
+					
+					<h2 class="font-display text-2xl font-semibold text-azento-700 mt-0">¿Qué son las cookies?</h2>
+					<p class="text-azento-600">
+						Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (ordenador, tablet o móvil) cuando visitas un sitio web. Se utilizan ampliamente para hacer que los sitios web funcionen de manera más eficiente y para proporcionar información a los propietarios del sitio.
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">Tipos de cookies que utilizamos</h2>
+					
+					<h3 class="font-display text-xl font-semibold text-azento-700">Cookies necesarias</h3>
+					<p class="text-azento-600">
+						Son esenciales para el funcionamiento del sitio web. Incluyen cookies que permiten recordar tus preferencias de privacidad. Sin estas cookies, el sitio web no puede funcionar correctamente.
+					</p>
+					<ul class="text-azento-600">
+						<li><strong>azento_cookie_consent:</strong> Almacena tus preferencias de cookies. Duración: 1 año.</li>
+					</ul>
+
+					<h3 class="font-display text-xl font-semibold text-azento-700">Cookies analíticas</h3>
+					<p class="text-azento-600">
+						Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web recopilando información de forma anónima. Utilizamos Google Analytics para este propósito.
+					</p>
+					<ul class="text-azento-600">
+						<li><strong>_ga:</strong> Distingue usuarios únicos. Duración: 2 años.</li>
+						<li><strong>_ga_*:</strong> Mantiene el estado de la sesión. Duración: 2 años.</li>
+					</ul>
+
+					<h3 class="font-display text-xl font-semibold text-azento-700">Cookies de marketing</h3>
+					<p class="text-azento-600">
+						Se utilizan para rastrear a los visitantes en los sitios web con el fin de mostrar anuncios relevantes. Actualmente no utilizamos cookies de marketing, pero esta opción está disponible para futuras implementaciones.
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">¿Cómo gestionar las cookies?</h2>
+					<p class="text-azento-600">
+						Puedes gestionar tus preferencias de cookies en cualquier momento haciendo clic en el enlace "Cookies" en el pie de página de nuestro sitio web, o configurando tu navegador para rechazar cookies.
+					</p>
+					<p class="text-azento-600">
+						Ten en cuenta que si desactivas las cookies, algunas funcionalidades del sitio web pueden no funcionar correctamente.
+					</p>
+
+					<h3 class="font-display text-xl font-semibold text-azento-700">Configuración en navegadores</h3>
+					<ul class="text-azento-600">
+						<li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener" class="text-accent-600 hover:text-accent-500">Google Chrome</a></li>
+						<li><a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" target="_blank" rel="noopener" class="text-accent-600 hover:text-accent-500">Mozilla Firefox</a></li>
+						<li><a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener" class="text-accent-600 hover:text-accent-500">Safari</a></li>
+						<li><a href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener" class="text-accent-600 hover:text-accent-500">Microsoft Edge</a></li>
+					</ul>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">Cambios en esta política</h2>
+					<p class="text-azento-600">
+						Podemos actualizar esta política de cookies periódicamente. Te recomendamos revisar esta página de vez en cuando para estar informado de cualquier cambio.
+					</p>
+
+					<h2 class="font-display text-2xl font-semibold text-azento-700">Contacto</h2>
+					<p class="text-azento-600">
+						Si tienes alguna pregunta sobre nuestra política de cookies, puedes contactarnos en:
+					</p>
+					<ul class="text-azento-600">
+						<li>Email: <a href="mailto:info@azentohome.com" class="text-accent-600 hover:text-accent-500">info@azentohome.com</a></li>
+						<li>Teléfono: <a href="tel:+34682412236" class="text-accent-600 hover:text-accent-500">682 412 236</a></li>
+					</ul>
+
+					<!-- Botón para abrir configuración -->
+					<div class="mt-8 pt-8 border-t border-neutral-200">
+						<button
+							id="open-cookie-config"
+							class="inline-flex items-center gap-2 bg-azento-600 text-white px-6 py-3 rounded-full 
+								font-semibold shadow-lg hover:bg-azento-500 hover:-translate-y-0.5 
+								transition-all duration-300"
+						>
+							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+							</svg>
+							Configurar mis cookies
+						</button>
+					</div>
+				</div>
+
+				<!-- Volver -->
+				<div class="mt-8 text-center">
+					<a 
+						href="/"
+						class="inline-flex items-center gap-2 text-azento-600 font-semibold 
+							hover:text-accent-600 transition-colors group"
+					>
+						<svg class="w-5 h-5 group-hover:-translate-x-1 transition-transform" 
+							fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+						</svg>
+						Volver al inicio
+					</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Layout>
+
+<script>
+	document.getElementById('open-cookie-config')?.addEventListener('click', () => {
+		const modal = document.getElementById('cookie-modal');
+		if (modal) {
+			modal.classList.remove('hidden');
+			modal.classList.add('flex');
+			document.body.style.overflow = 'hidden';
+		}
+	});
+</script>
