@@ -8,16 +8,16 @@ import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
 import { services, serviceIcons, getServiceBySlug, type Service } from '../../data/services';
 
-// Generar rutas estáticas para cada servicio
-export function getStaticPaths() {
-	return services.map((service) => ({
-		params: { slug: service.slug },
-		props: { service },
-	}));
-}
+// En modo SSR, obtenemos el slug directamente de los parámetros
+const { slug } = Astro.params;
 
-// Obtener el servicio de las props (ya validado por getStaticPaths)
-const { service } = Astro.props as { service: Service };
+// Buscar el servicio por slug
+const service = getServiceBySlug(slug || '');
+
+// Si no existe el servicio, redirigir a la página principal
+if (!service) {
+	return Astro.redirect('/#servicios');
+}
 
 // SEO - Descripción recortada para meta
 const metaDescription = service.longDescription[0].substring(0, 160) + "...";
