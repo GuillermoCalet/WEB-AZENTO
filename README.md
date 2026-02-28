@@ -1,46 +1,68 @@
-# Astro Starter Kit: Basics
+# AZento Web
 
-```sh
-pnpm create astro@latest -- --template basics
+Sitio web corporativo construido con Astro, React y TailwindCSS.
+
+## 🚀 Instalación Rápida (Ubuntu)
+
+**Opción 1: Script automático** (recomendado)
+
+```bash
+# Clonar repositorio
+git clone https://github.com/tu-usuario/web-azento.git
+cd web-azento
+
+# Dar permisos y ejecutar script
+chmod +x setup-ubuntu.sh
+./setup-ubuntu.sh
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+**Opción 2: Instalación manual**
 
-## 🚀 Project Structure
+```bash
+# 1. Instalar Node.js 20 LTS
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
 
-Inside of your Astro project, you'll see the following folders and files:
+# 2. Instalar pnpm
+sudo npm install -g pnpm
+
+# 3. Clonar e instalar
+git clone https://github.com/tu-usuario/web-azento.git
+cd web-azento
+pnpm install
+```
+
+## 🧞 Comandos
+
+| Comando           | Acción                                        |
+| :---------------- | :-------------------------------------------- |
+| `pnpm dev`        | Inicia servidor de desarrollo en `localhost:4321` |
+| `pnpm build`      | Construye el sitio para producción en `./dist/` |
+| `pnpm preview`    | Previsualiza el build local                   |
+| `pnpm start`      | Ejecuta el servidor de producción             |
+
+## 📁 Estructura del Proyecto
 
 ```text
 /
 ├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
+│   └── images/           # Imágenes estáticas
+├── src/
+│   ├── components/       # Componentes Astro/React
+│   ├── data/             # Datos (servicios, etc.)
+│   ├── layouts/          # Layouts base
+│   └── pages/            # Páginas y rutas
+│       ├── api/          # Endpoints API
+│       └── servicios/    # Páginas de servicios
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## ⚙️ Configuración
 
-## 🧞 Commands
+1. Copia `.env.example` o edita `.env` con tus credenciales
+2. Consulta [SETUP.md](SETUP.md) para configurar notificaciones (Email/WhatsApp)
 
-All commands are run from the root of the project, from a terminal:
+## 📚 Documentación
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- [SETUP.md](SETUP.md) - Configuración de notificaciones
+- [DOCUMENTACION.md](DOCUMENTACION.md) - Documentación técnica
