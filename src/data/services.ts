@@ -43,13 +43,13 @@ export const services: Service[] = [
 		slug: "jardines-terrazas",
 		icon: "garden",
 		title: "Jardines y Terrazas",
-		shortDescription: "Diseñamos y ejecutamos jardines y terrazas que transforman tus espacios exteriores. Desde jardines verticales hasta terrazas con zonas chill-out.",
+		shortDescription: "Diseñamos y ejecutamos jardines y terrazas adaptándonos a todos los espacios y necesidades de nuestros clientes.",
 		longDescription: [
 			"En AZento Home Solutions, transformamos espacios exteriores en verdaderos oasis de tranquilidad y belleza. Nuestro equipo de paisajistas y diseñadores trabaja contigo para crear jardines y terrazas que reflejen tu estilo de vida y maximicen el potencial de tu espacio.",
 			"Utilizamos materiales de primera calidad y técnicas de jardinería sostenible para garantizar que tu jardín no solo sea hermoso desde el primer día, sino que se mantenga así durante años. Desde pequeños patios urbanos hasta amplias terrazas panorámicas, cada proyecto recibe nuestra atención personalizada.",
 			"Nuestro enfoque integral incluye el diseño del paisaje, la selección de plantas adaptadas al clima de Madrid, sistemas de riego eficientes y la creación de zonas funcionales para el descanso y el entretenimiento."
 		],
-		features: ["Jardines verticales", "Césped artificial", "Zonas de relax"],
+		features: ["Madera Tecnológica", "Césped artificial", "Mobiliario y textiles de exterior"],
 		bullets: [
 			"Diseño paisajístico personalizado",
 			"Jardines verticales y muros verdes",
@@ -98,23 +98,21 @@ export const services: Service[] = [
 		slug: "pergolas-celosias",
 		icon: "pergola",
 		title: "Pérgolas y Celosías",
-		shortDescription: "Instalación de pérgolas bioclimáticas y celosías de madera tecnológica que aportan elegancia y funcionalidad a cualquier espacio.",
+		shortDescription: "Diseño y instalación de pérgolas y celosías de madera tecnológica que aportan calidez y funcionalidad a cualquier espacio.",
 		longDescription: [
-			"Las pérgolas y celosías son elementos arquitectónicos que transforman por completo la experiencia de tu espacio exterior. En AZento Home Solutions, nos especializamos en el diseño e instalación de estructuras que combinan funcionalidad, estética y durabilidad.",
-			"Nuestras pérgolas bioclimáticas permiten regular la entrada de luz y ventilación mediante lamas orientables, creando el ambiente perfecto en cualquier época del año. Fabricadas en aluminio de alta calidad, son resistentes a la intemperie y prácticamente libres de mantenimiento.",
-			"Las celosías de madera tecnológica aportan privacidad y elegancia sin renunciar a la ventilación natural. Este material combina la calidez de la madera con la resistencia del composite, garantizando una durabilidad excepcional sin los inconvenientes del mantenimiento tradicional."
+			"Las pérgolas y celosías son elementos arquitectónicos que transforman por completo el espacio exterior. En AZento Home, somos especialistas en combinar funcionalidad, estética y durabilidad.",
+			"Nuestras pérgolas permiten regular la entrada de luz y ventilación mediante lamas orientables, creando el ambiente perfecto en cualquier época del año. Fabricadas con materiales de alta calidad, son resistentes a la intemperie y prácticamente libres de mantenimiento.",
+			"Las celosías de madera tecnológica aportan privacidad y elegancia sin renunciar a la ventilación natural. Este material combina la calidez de la madera junto con la resistencia de sus componentes, garantizando una durabilidad excepcional y sin mantenimiento."
 		],
 		features: ["Pérgolas bioclimáticas", "Celosías de madera", "Diseño a medida"],
 		bullets: [
 			"Pérgolas bioclimáticas con lamas orientables",
-			"Celosías de madera tecnológica WPC",
-			"Estructuras de aluminio lacado",
-			"Sistemas motorizados con control remoto",
+			"Celosías de madera tecnológica",
+			"Estructuras de aluminio/acero lacado",
 			"Integración de iluminación LED",
 			"Cortinas y estores exteriores",
 			"Diseño a medida para cada espacio",
 			"Resistencia a viento y lluvia",
-			"Garantía de 10 años en estructura",
 			"Instalación profesional certificada"
 		],
 		gallery: [
@@ -142,7 +140,7 @@ export const services: Service[] = [
 			},
 			{
 				question: "¿Qué mantenimiento requiere la madera tecnológica?",
-				answer: "Prácticamente ninguno. La madera tecnológica (WPC) no necesita barnizado ni tratamiento. Basta con una limpieza ocasional con agua y jabón neutro. No se astilla, no se pudre y mantiene su color durante años."
+				answer: "Prácticamente ninguno. La madera tecnológica no necesita barnizado ni tratamiento. Basta con una limpieza ocasional con agua y jabón neutro. No se astilla, no se pudre y mantiene su color durante años."
 			}
 		]
 	},
@@ -151,24 +149,21 @@ export const services: Service[] = [
 		slug: "fachadas-revestimientos",
 		icon: "facade",
 		title: "Fachadas y Revestimientos",
-		shortDescription: "Renovamos fachadas con porcelánico de gran formato y revestimientos de alta calidad. Acabados que combinan estética y durabilidad.",
+		shortDescription: "Renovamos fachadas con soluciones de alto rendimiento con sistemas SATE y acabado en madera tecnológica, porcelánico ...",
 		longDescription: [
-			"La fachada es la carta de presentación de tu hogar. En AZento Home Solutions, nos especializamos en la renovación y diseño de fachadas utilizando los materiales más innovadores del mercado, como el porcelánico de gran formato y la madera tecnológica.",
-			"El porcelánico exterior ofrece una resistencia excepcional a los cambios de temperatura, humedad y rayos UV, manteniendo su aspecto impecable durante décadas. Disponemos de una amplia gama de acabados que imitan piedra natural, madera, hormigón o superficies minimalistas.",
+			"La fachada es la carta de presentación de tu vivienda. En AZento Home, nos especializamos en la renovación y diseño de fachadas utilizando los materiales más innovadores del mercado, como el porcelánico, madera tecnológica, micromortero etc ...",
+			"Trabajamos con materiales que ofrecen una resistencia excepcional a los cambios de temperatura, humedad y rayos UV, manteniendo su aspecto impecable durante décadas. Disponemos de una amplia gama de acabados que imitan piedra natural, madera, hormigón etc ...",
 			"Nuestros revestimientos de fachada ventilada no solo mejoran la estética, sino que también optimizan el aislamiento térmico y acústico de tu vivienda, reduciendo el consumo energético y aumentando el confort interior."
 		],
-		features: ["Porcelánico exterior", "Madera tecnológica", "Acabados premium"],
+		features: ["Porcelánico exterior", "Madera tecnológica", "Acabados de alta resistencia"],
 		bullets: [
-			"Porcelánico de gran formato (hasta 120x240cm)",
+			"Porcelánico",
 			"Fachada ventilada con aislamiento térmico",
 			"Revestimiento de madera tecnológica",
-			"Paneles composite de aluminio",
 			"Acabados imitación piedra y madera",
-			"Sistema de anclaje oculto",
 			"Mejora de eficiencia energética",
 			"Resistencia a heladas y UV",
 			"Colores y texturas personalizables",
-			"Garantía de 15 años en materiales"
 		],
 		gallery: [
 			"/images/madera1_azento.png",
@@ -204,11 +199,11 @@ export const services: Service[] = [
 		slug: "reformas-interiores",
 		icon: "interior",
 		title: "Reformas Interiores",
-		shortDescription: "Transformamos espacios interiores con diseño personalizado. Cocinas, salones y estancias que reflejan tu estilo de vida.",
+		shortDescription: "Estudiamos los espacios y ofrecemos un diseño personalizado adaptandonos a los requerimientos de nuestros clientes.",
 		longDescription: [
-			"En AZento Home Solutions, entendemos que tu hogar es mucho más que cuatro paredes. Es el lugar donde creas recuerdos, descansas y disfrutas con los tuyos. Por eso, nuestras reformas interiores van más allá de la simple renovación: creamos espacios que mejoran tu calidad de vida.",
-			"Nuestro equipo de diseñadores e interioristas trabaja contigo desde la conceptualización hasta la última pincelada. Especializados en cocinas, baños y zonas de día, combinamos funcionalidad y estética para lograr resultados que superan expectativas.",
-			"Utilizamos materiales de primera calidad y colaboramos con los mejores fabricantes de mobiliario, iluminación y acabados. Gestionamos todo el proceso: diseño, licencias, obra, instalaciones y decoración final, para que tú solo tengas que disfrutar del resultado."
+			"En AZento Home, analizamos todas las características de cada uno de nuestros proyectos para conseguir unos resultados exclusivos y personalizados.",
+			"Nuestro equipo trabaja contigo durante todo el proceso para dar un sello personal a cada uno de los trabajos. Disponemos de un amplio equipo de profesionales con muchos años de experiencia.",
+			"Utilizamos materiales de alta calidad y colaboramos con los mejores fabricantes de mobiliario, iluminación y acabados. Gestionamos todo el proceso: diseño, obra, instalaciones y decoración final, para que tú solo tengas que disfrutar del resultado."
 		],
 		features: ["Diseño de cocinas", "Iluminación", "Mobiliario a medida"],
 		bullets: [
@@ -216,12 +211,11 @@ export const services: Service[] = [
 			"Reforma completa de baños",
 			"Mobiliario a medida",
 			"Iluminación arquitectónica LED",
-			"Suelos de porcelánico y parquet",
+			"Suelos de porcelánico y laminado",
 			"Pintura y acabados decorativos",
 			"Instalaciones eléctricas y fontanería",
-			"Climatización y domótica",
+			"Climatización",
 			"Carpintería interior personalizada",
-			"Gestión de licencias y permisos"
 		],
 		gallery: [
 			"/images/cocina_1.png",
