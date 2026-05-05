@@ -2,7 +2,7 @@
  * API Route: /api/quote
  * Endpoint para procesar solicitudes de presupuesto
  * - Valida y sanitiza datos
- * - Envía email vía Gmail SMTP (Nodemailer)
+ * - Envía email vía SMTP genérico (Nodemailer)
  * - Envía WhatsApp vía Twilio (opcional)
  */
 
@@ -140,20 +140,26 @@ const SERVICES_MAP: Record<string, string> = {
 };
 
 async function sendEmail(data: QuoteRequest, meta: { ip: string; userAgent: string }): Promise<void> {
-	const gmailUser = import.meta.env.GMAIL_USER;
-	const gmailPassword = import.meta.env.GMAIL_APP_PASSWORD;
+	const smtpHost = import.meta.env.SMTP_HOST;
+	const smtpPort = Number(import.meta.env.SMTP_PORT || 587);
+	const smtpSecure = import.meta.env.SMTP_SECURE === 'true';
+	const smtpUser = import.meta.env.SMTP_USER || import.meta.env.GMAIL_USER;
+	const smtpPassword = import.meta.env.SMTP_PASSWORD || import.meta.env.GMAIL_APP_PASSWORD;
+	const mailFrom = import.meta.env.MAIL_FROM || smtpUser;
 	const notifyTo = import.meta.env.NOTIFY_EMAIL_TO || 'ines.guillermo.calet@gmail.com';
 
-	if (!gmailUser || !gmailPassword) {
-		console.warn('⚠️ Gmail no configurado. Variables GMAIL_USER y GMAIL_APP_PASSWORD requeridas.');
+	if (!smtpHost || !smtpUser || !smtpPassword || !mailFrom) {
+		console.warn('⚠️ SMTP no configurado. Variables SMTP_HOST, SMTP_USER, SMTP_PASSWORD y MAIL_FROM requeridas.');
 		throw new Error('Servicio de email no configurado');
 	}
 
 	const transporter = nodemailer.createTransport({
-		service: 'gmail',
+		host: smtpHost,
+		port: smtpPort,
+		secure: smtpSecure,
 		auth: {
-			user: gmailUser,
-			pass: gmailPassword,
+			user: smtpUser,
+			pass: smtpPassword,
 		},
 	});
 
@@ -164,7 +170,7 @@ async function sendEmail(data: QuoteRequest, meta: { ip: string; userAgent: stri
 		timeStyle: 'medium'
 	});
 
-	const subject = `Nuevo presupuesto — ${serviceName} — ${data.name}`;
+	const subject = `NUEVO PREUPUESTO !!!  — ${serviceName} — ${data.name}`;
 	
 	const htmlBody = `
 		<!DOCTYPE html>
@@ -219,8 +225,6 @@ async function sendEmail(data: QuoteRequest, meta: { ip: string; userAgent: stri
 					
 					<div class="meta">
 						<strong>📅 Fecha:</strong> ${timestamp}<br>
-						<strong>🌐 IP:</strong> ${meta.ip}<br>
-						<strong>📱 User-Agent:</strong> ${meta.userAgent}
 					</div>
 				</div>
 			</div>
@@ -247,7 +251,8 @@ User-Agent: ${meta.userAgent}
 	`;
 
 	await transporter.sendMail({
-		from: `"AZento Home Solutions" <${gmailUser}>`,
+		from: `"AZento Home Solutions" <${mailFrom}>`,
+		replyTo: data.email,
 		to: notifyTo,
 		subject,
 		text: textBody,

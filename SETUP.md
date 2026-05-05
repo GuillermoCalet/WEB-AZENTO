@@ -7,7 +7,7 @@ Este documento explica cómo configurar el sistema de notificaciones por Email y
 ## 📋 Índice
 
 1. [Instalación](#instalación)
-2. [Configurar Gmail SMTP](#configurar-gmail-smtp)
+2. [Configurar SMTP de tu correo](#configurar-smtp-de-tu-correo)
 3. [Configurar Twilio WhatsApp](#configurar-twilio-whatsapp)
 4. [Variables de Entorno](#variables-de-entorno)
 5. [Pruebas](#pruebas)
@@ -31,33 +31,31 @@ pnpm install
 
 ---
 
-## 📧 Configurar Gmail SMTP
+## 📧 Configurar SMTP de tu correo
 
-### Paso 1: Habilitar verificación en 2 pasos
+El formulario envia emails usando SMTP generico. Puedes usar el servidor SMTP de tu proveedor de correo: IONOS, Hostinger, Webempresa, OVH, Zoho, Outlook/Microsoft 365, etc.
 
-1. Ve a [myaccount.google.com](https://myaccount.google.com)
-2. Haz clic en **Seguridad** (menú izquierdo)
-3. En "Cómo inicias sesión en Google", activa **Verificación en 2 pasos**
-4. Sigue los pasos para configurarlo
+Necesitas estos datos de tu proveedor:
 
-### Paso 2: Crear App Password
+- Host SMTP, por ejemplo `smtp.tudominio.com`
+- Puerto, normalmente `587` con STARTTLS o `465` con SSL
+- Usuario SMTP, normalmente tu email completo
+- Password SMTP o password de aplicacion
+- Email remitente permitido por ese buzon
 
-1. Una vez activada la verificación en 2 pasos, vuelve a **Seguridad**
-2. En "Cómo inicias sesión en Google", busca **Contraseñas de aplicaciones**
-3. Haz clic y crea una nueva contraseña:
-   - Nombre: `AZento Web` (o el que quieras)
-4. Google te dará una contraseña de 16 caracteres tipo: `xxxx xxxx xxxx xxxx`
-5. **Copia esta contraseña** (solo se muestra una vez)
-
-### Paso 3: Configurar variables de entorno
+### Configurar variables de entorno
 
 ```bash
-GMAIL_USER=tu-email@gmail.com
-GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+SMTP_HOST=smtp.tu-proveedor.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=tu-email@tudominio.com
+SMTP_PASSWORD=tu-password-smtp
+MAIL_FROM=tu-email@tudominio.com
 NOTIFY_EMAIL_TO=ines.guillermo.calet@gmail.com
 ```
 
-> ⚠️ **IMPORTANTE**: Usa el App Password, NO tu contraseña normal de Gmail.
+> Nota: usa `SMTP_SECURE=true` solo con puerto `465`. Para puerto `587`, deja `SMTP_SECURE=false`.
 
 ---
 
@@ -110,8 +108,12 @@ Edita `.env` con tus valores reales:
 
 ```bash
 # Email
-GMAIL_USER=tu-email@gmail.com
-GMAIL_APP_PASSWORD=xxxx-xxxx-xxxx-xxxx
+SMTP_HOST=smtp.tu-proveedor.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=tu-email@tudominio.com
+SMTP_PASSWORD=tu-password-smtp
+MAIL_FROM=tu-email@tudominio.com
 NOTIFY_EMAIL_TO=ines.guillermo.calet@gmail.com
 
 # WhatsApp
@@ -263,10 +265,10 @@ pm2 start ./dist/server/entry.mjs --name azento-web
 
 ### El email no se envía
 
-1. **Verifica las credenciales**: Asegúrate de usar el App Password, no la contraseña normal
-2. **Verifica la verificación en 2 pasos**: Debe estar activa
+1. **Verifica las credenciales SMTP**: Usuario, password, host y puerto deben coincidir con tu proveedor
+2. **Verifica el remitente**: `MAIL_FROM` debe ser un email autorizado por ese buzon o dominio
 3. **Revisa los logs**: `console.log` muestra errores detallados
-4. **Gmail bloqueado**: Puede que Google bloquee "apps menos seguras". Usa App Password.
+4. **Prueba el puerto alternativo**: Si `587` falla, consulta si tu proveedor usa `465` con `SMTP_SECURE=true`
 
 ### WhatsApp no funciona
 
@@ -299,8 +301,8 @@ Si el campo `website` tiene valor, se rechaza como spam.
 ⚠️ Twilio no configurado. Variables TWILIO_ACCOUNT_SID y TWILIO_AUTH_TOKEN requeridas.
 ⚠️ Continuando sin envío de WhatsApp (modo degradado)
 
-# Gmail no configurado
-⚠️ Gmail no configurado. Variables GMAIL_USER y GMAIL_APP_PASSWORD requeridas.
+# SMTP no configurado
+⚠️ SMTP no configurado. Variables SMTP_HOST, SMTP_USER, SMTP_PASSWORD y MAIL_FROM requeridas.
 ```
 
 ---

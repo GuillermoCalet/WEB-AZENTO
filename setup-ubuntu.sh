@@ -63,23 +63,24 @@ if [ ! -f .env ]; then
     echo -e "${YELLOW}📄 Creando archivo .env de ejemplo...${NC}"
     cat > .env << 'EOF'
 # ===================================
-# Configuración de Email (Gmail SMTP)
+# Configuración de Email (SMTP)
 # ===================================
-GMAIL_USER=tu-email@gmail.com
-GMAIL_APP_PASSWORD=xxxx-xxxx-xxxx-xxxx
+SMTP_HOST=smtp.tu-proveedor.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=tu-email@tudominio.com
+SMTP_PASSWORD=tu-password-smtp
+MAIL_FROM=tu-email@tudominio.com
+NOTIFY_EMAIL_TO=tu-email-notificaciones@gmail.com
 
 # ===================================
 # Configuración de Twilio (WhatsApp)
 # ===================================
+ENABLE_WHATSAPP=false
 TWILIO_ACCOUNT_SID=tu-account-sid
 TWILIO_AUTH_TOKEN=tu-auth-token
 TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
-TWILIO_WHATSAPP_TO=whatsapp:+34XXXXXXXXX
-
-# ===================================
-# Email de destino para notificaciones
-# ===================================
-NOTIFICATION_EMAIL=tu-email-notificaciones@gmail.com
+WHATSAPP_TO=whatsapp:+34XXXXXXXXX
 EOF
     echo -e "${GREEN}✅ Archivo .env creado. Edítalo con tus credenciales.${NC}"
 else
