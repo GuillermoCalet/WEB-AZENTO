@@ -2,6 +2,8 @@
 
 Este documento explica cómo configurar el sistema de notificaciones por Email y WhatsApp para el formulario de contacto.
 
+> Nota: para Arsys, el formulario se procesa con `public/api/quote.php` y la guía de subida está en [ARSYS_DEPLOY.md](ARSYS_DEPLOY.md). Las variables de este documento también se pueden poner en `public/api/quote-config.php` usando el ejemplo `public/api/quote-config.example.php`.
+
 ---
 
 ## 📋 Índice
@@ -22,11 +24,7 @@ Este documento explica cómo configurar el sistema de notificaciones por Email y
 # Instalar dependencias
 pnpm install
 
-# Las dependencias añadidas son:
-# - nodemailer: para envío de emails
-# - twilio: para WhatsApp
-# - @astrojs/node: adapter para SSR
-# - @types/nodemailer: tipos TypeScript
+# El formulario de producción se procesa con PHP en public/api/quote.php
 ```
 
 ---
@@ -93,47 +91,37 @@ WHATSAPP_TO=whatsapp:+34633010691
 
 ---
 
-## 🔐 Variables de Entorno
+## 🔐 Configuración en producción
 
-### Archivo `.env` (local)
+### Archivo `quote-config.php` en Arsys
 
-Crea un archivo `.env` en la raíz del proyecto:
-
-```bash
-# Copia desde .env.example
-cp .env.example .env
-```
-
-Edita `.env` con tus valores reales:
+Copia el ejemplo:
 
 ```bash
-# Email
-SMTP_HOST=smtp.tu-proveedor.com
-SMTP_PORT=587
-SMTP_SECURE=false
-SMTP_USER=tu-email@tudominio.com
-SMTP_PASSWORD=tu-password-smtp
-MAIL_FROM=tu-email@tudominio.com
-NOTIFY_EMAIL_TO=ines.guillermo.calet@gmail.com
-
-# WhatsApp
-ENABLE_WHATSAPP=true
-TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-TWILIO_AUTH_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-TWILIO_WHATSAPP_FROM=whatsapp:+14155238886
-WHATSAPP_TO=whatsapp:+34633010691
+cp public/api/quote-config.example.php public/api/quote-config.php
 ```
 
-### En Producción (Vercel/Netlify)
+Edita `public/api/quote-config.php` con tus valores reales:
 
-#### Vercel
-1. Ve a **Settings > Environment Variables**
-2. Añade cada variable con su valor
-3. Marca como "Sensitive" las credenciales
+```php
+return [
+	// Email
+	'SMTP_HOST' => 'smtp.tu-proveedor.com',
+	'SMTP_PORT' => 587,
+	'SMTP_SECURE' => false,
+	'SMTP_USER' => 'tu-email@tudominio.com',
+	'SMTP_PASSWORD' => 'tu-password-smtp',
+	'MAIL_FROM' => 'tu-email@tudominio.com',
+	'NOTIFY_EMAIL_TO' => 'ines.guillermo.calet@gmail.com',
 
-#### Netlify
-1. Ve a **Site settings > Environment variables**
-2. Añade cada variable
+	// WhatsApp
+	'ENABLE_WHATSAPP' => true,
+	'TWILIO_ACCOUNT_SID' => 'ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+	'TWILIO_AUTH_TOKEN' => 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+	'TWILIO_WHATSAPP_FROM' => 'whatsapp:+14155238886',
+	'WHATSAPP_TO' => 'whatsapp:+34633010691',
+];
+```
 
 ---
 
@@ -142,17 +130,18 @@ WHATSAPP_TO=whatsapp:+34633010691
 ### Probar en local
 
 ```bash
-# Iniciar servidor de desarrollo
-pnpm dev
+# Compilar y servir con PHP para ejecutar quote.php
+npm run build
+php -S localhost:8000 -t dist
 
-# El servidor estará en http://localhost:4321
+# La web estará en http://localhost:8000
 ```
 
 ### Probar con curl
 
 ```bash
 # Solicitud de prueba
-curl -X POST http://localhost:4321/api/quote \
+curl -X POST http://localhost:8000/api/quote.php \
   -H "Content-Type: application/json" \
   -d '{
     "name": "Juan Pérez",
@@ -209,55 +198,14 @@ otro
 
 ## 🚀 Despliegue
 
-### Build de producción
+### Build de producción estático
 
 ```bash
 # Compilar
 pnpm build
-
-# Iniciar servidor (Node.js)
-pnpm start
-# o
-node ./dist/server/entry.mjs
 ```
 
-### Despliegue en Vercel
-
-1. Conecta tu repo a Vercel
-2. Vercel detectará Astro automáticamente
-3. Añade las variables de entorno en Settings
-4. Despliega
-
-### Despliegue en Netlify
-
-Para Netlify, necesitas cambiar el adapter:
-
-```bash
-pnpm add @astrojs/netlify
-```
-
-Modifica `astro.config.mjs`:
-
-```js
-import netlify from '@astrojs/netlify';
-
-export default defineConfig({
-  output: 'hybrid',
-  adapter: netlify(),
-  // ...
-});
-```
-
-### Despliegue en servidor Node.js
-
-```bash
-# Compilar
-pnpm build
-
-# El servidor escucha en puerto 4321 por defecto
-# Usa PM2 o similar para producción
-pm2 start ./dist/server/entry.mjs --name azento-web
-```
+Para Arsys, sube el contenido de `dist/` al hosting. Consulta [ARSYS_DEPLOY.md](ARSYS_DEPLOY.md) para los pasos exactos.
 
 ---
 

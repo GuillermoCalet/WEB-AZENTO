@@ -39,7 +39,7 @@ pnpm install
 | `pnpm dev`        | Inicia servidor de desarrollo en `localhost:4321` |
 | `pnpm build`      | Construye el sitio para producción en `./dist/` |
 | `pnpm preview`    | Previsualiza el build local                   |
-| `pnpm start`      | Ejecuta el servidor de producción             |
+| `pnpm start`      | Previsualiza el build local                   |
 
 ## 📁 Estructura del Proyecto
 
@@ -64,5 +64,6 @@ pnpm install
 
 ## 📚 Documentación
 
+- [ARSYS_DEPLOY.md](ARSYS_DEPLOY.md) - Despliegue en Arsys
 - [SETUP.md](SETUP.md) - Configuración de notificaciones
 - [DOCUMENTACION.md](DOCUMENTACION.md) - Documentación técnica
