@@ -245,6 +245,19 @@ const icons: Record<string, string> = {
 					</div>
 
 					<!-- Submit Button -->
+					<div class="flex items-start gap-3 rounded-xl bg-neutral-50 border border-neutral-200 p-4">
+						<input
+							type="checkbox"
+							id="contact-consent"
+							name="contactConsent"
+							class="mt-1 h-4 w-4 rounded border-neutral-300 text-azento-600 focus:ring-azento-500"
+							required
+						/>
+						<label for="contact-consent" class="text-xs leading-relaxed text-azento-500">
+							Acepto que AZento Home pueda escribirme y tratar mis datos para responder a esta solicitud.
+						</label>
+					</div>
+
 					<button 
 						type="submit"
 						id="submit-btn"
@@ -266,10 +279,8 @@ const icons: Record<string, string> = {
 						</svg>
 					</button>
 
-					<!-- Privacy Note -->
 					<p class="text-xs text-azento-400 text-center">
-						Al enviar este formulario, aceptas nuestra 
-						<a href="#" class="underline hover:text-azento-600">política de privacidad</a>.
+						No enviaremos comunicaciones comerciales sin tu consentimiento.
 					</p>
 				</form>
 			</div>

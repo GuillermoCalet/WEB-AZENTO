@@ -22,8 +22,8 @@
 						🍪 Usamos cookies
 					</h3>
 					<p id="cookie-description" class="text-sm text-azento-500 leading-relaxed">
-						Utilizamos cookies propias y de terceros para mejorar tu experiencia de navegación y analizar el tráfico. 
-						Puedes aceptar todas las cookies o configurar tus preferencias.
+						Utilizamos tecnologías necesarias para guardar tus preferencias y, si lo aceptas, Google Analytics para analizar el tráfico.
+						Puedes aceptar, rechazar o configurar tus preferencias.
 						<a href="/politica-cookies" class="text-accent-600 hover:text-accent-500 underline ml-1">
 							Más información
 						</a>
@@ -42,17 +42,17 @@
 					</button>
 					<button
 						id="cookie-reject-btn"
-						class="px-4 py-2 text-sm font-medium text-azento-600 hover:text-azento-700 
-							border border-neutral-300 rounded-full hover:border-azento-400 
+						class="px-6 py-2 text-sm font-semibold text-azento-600 hover:text-azento-700 
+							border border-azento-300 rounded-full hover:border-azento-400 
 							transition-colors"
 					>
 						Rechazar
 					</button>
 					<button
 						id="cookie-accept-btn"
-						class="px-6 py-2 text-sm font-semibold text-white bg-azento-600 
-							hover:bg-azento-500 rounded-full shadow-md hover:shadow-lg 
-							transition-all duration-200"
+						class="px-6 py-2 text-sm font-semibold text-azento-600 hover:text-azento-700 
+							border border-azento-300 rounded-full hover:border-azento-400 
+							transition-colors"
 					>
 						Aceptar todas
 					</button>
@@ -97,7 +97,7 @@
 				<div class="flex-1">
 					<h4 class="font-medium text-azento-700 mb-1">Cookies necesarias</h4>
 					<p class="text-sm text-azento-500">
-						Esenciales para el funcionamiento del sitio. No se pueden desactivar.
+						Esenciales para el funcionamiento del sitio y para recordar tu elección. No se pueden desactivar.
 					</p>
 				</div>
 				<div class="flex-shrink-0">
@@ -117,28 +117,7 @@
 				</div>
 				<div class="flex-shrink-0">
 					<label class="relative inline-flex items-center cursor-pointer">
-						<input type="checkbox" id="cookie-analytics" class="sr-only peer" checked>
-						<div class="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 
-							peer-focus:ring-accent-300 rounded-full peer 
-							peer-checked:after:translate-x-full peer-checked:after:border-white 
-							after:content-[''] after:absolute after:top-[2px] after:left-[2px] 
-							after:bg-white after:border-neutral-300 after:border after:rounded-full 
-							after:h-5 after:w-5 after:transition-all peer-checked:bg-accent-500"></div>
-					</label>
-				</div>
-			</div>
-			
-			<!-- Cookies de marketing -->
-			<div class="flex items-start justify-between gap-4">
-				<div class="flex-1">
-					<h4 class="font-medium text-azento-700 mb-1">Cookies de marketing</h4>
-					<p class="text-sm text-azento-500">
-						Permiten mostrarte anuncios relevantes basados en tus intereses.
-					</p>
-				</div>
-				<div class="flex-shrink-0">
-					<label class="relative inline-flex items-center cursor-pointer">
-						<input type="checkbox" id="cookie-marketing" class="sr-only peer">
+						<input type="checkbox" id="cookie-analytics" class="sr-only peer">
 						<div class="w-11 h-6 bg-neutral-200 peer-focus:outline-none peer-focus:ring-2 
 							peer-focus:ring-accent-300 rounded-full peer 
 							peer-checked:after:translate-x-full peer-checked:after:border-white 
@@ -202,7 +181,6 @@
 	const savePreferencesBtn = document.getElementById('cookie-save-preferences');
 	const acceptAllBtn = document.getElementById('cookie-accept-all');
 	const analyticsCheckbox = document.getElementById('cookie-analytics') as HTMLInputElement;
-	const marketingCheckbox = document.getElementById('cookie-marketing') as HTMLInputElement;
 	
 	// Obtener preferencias guardadas
 	function getStoredPreferences(): CookiePreferences | null {
@@ -246,11 +224,6 @@
 			}
 		}
 		
-		// Marketing cookies (para futuras implementaciones)
-		if (preferences.marketing) {
-			console.log('Marketing cookies enabled');
-			// Aquí se cargarían scripts de marketing como Facebook Pixel, etc.
-		}
 	}
 	
 	// Mostrar/ocultar banner
@@ -305,14 +278,13 @@
 	savePreferencesBtn?.addEventListener('click', () => {
 		savePreferences({
 			analytics: analyticsCheckbox?.checked ?? false,
-			marketing: marketingCheckbox?.checked ?? false
+			marketing: false
 		});
 	});
 	
 	acceptAllBtn?.addEventListener('click', () => {
 		if (analyticsCheckbox) analyticsCheckbox.checked = true;
-		if (marketingCheckbox) marketingCheckbox.checked = true;
-		savePreferences({ analytics: true, marketing: true });
+		savePreferences({ analytics: true, marketing: false });
 	});
 	
 	// Cerrar modal al hacer clic fuera
@@ -336,7 +308,6 @@
 			
 			// Actualizar checkboxes con las preferencias guardadas
 			if (analyticsCheckbox) analyticsCheckbox.checked = preferences.analytics;
-			if (marketingCheckbox) marketingCheckbox.checked = preferences.marketing;
 		}
 	});
 </script>
