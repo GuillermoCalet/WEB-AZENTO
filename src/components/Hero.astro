@@ -66,14 +66,12 @@ const heroContent = {
 		</div>
 
 		<!-- Headline Principal -->
-		<h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold 
-			text-white leading-tight mb-6 animate-slide-up"
+		<h1 class="font-display text-[3.35rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold 
+			text-white leading-[0.95] mb-6 animate-slide-up"
 			style="animation-delay: 0.1s;"
 		>
-			{heroContent.headline.split(' ').slice(0, 2).join(' ')}
-			<span class="block sm:inline sm:ml-3 text-accent-300">
-				{heroContent.headline.split(' ').slice(2).join(' ')}
-			</span>
+			<span class="block">Reformas con</span>
+			<span class="block text-accent-300">AZento</span>
 		</h1>
 
 		<!-- Subtítulo -->
@@ -129,15 +127,15 @@ const heroContent = {
 		</div>
 
 		<!-- Stats -->
-		<div class="grid grid-cols-3 gap-4 sm:gap-8 max-w-2xl mx-auto animate-slide-up"
+		<div class="grid grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto animate-slide-up"
 			style="animation-delay: 0.4s;"
 		>
 			{heroContent.stats.map((stat) => (
-				<div class="text-center p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-					<div class="text-3xl sm:text-4xl font-display font-bold text-accent-400 mb-1">
+				<div class="min-w-0 text-center p-3 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
+					<div class="font-display text-[clamp(1.75rem,7vw,2.5rem)] sm:text-4xl font-bold leading-none text-accent-400 mb-2">
 						{stat.value}
 					</div>
-					<div class="text-xs sm:text-sm text-neutral-300 font-medium">
+					<div class="text-[0.72rem] sm:text-sm leading-snug text-neutral-300 font-medium">
 						{stat.label}
 					</div>
 				</div>
