@@ -113,8 +113,13 @@ const projects: Project[] = [
 				
 				return (
 					<article 
-						class={`group relative rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer
+						class={`group relative rounded-2xl lg:rounded-3xl overflow-hidden cursor-pointer focus:outline-none focus:ring-2 focus:ring-accent-400 focus:ring-offset-4 focus:ring-offset-azento-700
 							${sizeClasses[project.size as keyof typeof sizeClasses]}`}
+						role="button"
+						tabindex="0"
+						aria-label={`Ver imagen ampliada de ${project.title}`}
+						data-lightbox-trigger
+						data-project-index={index}
 					>
 						<!-- Image -->
 						<img 
@@ -202,4 +207,156 @@ const projects: Project[] = [
 			</a>
 		</div>
 	</div>
+
+	<div 
+		id="project-lightbox"
+		class="fixed inset-0 z-[100] hidden items-center justify-center bg-azento-950/95 px-4 py-6 backdrop-blur-sm sm:px-6 lg:px-10"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="project-lightbox-title"
+		data-project-lightbox
+		data-projects={JSON.stringify(projects)}
+	>
+		<button
+			type="button"
+			class="absolute right-4 top-4 z-[101] inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-accent-400 sm:right-6 sm:top-6"
+			aria-label="Cerrar imagen"
+			data-lightbox-close
+		>
+			<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+			</svg>
+		</button>
+
+		<button
+			type="button"
+			class="absolute left-3 top-1/2 z-[101] inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-accent-400 sm:left-6 sm:h-12 sm:w-12"
+			aria-label="Imagen anterior"
+			data-lightbox-prev
+		>
+			<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+			</svg>
+		</button>
+
+		<figure class="pointer-events-none flex h-full w-full max-w-6xl flex-col items-center justify-center gap-4 px-10 sm:gap-5">
+			<img
+				id="project-lightbox-image"
+				class="pointer-events-auto max-h-[72vh] max-w-full rounded-2xl object-contain shadow-2xl sm:max-h-[78vh]"
+				src=""
+				alt=""
+				data-lightbox-image
+			/>
+			<figcaption class="pointer-events-auto text-center">
+				<p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-400" data-lightbox-category></p>
+				<h3 id="project-lightbox-title" class="font-display text-2xl font-semibold text-white sm:text-3xl" data-lightbox-title></h3>
+			</figcaption>
+		</figure>
+
+		<button
+			type="button"
+			class="absolute right-3 top-1/2 z-[101] inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white backdrop-blur-sm transition-colors hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-accent-400 sm:right-6 sm:h-12 sm:w-12"
+			aria-label="Imagen siguiente"
+			data-lightbox-next
+		>
+			<svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+			</svg>
+		</button>
+	</div>
 </section>
+
+<script>
+	type LightboxProject = {
+		title: string;
+		category: string;
+		location: string;
+		image: string;
+	};
+
+	const lightbox = document.querySelector<HTMLElement>("[data-project-lightbox]");
+	const triggers = document.querySelectorAll<HTMLElement>("[data-lightbox-trigger]");
+	const image = document.querySelector<HTMLImageElement>("[data-lightbox-image]");
+	const title = document.querySelector<HTMLElement>("[data-lightbox-title]");
+	const category = document.querySelector<HTMLElement>("[data-lightbox-category]");
+	const closeButton = document.querySelector<HTMLButtonElement>("[data-lightbox-close]");
+	const previousButton = document.querySelector<HTMLButtonElement>("[data-lightbox-prev]");
+	const nextButton = document.querySelector<HTMLButtonElement>("[data-lightbox-next]");
+
+	if (lightbox && image && title && category) {
+		const projects: LightboxProject[] = JSON.parse(lightbox.dataset.projects ?? "[]");
+		let activeIndex = 0;
+		let lastFocusedElement: HTMLElement | null = null;
+
+		const updateLightbox = (index: number) => {
+			const project = projects[index];
+
+			if (!project) return;
+
+			activeIndex = index;
+			image.src = project.image;
+			image.alt = project.title;
+			title.textContent = project.title;
+			category.textContent = project.category;
+		};
+
+		const openLightbox = (index: number) => {
+			lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+			updateLightbox(index);
+			lightbox.classList.remove("hidden");
+			lightbox.classList.add("flex");
+			document.body.classList.add("overflow-hidden");
+			closeButton?.focus();
+		};
+
+		const closeLightbox = () => {
+			lightbox.classList.add("hidden");
+			lightbox.classList.remove("flex");
+			document.body.classList.remove("overflow-hidden");
+			lastFocusedElement?.focus();
+		};
+
+		const showPrevious = () => {
+			const previousIndex = (activeIndex - 1 + projects.length) % projects.length;
+			updateLightbox(previousIndex);
+		};
+
+		const showNext = () => {
+			const nextIndex = (activeIndex + 1) % projects.length;
+			updateLightbox(nextIndex);
+		};
+
+		triggers.forEach((trigger) => {
+			const openFromTrigger = () => {
+				const index = Number(trigger.dataset.projectIndex ?? 0);
+				openLightbox(index);
+			};
+
+			trigger.addEventListener("click", openFromTrigger);
+			trigger.addEventListener("keydown", (event) => {
+				if (event.key === "Enter" || event.key === " ") {
+					event.preventDefault();
+					openFromTrigger();
+				}
+			});
+		});
+
+		closeButton?.addEventListener("click", closeLightbox);
+		previousButton?.addEventListener("click", showPrevious);
+		nextButton?.addEventListener("click", showNext);
+
+		lightbox.addEventListener("click", (event) => {
+			if (event.target === lightbox) {
+				closeLightbox();
+			}
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (lightbox.classList.contains("hidden")) return;
+
+			if (event.key === "Escape") closeLightbox();
+			if (event.key === "ArrowLeft") showPrevious();
+			if (event.key === "ArrowRight") showNext();
+		});
+	}
+</script>
