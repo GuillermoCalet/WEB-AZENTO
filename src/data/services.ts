@@ -74,7 +74,7 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#contacto",
+			primaryHref: "/#presupuesto",
 			secondaryText: "Ver Proyectos",
 			secondaryHref: "/#proyectos"
 		},
@@ -125,7 +125,7 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#contacto",
+			primaryHref: "/#presupuesto",
 			secondaryText: "Ver Proyectos",
 			secondaryHref: "/#proyectos"
 		},
@@ -175,7 +175,7 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#contacto",
+			primaryHref: "/#presupuesto",
 			secondaryText: "Ver Proyectos",
 			secondaryHref: "/#proyectos"
 		},
@@ -226,7 +226,7 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#contacto",
+			primaryHref: "/#presupuesto",
 			secondaryText: "Ver Proyectos",
 			secondaryHref: "/#proyectos"
 		},

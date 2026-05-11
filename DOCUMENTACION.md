@@ -320,9 +320,9 @@ Para **añadir un nuevo servicio**, agregar objeto al array `services` con la es
 ```javascript
 {
   icon: "phone",              // "phone" | "email" | "instagram" | "location"
-  label: "Teléfonos",
-  value: "682 412 236 · 659 136 093",
-  href: "tel:+34682412236",   // Enlace al hacer clic
+  label: "Teléfono fijo",
+  value: "919 898 717",
+  href: "tel:+34919898717",   // Enlace al hacer clic
 }
 ```
 
