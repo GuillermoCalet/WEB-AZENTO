@@ -83,7 +83,7 @@ const heroContent = {
 		</p>
 
 		<!-- Botones CTA -->
-		<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 
+		<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 sm:mb-16 
 			animate-slide-up"
 			style="animation-delay: 0.3s;"
 		>
@@ -127,15 +127,15 @@ const heroContent = {
 		</div>
 
 		<!-- Stats -->
-		<div class="grid grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto animate-slide-up"
+		<div class="grid grid-cols-3 gap-2 sm:gap-8 max-w-[22rem] sm:max-w-2xl mx-auto animate-slide-up"
 			style="animation-delay: 0.4s;"
 		>
 			{heroContent.stats.map((stat) => (
-				<div class="min-w-0 text-center p-3 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10">
-					<div class="font-display text-[clamp(1.75rem,7vw,2.5rem)] sm:text-4xl font-bold leading-none text-accent-400 mb-2">
+				<div class="min-w-0 h-full min-h-[5.4rem] sm:min-h-0 text-center px-2 py-3 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 overflow-hidden">
+					<div class="font-display text-[clamp(1.35rem,5.8vw,1.65rem)] sm:text-4xl font-bold leading-none text-accent-400 mb-2 whitespace-nowrap">
 						{stat.value}
 					</div>
-					<div class="text-[0.72rem] sm:text-sm leading-snug text-neutral-300 font-medium">
+					<div class="text-[0.68rem] sm:text-sm leading-tight text-neutral-300 font-medium break-words">
 						{stat.label}
 					</div>
 				</div>
