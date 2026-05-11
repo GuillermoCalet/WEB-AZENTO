@@ -41,8 +41,8 @@ const heroContent = {
 			{heroContent.backgroundImages.map((img, index) => (
 				<img 
 					src={img}
-					alt={`AZento Home Solutions - Imagen ${index + 1}`}
-					class={`hero-slide absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
+					alt={`AZento Home - Imagen ${index + 1}`}
+					class={`hero-slide absolute inset-0 w-full h-full object-cover object-[55%_center] sm:object-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
 					data-slide-index={index}
 					loading={index === 0 ? "eager" : "lazy"}
 				/>
@@ -55,12 +55,12 @@ const heroContent = {
 	</div>
 
 	<!-- Contenido Principal -->
-	<div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+	<div class="relative z-10 w-full max-w-[390px] sm:max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
 		<!-- Badge superior -->
 		<div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 
-			rounded-full px-4 py-2 mb-8 animate-fade-in">
-			<span class="w-2 h-2 bg-accent-400 rounded-full animate-pulse"></span>
-			<span class="text-neutral-100 text-sm font-medium tracking-wide">
+			max-w-full rounded-full px-4 py-2 mb-8 animate-fade-in">
+			<span class="w-2 h-2 shrink-0 bg-accent-400 rounded-full animate-pulse"></span>
+			<span class="text-neutral-100 text-xs sm:text-sm font-medium tracking-wide leading-snug">
 				Jardines · Terrazas · Pérgolas · Fachadas
 			</span>
 		</div>
@@ -70,9 +70,9 @@ const heroContent = {
 			text-white leading-tight mb-6 animate-slide-up"
 			style="animation-delay: 0.1s;"
 		>
-			{heroContent.headline.split(' ').slice(0, 3).join(' ')}
-			<span class="block text-accent-300">
-				{heroContent.headline.split(' ').slice(3).join(' ')}
+			{heroContent.headline.split(' ').slice(0, 2).join(' ')}
+			<span class="block sm:inline sm:ml-3 text-accent-300">
+				{heroContent.headline.split(' ').slice(2).join(' ')}
 			</span>
 		</h1>
 
@@ -93,7 +93,7 @@ const heroContent = {
 			<a 
 				href={heroContent.ctaPrimary.href}
 				class="group inline-flex items-center gap-3 bg-accent-400 text-neutral-900 
-					px-8 py-4 rounded-full font-semibold text-lg shadow-2xl shadow-accent-500/30
+					w-full max-w-sm justify-center px-6 sm:px-8 py-4 rounded-full font-semibold text-lg shadow-2xl shadow-accent-500/30
 					hover:bg-accent-300 hover:shadow-accent-400/40 hover:-translate-y-1 
 					transition-all duration-300"
 			>
@@ -112,7 +112,7 @@ const heroContent = {
 			<a 
 				href={heroContent.ctaSecondary.href}
 				class="group inline-flex items-center gap-3 bg-transparent text-white 
-					px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30
+					w-full max-w-xs justify-center px-6 sm:px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30
 					hover:bg-white/10 hover:border-white/50 hover:-translate-y-1 
 					backdrop-blur-sm transition-all duration-300"
 			>
