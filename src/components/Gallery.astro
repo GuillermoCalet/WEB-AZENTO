@@ -11,8 +11,18 @@ const sectionData = {
 	description: "Cada proyecto es una obra de arte única. Descubre cómo transformamos espacios ordinarios en refugios extraordinarios.",
 };
 
+type Project = {
+	id: number;
+	title: string;
+	category: string;
+	location: string;
+	image: string;
+	size: "large" | "medium" | "small";
+	objectPosition?: string;
+};
+
 // Proyectos reales de AZento
-const projects = [
+const projects: Project[] = [
 	{
 		id: 1,
 		title: "Fachada con madera tecnológica",
@@ -31,8 +41,8 @@ const projects = [
 	},
 	{
 		id: 3,
-		title: "Pergola Madera",
-		category: "Pergolas y Celosías",
+		title: "Pérgola Madera",
+		category: "Pérgolas y Celosías",
 		location: "Madrid",
 		image: "/images/jardin marisa_pergola.JPG",
 		size: "small",
@@ -48,10 +58,19 @@ const projects = [
 	{
 		id: 5,
 		title: "Cocina Premium",
-		category: "Reforma Interior",
+		category: "Reforma Exterior",
 		location: "Madrid",
-		image: "/images/cocina_2.png",
+		image: "/images/cocina_exterior_premium.jpeg",
 		size: "medium",
+	},
+	{
+		id: 6,
+		title: "Exterior Relajante",
+		category: "Jardines y Terrazas",
+		location: "Madrid",
+		image: "/images/jacuzzi_exterior.jpeg",
+		size: "medium",
+		objectPosition: "center 40%",
 	},
 ];
 ---
@@ -103,6 +122,7 @@ const projects = [
 							alt={project.title}
 							class="absolute inset-0 w-full h-full object-cover 
 								transition-transform duration-700 group-hover:scale-110"
+							style={`object-position: ${project.objectPosition ?? "center"};`}
 							loading="lazy"
 						/>
 						

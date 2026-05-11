@@ -219,7 +219,7 @@ export const services: Service[] = [
 		],
 		gallery: [
 			"/images/cocina_1.png",
-			"/images/cocina_2.png",
+			"/images/cocina_exterior_premium.jpeg",
 			// TODO: Añadir más imágenes de reformas interiores
 			// "/images/services/interiores-1.jpg",
 			// "/images/services/interiores-2.jpg",
