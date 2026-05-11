@@ -13,13 +13,13 @@ interface Props {
 }
 
 const { 
-	title = "AZento Home Solutions | Diseño y Reforma de Jardines de Lujo",
+	title = "AZento Home",
 	description = "Transformamos espacios exteriores en jardines de ensueño. Paisajismo exclusivo, reformas integrales y mantenimiento premium para hogares que buscan la excelencia."
 } = Astro.props;
 
 // Datos SEO y meta tags
 const siteData = {
-	siteName: "AZento Home Solutions",
+	siteName: "AZento Home",
 	siteUrl: "https://azentohome.com",
 	image: "https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1200",
 	twitterHandle: "@azentohome",
@@ -56,8 +56,9 @@ const siteData = {
 		<meta name="twitter:image" content={siteData.image} />
 		
 		<!-- Favicon -->
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/jpeg" href="/images/logo_azento.jpg?v=3" />
+		<link rel="shortcut icon" type="image/jpeg" href="/images/logo_azento.jpg?v=3" />
+		<link rel="apple-touch-icon" href="/images/logo_azento.jpg?v=3" />
 		
 		<!-- Google Fonts: Playfair Display + Inter -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
