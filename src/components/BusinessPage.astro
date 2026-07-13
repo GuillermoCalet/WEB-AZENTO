@@ -1,0 +1,37 @@
+---
+import type { BusinessUnitConfig } from "../data/businessUnits";
+import Layout from "../layouts/Layout.astro";
+import Navbar from "./Navbar.astro";
+import Hero from "./Hero.astro";
+import Services from "./Services.astro";
+import Gallery from "./Gallery.astro";
+import ProcessTrust from "./ProcessTrust.astro";
+import Contact from "./Contact.astro";
+import Footer from "./Footer.astro";
+
+interface Props {
+	unit: BusinessUnitConfig;
+	otherUnit: BusinessUnitConfig;
+}
+
+const { unit, otherUnit } = Astro.props;
+---
+
+<Layout
+	title={unit.seoTitle}
+	description={unit.seoDescription}
+	canonicalPath={unit.slug}
+	image={unit.heroImage}
+>
+	<Navbar unit={unit} otherUnit={otherUnit} transparent />
+
+	<main>
+		<Hero unit={unit} />
+		<Services unit={unit} />
+		<Gallery unit={unit} />
+		<ProcessTrust unit={unit} />
+		<Contact unit={unit} />
+	</main>
+
+	<Footer basePath={unit.slug} />
+</Layout>

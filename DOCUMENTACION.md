@@ -1,4 +1,4 @@
-# 🏡 AZento Home Solutions - Documentación Técnica
+# 🏡 AZento Home  - Documentación Técnica
 
 ## 📋 Índice
 

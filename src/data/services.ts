@@ -74,9 +74,9 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#presupuesto",
+			primaryHref: "/madera-tecnologica#presupuesto",
 			secondaryText: "Ver Proyectos",
-			secondaryHref: "/#proyectos"
+			secondaryHref: "/madera-tecnologica#proyectos"
 		},
 		faq: [
 			{
@@ -125,9 +125,9 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#presupuesto",
+			primaryHref: "/madera-tecnologica#presupuesto",
 			secondaryText: "Ver Proyectos",
-			secondaryHref: "/#proyectos"
+			secondaryHref: "/madera-tecnologica#proyectos"
 		},
 		faq: [
 			{
@@ -175,9 +175,9 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#presupuesto",
+			primaryHref: "/madera-tecnologica#presupuesto",
 			secondaryText: "Ver Proyectos",
-			secondaryHref: "/#proyectos"
+			secondaryHref: "/madera-tecnologica#proyectos"
 		},
 		faq: [
 			{
@@ -226,9 +226,9 @@ export const services: Service[] = [
 		],
 		cta: {
 			primaryText: "Solicitar Presupuesto",
-			primaryHref: "/#presupuesto",
+			primaryHref: "/reformas#presupuesto",
 			secondaryText: "Ver Proyectos",
-			secondaryHref: "/#proyectos"
+			secondaryHref: "/reformas#proyectos"
 		},
 		faq: [
 			{

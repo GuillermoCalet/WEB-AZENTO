@@ -1,185 +1,52 @@
 ---
-/**
- * Hero.astro - Sección principal a pantalla completa
- * Imagen de fondo con overlay y CTAs destacados
- */
+import { ArrowDown, ArrowRight } from "lucide-react";
+import type { BusinessUnitConfig } from "../data/businessUnits";
 
-// Datos del Hero - Fácil de editar
-const heroContent = {
-	headline: "Reformas con AZento",
-	subheadline: "Diseño y ejecución de espacios exteriores e interiores.",
-	ctaPrimary: {
-		label: "Solicitar Presupuesto",
-		href: "/#presupuesto",
-	},
-	ctaSecondary: {
-		label: "Ver Proyectos",
-		href: "#proyectos",
-	},
-	// Imágenes de fondo para slideshow
-	backgroundImages: [
-		"/images/jardin_2.png",
-		"/images/logo_claro.jpg",
-	],
-	// Estadísticas destacadas
-	stats: [
-		{ value: "Desde", label: "2020" },
-		{ value: "100%", label: "Proyectos personalizados" },
-		{ value: "Madrid", label: "y alrededores" },
-	],
-};
+interface Props {
+	unit: BusinessUnitConfig;
+}
+
+const { unit } = Astro.props;
+const isWood = unit.tone === "wood";
 ---
 
-<section 
-	id="inicio"
-	class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden"
->
-	<!-- Background Images Slideshow -->
-	<div class="absolute inset-0 z-0">
-		<!-- Contenedor de imágenes con transición -->
-		<div id="hero-slideshow" class="relative w-full h-full">
-			{heroContent.backgroundImages.map((img, index) => (
-				<img 
-					src={img}
-					alt={`AZento Home - Imagen ${index + 1}`}
-					class={`hero-slide absolute inset-0 w-full h-full object-cover object-[55%_center] sm:object-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
-					data-slide-index={index}
-					loading={index === 0 ? "eager" : "lazy"}
-				/>
-			))}
+<section id="inicio" class="relative flex min-h-[680px] items-end overflow-hidden pb-16 pt-32 sm:min-h-[720px] sm:pb-20 lg:min-h-[760px] lg:pb-24">
+	<img
+		src={unit.heroImage}
+		alt={unit.heroAlt}
+		class="absolute inset-0 h-full w-full object-cover"
+		loading="eager"
+		fetchpriority="high"
+	/>
+	<div class:list={["absolute inset-0", isWood ? "bg-gradient-to-r from-accent-950/90 via-accent-950/60 to-neutral-950/20" : "bg-gradient-to-r from-azento-950/95 via-azento-950/70 to-neutral-950/25"]}></div>
+	<div class="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-neutral-950/20"></div>
+
+	<div class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="max-w-3xl">
+			<p class:list={["mb-5 text-sm font-semibold uppercase tracking-widest", isWood ? "text-accent-300" : "text-azento-200"]}>
+				{unit.heroEyebrow}
+			</p>
+			<h1 class="font-display text-4xl font-semibold leading-[1.08] text-white sm:text-5xl lg:text-7xl">
+				{unit.heroTitle}
+			</h1>
+			<p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-200 sm:text-xl">
+				{unit.heroDescription}
+			</p>
+
+			<div class="mt-9 flex flex-col items-start gap-3 sm:flex-row">
+				<a href="#presupuesto" class:list={["inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-lg px-6 py-3 font-semibold transition-colors sm:w-auto", isWood ? "bg-accent-400 text-neutral-950 hover:bg-accent-300" : "bg-white text-azento-900 hover:bg-neutral-100"]}>
+					Solicitar presupuesto
+					<ArrowRight size={19} aria-hidden="true" />
+				</a>
+				<a href="#proyectos" class="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-lg border border-white/50 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10 sm:w-auto">
+					Ver proyectos
+					<ArrowDown size={18} aria-hidden="true" />
+				</a>
+			</div>
 		</div>
-		<!-- Overlay oscuro con gradiente usando colores de marca -->
-		<div class="absolute inset-0 bg-gradient-to-b from-azento-950/80 via-azento-900/60 to-azento-950/90"></div>
-		<!-- Overlay decorativo con patrón sutil -->
-		<div class="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,transparent_0%,rgba(67,95,105,0.4)_100%)]"></div>
+
+		<ul class="mt-12 flex flex-wrap gap-x-6 gap-y-3 border-t border-white/20 pt-6 text-sm text-white/75 sm:gap-x-9">
+			{unit.services.slice(0, 4).map((service) => <li>{service.title}</li>)}
+		</ul>
 	</div>
-
-	<!-- Contenido Principal -->
-	<div class="relative z-10 w-full max-w-[390px] sm:max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
-		<!-- Badge superior -->
-		<div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 
-			max-w-full rounded-full px-4 py-2 mb-8 animate-fade-in">
-			<span class="w-2 h-2 shrink-0 bg-accent-400 rounded-full animate-pulse"></span>
-			<span class="text-neutral-100 text-xs sm:text-sm font-medium tracking-wide leading-snug">
-				Jardines · Terrazas · Pérgolas · Fachadas
-			</span>
-		</div>
-
-		<!-- Headline Principal -->
-		<h1 class="font-display text-[3.35rem] sm:text-5xl md:text-6xl lg:text-7xl font-semibold 
-			text-white leading-[0.95] mb-6 animate-slide-up"
-			style="animation-delay: 0.1s;"
-		>
-			<span class="block">Reformas con</span>
-			<span class="block text-accent-300">AZento</span>
-		</h1>
-
-		<!-- Subtítulo -->
-		<p class="max-w-2xl mx-auto text-lg sm:text-xl text-neutral-200/90 leading-relaxed mb-10 
-			animate-slide-up"
-			style="animation-delay: 0.2s;"
-		>
-			{heroContent.subheadline}
-		</p>
-
-		<!-- Botones CTA -->
-		<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12 sm:mb-16 
-			animate-slide-up"
-			style="animation-delay: 0.3s;"
-		>
-			<!-- CTA Principal -->
-			<a 
-				href={heroContent.ctaPrimary.href}
-				class="group inline-flex items-center gap-3 bg-accent-400 text-neutral-900 
-					w-full max-w-sm justify-center px-6 sm:px-8 py-4 rounded-full font-semibold text-lg shadow-2xl shadow-accent-500/30
-					hover:bg-accent-300 hover:shadow-accent-400/40 hover:-translate-y-1 
-					transition-all duration-300"
-			>
-				{heroContent.ctaPrimary.label}
-				<svg 
-					class="w-5 h-5 group-hover:translate-x-1 transition-transform" 
-					fill="none" 
-					stroke="currentColor" 
-					viewBox="0 0 24 24"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-				</svg>
-			</a>
-
-			<!-- CTA Secundario -->
-			<a 
-				href={heroContent.ctaSecondary.href}
-				class="group inline-flex items-center gap-3 bg-transparent text-white 
-					w-full max-w-xs justify-center px-6 sm:px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30
-					hover:bg-white/10 hover:border-white/50 hover:-translate-y-1 
-					backdrop-blur-sm transition-all duration-300"
-			>
-				<svg 
-					class="w-5 h-5" 
-					fill="none" 
-					stroke="currentColor" 
-					viewBox="0 0 24 24"
-				>
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-				</svg>
-				{heroContent.ctaSecondary.label}
-			</a>
-		</div>
-
-		<!-- Stats -->
-		<div class="grid grid-cols-3 gap-2 sm:gap-8 max-w-[22rem] sm:max-w-2xl mx-auto animate-slide-up"
-			style="animation-delay: 0.4s;"
-		>
-			{heroContent.stats.map((stat) => (
-				<div class="min-w-0 h-full min-h-[5.4rem] sm:min-h-0 text-center px-2 py-3 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 overflow-hidden">
-					<div class="font-display text-[clamp(1.35rem,5.8vw,1.65rem)] sm:text-4xl font-bold leading-none text-accent-400 mb-2 whitespace-nowrap">
-						{stat.value}
-					</div>
-					<div class="text-[0.68rem] sm:text-sm leading-tight text-neutral-300 font-medium break-words">
-						{stat.label}
-					</div>
-				</div>
-			))}
-		</div>
-	</div>
-
-	<!-- Scroll Indicator -->
-	<div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-		<a href="#servicios" class="flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors">
-			<span class="text-xs tracking-widest uppercase">Scroll</span>
-			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-			</svg>
-		</a>
-	</div>
-
-	<!-- Decorative Elements -->
-	<div class="absolute top-1/4 left-10 w-64 h-64 bg-accent-400/10 rounded-full blur-3xl animate-float"></div>
-	<div class="absolute bottom-1/4 right-10 w-96 h-96 bg-azento-400/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
 </section>
-
-<script>
-	// Hero Slideshow - Intercala imágenes de fondo
-	const slides = document.querySelectorAll('.hero-slide');
-	let currentSlide = 0;
-	const totalSlides = slides.length;
-	const intervalTime = 5000; // 5 segundos entre cambios
-
-	function nextSlide() {
-		// Ocultar slide actual
-		slides[currentSlide].classList.remove('opacity-100');
-		slides[currentSlide].classList.add('opacity-0');
-		
-		// Avanzar al siguiente
-		currentSlide = (currentSlide + 1) % totalSlides;
-		
-		// Mostrar nuevo slide
-		slides[currentSlide].classList.remove('opacity-0');
-		slides[currentSlide].classList.add('opacity-100');
-	}
-
-	// Iniciar slideshow
-	if (totalSlides > 1) {
-		setInterval(nextSlide, intervalTime);
-	}
-</script>

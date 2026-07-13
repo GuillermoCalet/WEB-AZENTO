@@ -1,10 +1,7 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Endpoint PHP para Arsys: /api/quote.php
- * Mantiene la misma respuesta JSON que el endpoint Astro/Node anterior.
- */
+
 
 const RATE_LIMIT_WINDOW = 60;
 const RATE_LIMIT_MAX = 5;
@@ -38,11 +35,14 @@ if (!is_array($body)) {
 }
 
 $data = [
-	'name' => sanitize_string($body['name'] ?? '', 100),
-	'email' => sanitize_string($body['email'] ?? '', 254),
-	'phone' => sanitize_string($body['phone'] ?? '', 30),
-	'service' => sanitize_string($body['service'] ?? '', 50),
+	'name' => sanitize_single_line($body['name'] ?? '', 100),
+	'email' => sanitize_single_line($body['email'] ?? '', 254),
+	'phone' => sanitize_single_line($body['phone'] ?? '', 30),
+	'service' => sanitize_single_line($body['service'] ?? '', 80),
 	'message' => sanitize_string($body['message'] ?? '', 2000),
+	'business_unit' => sanitize_single_line($body['business_unit'] ?? '', 40),
+	'source_page' => sanitize_single_line($body['source_page'] ?? '', 120),
+	'source_url' => sanitize_single_line($body['source_url'] ?? '', 500),
 	'honeypot' => (string)($body['honeypot'] ?? ''),
 ];
 
@@ -203,12 +203,19 @@ function sanitize_string(mixed $value, int $maxLength = 500): string
 {
 	$text = trim(strip_tags((string)$value));
 	$text = str_replace(['<', '>', '"', "'"], '', $text);
+	$text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $text) ?? '';
 
 	if (function_exists('mb_substr')) {
 		return mb_substr($text, 0, $maxLength, 'UTF-8');
 	}
 
 	return substr($text, 0, $maxLength);
+}
+
+function sanitize_single_line(mixed $value, int $maxLength = 500): string
+{
+	$text = sanitize_string($value, $maxLength);
+	return trim(preg_replace('/[\r\n]+/', ' ', $text) ?? '');
 }
 
 function validate_request(array $data): ?string
@@ -241,7 +248,34 @@ function validate_request(array $data): ?string
 		return 'El mensaje es demasiado largo (máx. 2000 caracteres)';
 	}
 
+	$unit = business_unit_config($data['business_unit']);
+	if ($unit === null) {
+		return 'El área de negocio no es válida';
+	}
+
+	if ($data['source_page'] !== $unit['source_page']) {
+		return 'La página de origen no es válida';
+	}
+
+	if (!array_key_exists($data['service'], $unit['services'])) {
+		return 'El servicio solicitado no es válido para esta área';
+	}
+
+	if (!validate_source_url($data['source_url'])) {
+		return 'La URL de origen no es válida';
+	}
+
 	return null;
+}
+
+function validate_source_url(string $url): bool
+{
+	if ($url === '' || !filter_var($url, FILTER_VALIDATE_URL)) {
+		return false;
+	}
+
+	$scheme = strtolower((string)parse_url($url, PHP_URL_SCHEME));
+	return in_array($scheme, ['http', 'https'], true);
 }
 
 function string_length(string $value): int
@@ -266,21 +300,46 @@ function validate_phone(string $phone): bool
 		&& ctype_digit($digitsOnly);
 }
 
-function service_name(string $service): string
+function business_unit_config(string $businessUnit): ?array
 {
-	$services = [
-		'paisajismo' => 'Paisajismo Exclusivo',
-		'reformas' => 'Reformas Integrales',
-		'mantenimiento' => 'Mantenimiento Premium',
-		'jardines-terrazas' => 'Jardines y Terrazas',
-		'pergolas-celosias' => 'Pérgolas y Celosías',
-		'fachadas-revestimientos' => 'Fachadas y Revestimientos',
-		'reformas-interiores' => 'Reformas Interiores',
-		'otro' => 'Otro proyecto',
-		'' => 'No especificado',
+	$units = [
+		'madera_tecnologica' => [
+			'label' => 'Madera Tecnológica',
+			'subject' => '[AZENTO | MADERA TECNOLÓGICA] Nueva solicitud de presupuesto',
+			'source_page' => '/madera-tecnologica',
+			'services' => [
+				'tarima-madera-tecnologica' => 'Tarima de madera tecnológica',
+				'pergolas-celosias' => 'Pérgolas y celosías',
+				'fachadas-revestimientos' => 'Fachadas y revestimientos',
+				'cerramientos-separadores' => 'Cerramientos y separadores',
+				'jardines-terrazas' => 'Jardines y terrazas',
+				'otro-madera-tecnologica' => 'Otro proyecto de madera tecnológica',
+			],
+		],
+		'reformas' => [
+			'label' => 'Reformas',
+			'subject' => '[AZENTO | REFORMAS] Nueva solicitud de presupuesto',
+			'source_page' => '/reformas',
+			'services' => [
+				'reforma-integral' => 'Reforma integral',
+				'cocina' => 'Cocina',
+				'bano' => 'Baño',
+				'reforma-interior' => 'Reforma interior',
+				'iluminacion' => 'Iluminación',
+				'mobiliario-medida' => 'Mobiliario a medida',
+				'reforma-exterior' => 'Reforma exterior',
+				'otro-reforma' => 'Otro proyecto de reforma',
+			],
+		],
 	];
 
-	return $services[$service] ?? ($service ?: 'No especificado');
+	return $units[$businessUnit] ?? null;
+}
+
+function service_name(string $businessUnit, string $service): string
+{
+	$unit = business_unit_config($businessUnit);
+	return $unit['services'][$service] ?? 'No especificado';
 }
 
 function send_email(array $data, array $meta, array $config): void
@@ -311,35 +370,48 @@ function build_email_bodies(array $data, array $meta): array
 {
 	date_default_timezone_set('Europe/Madrid');
 
-	$serviceName = service_name($data['service']);
+	$unit = business_unit_config($data['business_unit']);
+	if ($unit === null) {
+		throw new RuntimeException('Área de negocio no válida');
+	}
+
+	$areaName = $unit['label'];
+	$serviceName = service_name($data['business_unit'], $data['service']);
 	$timestamp = date('d/m/Y H:i:s');
-	$subject = 'NUEVO PRESUPUESTO !!! - ' . $serviceName . ' - ' . $data['name'];
+	$subject = $unit['subject'];
 	$message = $data['message'] !== '' ? $data['message'] : 'Sin mensaje adicional';
 	$phone = $data['phone'] !== '' ? $data['phone'] : 'No proporcionado';
 
 	$textBody = <<<TEXT
-NUEVO PRESUPUESTO - AZento Home Solutions
-==========================================
+NUEVA SOLICITUD DE PRESUPUESTO - AZento Home
+=============================================
 
-Servicio: {$serviceName}
+Área: {$areaName}
+Página de origen: {$data['source_page']}
 Nombre: {$data['name']}
-Email: {$data['email']}
+Correo: {$data['email']}
 Teléfono: {$phone}
+Servicio solicitado: {$serviceName}
 
 Mensaje:
 {$message}
 
-------------------------------------------
-Fecha: {$timestamp}
+URL de origen: {$data['source_url']}
+Fecha y hora: {$timestamp}
+
+---------------------------------------------
 IP: {$meta['ip']}
 User-Agent: {$meta['userAgent']}
 TEXT;
 
+	$htmlArea = html_escape($areaName);
+	$htmlSourcePage = html_escape($data['source_page']);
 	$htmlService = html_escape($serviceName);
 	$htmlName = html_escape($data['name']);
 	$htmlEmail = html_escape($data['email']);
 	$htmlPhone = html_escape($phone);
 	$htmlMessage = nl2br(html_escape($message));
+	$htmlSourceUrl = html_escape($data['source_url']);
 	$htmlTimestamp = html_escape($timestamp);
 
 	$htmlBody = <<<HTML
@@ -350,52 +422,63 @@ TEXT;
 	<style>
 		body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
 		.container { max-width: 600px; margin: 0 auto; padding: 20px; }
-		.header { background: linear-gradient(135deg, #435f69 0%, #5b727b 100%); color: white; padding: 30px; border-radius: 12px 12px 0 0; }
+		.header { background: #435f69; color: white; padding: 30px; border-radius: 8px 8px 0 0; }
 		.header h1 { margin: 0; font-size: 24px; }
-		.content { background: #f8f9fa; padding: 30px; border-radius: 0 0 12px 12px; }
+		.content { background: #f8f9fa; padding: 30px; border-radius: 0 0 8px 8px; }
 		.field { margin-bottom: 20px; }
 		.field-label { font-weight: 600; color: #435f69; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
 		.field-value { font-size: 16px; margin-top: 5px; padding: 12px; background: white; border-radius: 8px; border-left: 3px solid #c4a882; }
 		.message-box { background: white; padding: 20px; border-radius: 8px; border-left: 3px solid #435f69; white-space: pre-wrap; }
 		.meta { margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #666; }
-		.badge { display: inline-block; background: #c4a882; color: #1a2528; padding: 4px 12px; border-radius: 20px; font-size: 14px; font-weight: 600; }
+		.badge { display: inline-block; background: #c4a882; color: #1a2528; padding: 4px 10px; border-radius: 6px; font-size: 14px; font-weight: 600; }
 	</style>
 </head>
 <body>
 	<div class="container">
 		<div class="header">
-			<h1>Nuevo Presupuesto</h1>
-			<p style="margin: 10px 0 0 0; opacity: 0.9;">AZento Home</p>
-		</div>
-		<div class="content">
-			<div class="field">
-				<div class="field-label">Servicio de interés</div>
-				<div class="field-value"><span class="badge">{$htmlService}</span></div>
+				<h1>Nueva solicitud de presupuesto</h1>
+				<p style="margin: 10px 0 0 0; opacity: 0.9;">AZento Home</p>
 			</div>
+			<div class="content">
+				<div class="field">
+					<div class="field-label">Área</div>
+					<div class="field-value"><span class="badge">{$htmlArea}</span></div>
+				</div>
 
-			<div class="field">
-				<div class="field-label">Nombre completo</div>
-				<div class="field-value">{$htmlName}</div>
-			</div>
+				<div class="field">
+					<div class="field-label">Página de origen</div>
+					<div class="field-value">{$htmlSourcePage}</div>
+				</div>
 
-			<div class="field">
-				<div class="field-label">Email</div>
-				<div class="field-value"><a href="mailto:{$htmlEmail}">{$htmlEmail}</a></div>
-			</div>
+				<div class="field">
+					<div class="field-label">Nombre</div>
+					<div class="field-value">{$htmlName}</div>
+				</div>
 
-			<div class="field">
-				<div class="field-label">Teléfono</div>
-				<div class="field-value">{$htmlPhone}</div>
-			</div>
+				<div class="field">
+					<div class="field-label">Correo</div>
+					<div class="field-value"><a href="mailto:{$htmlEmail}">{$htmlEmail}</a></div>
+				</div>
+
+				<div class="field">
+					<div class="field-label">Teléfono</div>
+					<div class="field-value">{$htmlPhone}</div>
+				</div>
+
+				<div class="field">
+					<div class="field-label">Servicio solicitado</div>
+					<div class="field-value">{$htmlService}</div>
+				</div>
 
 			<div class="field">
 				<div class="field-label">Mensaje del cliente</div>
 				<div class="message-box">{$htmlMessage}</div>
 			</div>
 
-			<div class="meta">
-				<strong>Fecha:</strong> {$htmlTimestamp}<br>
-			</div>
+				<div class="meta">
+					<strong>URL de origen:</strong> {$htmlSourceUrl}<br>
+					<strong>Fecha y hora:</strong> {$htmlTimestamp}<br>
+				</div>
 		</div>
 	</div>
 </body>
@@ -596,11 +679,14 @@ function send_whatsapp(array $data, array $config): void
 		return;
 	}
 
-	$serviceName = service_name($data['service']);
+	$unit = business_unit_config($data['business_unit']);
+	$areaName = $unit['label'] ?? 'No especificada';
+	$serviceName = service_name($data['business_unit'], $data['service']);
 	$phone = $data['phone'] !== '' ? $data['phone'] : 'Sin teléfono';
 	$message = <<<TEXT
 Nuevo presupuesto AZento
 
+Área: {$areaName}
 Nombre: {$data['name']}
 Servicio: {$serviceName}
 Teléfono: {$phone}
