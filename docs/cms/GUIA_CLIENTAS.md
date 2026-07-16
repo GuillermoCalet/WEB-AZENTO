@@ -32,7 +32,7 @@ No modifiques rutas, identificadores internos, CIF ni datos registrales sin conf
 3. Completa el texto alternativo describiendo brevemente lo que se ve.
 4. Guarda el borrador.
 
-Usa JPG, PNG o WebP, máximo 8 MB. Recomendación: 1600–2400 px, proporción 4:3 y menos de 1 MB. No renombres HEIC/HEIF como JPG o PNG.
+Usa JPG, PNG o WebP, máximo 3 MB. Recomendación: 1600–2400 px, proporción 4:3 y menos de 1 MB. No renombres HEIC/HEIF como JPG o PNG.
 
 ## Añadir un proyecto
 

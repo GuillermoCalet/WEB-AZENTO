@@ -64,7 +64,7 @@ scripts/cms/
 ## Validaciones de medios
 
 - JPG/JPEG, PNG o WebP reales; no basta con cambiar la extensión.
-- Máximo 8 MB por archivo.
+- Máximo 3 MB por archivo.
 - Entre 300 × 300 y 8000 × 8000 px para contenido; logo existente permitido desde 64 px.
 - Texto alternativo obligatorio en imágenes informativas.
 - Hasta 20 proyectos, imágenes por galería y FAQ por servicio.

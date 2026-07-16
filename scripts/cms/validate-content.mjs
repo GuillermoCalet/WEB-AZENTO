@@ -124,7 +124,7 @@ for (const unit of units) {
 }
 
 const allowedExtensions = new Set([".jpg", ".jpeg", ".png", ".webp"]);
-const MAX_FILE_SIZE = 8 * 1024 * 1024;
+const MAX_FILE_SIZE = 3 * 1024 * 1024;
 const MAX_DIMENSION = 8000;
 
 function readPngSize(buffer) {
@@ -192,7 +192,7 @@ for (const { src, label, minDimension } of images) {
   try {
     const fileStat = await stat(fileUrl);
     if (fileStat.size > MAX_FILE_SIZE) {
-      errors.push(`${label}: ${src} supera el máximo de 8 MB`);
+      errors.push(`${label}: ${src} supera el máximo de 3 MB`);
     }
     const buffer = await readFile(fileUrl);
     const metadata = readPngSize(buffer) || readJpegSize(buffer) || readWebpSize(buffer);
