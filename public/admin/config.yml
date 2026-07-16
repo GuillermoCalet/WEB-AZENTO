@@ -1,0 +1,274 @@
+backend:
+  name: github
+  repo: GuillermoCalet/WEB-AZENTO
+  branch: main
+  base_url: https://cms-auth.azentohome.com
+  auth_endpoint: /auth
+  auth_scope: repo
+  squash_merges: true
+  open_authoring: true
+publish_mode: editorial_workflow
+show_preview_links: true
+local_backend: true
+locale: es
+site_url: https://azentohome.com
+display_url: https://azentohome.com
+logo_url: https://azentohome.com/images/logo_azento.jpg
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+media_library:
+  config:
+    max_file_size: 8388608
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: contenido
+    label: Contenido de la web
+    label_singular: Contenido
+    files:
+      - name: configuracion
+        label: Configuración general
+        file: src/content/cms/site-settings.json
+        format: json
+        description: Datos de empresa, contacto, logotipos y SEO general.
+        preview_path: /
+        fields:
+          - { label: Nombre de la marca, name: companyName, widget: string }
+          - { label: Razón social, name: legalName, widget: string, hint: Debe coincidir con la documentación legal. }
+          - { label: URL de la web, name: siteUrl, widget: string, pattern: ["^https://[^ ]+$", "Debe empezar por https://"] }
+          - label: Logo
+            name: logo
+            widget: object
+            fields:
+              - { label: Imagen, name: src, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+              - { label: Texto alternativo, name: alt, widget: string, hint: Obligatorio para accesibilidad. }
+              - { label: Pie de foto, name: caption, widget: hidden, required: false, default: "" }
+          - label: Logo claro decorativo
+            name: lightLogo
+            widget: object
+            fields:
+              - { label: Imagen, name: src, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+              - { label: Texto alternativo, name: alt, widget: hidden, required: false, default: "" }
+              - { label: Pie de foto, name: caption, widget: hidden, required: false, default: "" }
+          - { label: Teléfono visible, name: phoneDisplay, widget: string, hint: Ejemplo 919 898 717. }
+          - { label: Enlace de teléfono, name: phoneHref, widget: string, pattern: ["^tel:\\+[0-9]+$", "Formato tel:+34919898717"] }
+          - { label: Email, name: email, widget: string, pattern: ["^[^@ ]+@[^@ ]+\\.[^@ ]+$", "Introduce un email válido."] }
+          - { label: Zona de trabajo, name: location, widget: string }
+          - { label: Dirección legal, name: address, widget: string }
+          - { label: WhatsApp, name: whatsapp, widget: string, required: false }
+          - label: Instagram
+            name: instagram
+            widget: object
+            fields:
+              - { label: Nombre visible, name: label, widget: string }
+              - { label: URL, name: url, widget: string, pattern: ["^https://", "Debe ser una URL https://"] }
+          - { label: Horario, name: hours, widget: string, required: false }
+          - { label: Texto del pie de página, name: footerTagline, widget: text }
+          - label: Datos legales
+            name: legal
+            widget: object
+            hint: Revisa estos datos con asesoría legal antes de publicarlos.
+            fields:
+              - { label: CIF, name: cif, widget: string }
+              - { label: Registro mercantil, name: registry, widget: text }
+          - label: SEO general
+            name: defaultSeo
+            widget: object
+            fields:
+              - { label: Título, name: title, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
+              - { label: Descripción, name: description, widget: text }
+              - { label: Imagen social, name: image, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+              - { label: Texto alternativo de imagen social, name: imageAlt, widget: string }
+
+      - name: inicio
+        label: Página de inicio
+        file: src/content/cms/home.json
+        format: json
+        preview_path: /
+        fields:
+          - { label: Publicada, name: published, widget: boolean, default: true, hint: Si se desactiva, la compilación se detiene para evitar dejar la portada vacía. }
+          - { label: Título SEO, name: seoTitle, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
+          - { label: Descripción SEO, name: seoDescription, widget: text }
+          - { label: Imagen social, name: seoImage, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+          - { label: Texto superior, name: eyebrow, widget: string }
+          - { label: Título principal, name: title, widget: string }
+          - { label: Texto introductorio, name: intro, widget: text }
+          - { label: Etiqueta de tarjetas, name: cardEyebrow, widget: string }
+          - { label: Texto del botón de tarjetas, name: cardCtaPrefix, widget: string }
+          - { label: Etiqueta de contacto, name: contactEyebrow, widget: string }
+          - { label: Título de contacto, name: contactTitle, widget: string }
+
+      - name: divisiones
+        label: Divisiones, proyectos y servicios
+        file: src/content/cms/business-units.json
+        format: json
+        description: Gestiona las dos páginas principales. El orden de los elementos se cambia arrastrándolos.
+        preview_path: /madera-tecnologica
+        fields:
+          - label: Divisiones
+            name: units
+            widget: list
+            min: 2
+            max: 2
+            allow_add: false
+            collapsed: true
+            summary: "{{fields.name}}"
+            fields:
+              - { label: Identificador, name: id, widget: select, options: [{ label: Madera tecnológica, value: madera_tecnologica }, { label: Reformas, value: reformas }] }
+              - { label: Nombre, name: name, widget: string }
+              - { label: Nombre corto, name: shortName, widget: string }
+              - { label: Ruta, name: slug, widget: select, options: ["/madera-tecnologica", "/reformas"], hint: No cambiar sin intervención técnica. }
+              - { label: Estilo visual, name: tone, widget: select, options: [{ label: Madera, value: wood }, { label: Reformas, value: reform }], hint: Mantiene la paleta definida en el diseño. }
+              - { label: Publicada, name: published, widget: boolean, default: true }
+              - { label: Descripción de la tarjeta de inicio, name: selectorDescription, widget: text }
+              - { label: Imagen de la tarjeta de inicio, name: selectorImage, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+              - { label: Texto alternativo de la tarjeta, name: selectorAlt, widget: string }
+              - { label: Texto superior del hero, name: heroEyebrow, widget: string }
+              - { label: Título principal, name: heroTitle, widget: string }
+              - { label: Descripción principal, name: heroDescription, widget: text }
+              - { label: Imagen principal, name: heroImage, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+              - { label: Texto alternativo de imagen principal, name: heroAlt, widget: string }
+              - { label: Título SEO, name: seoTitle, widget: string }
+              - { label: Descripción SEO, name: seoDescription, widget: text }
+              - { label: Título de servicios, name: servicesTitle, widget: string }
+              - { label: Introducción de servicios, name: servicesDescription, widget: text }
+              - label: Servicios
+                name: services
+                widget: list
+                max: 20
+                collapsed: true
+                summary: "{{fields.title}}"
+                hint: Puedes añadir, ocultar, eliminar o reordenar. La apariencia no es editable.
+                fields:
+                  - { label: Nombre, name: title, widget: string }
+                  - { label: Identificador de URL, name: slug, widget: string, required: false, hint: Se genera automáticamente si queda vacío. }
+                  - { label: Descripción, name: description, widget: text }
+                  - { label: Enlace a página detallada, name: href, widget: string, required: false, hint: Déjalo vacío si no existe una página detallada. }
+                  - { label: Visible, name: visible, widget: boolean, default: true }
+              - { label: Título de proyectos, name: projectsTitle, widget: string }
+              - { label: Introducción de proyectos, name: projectsDescription, widget: text }
+              - label: Proyectos
+                name: projects
+                widget: list
+                max: 20
+                collapsed: true
+                summary: "{{fields.title}}"
+                hint: Arrastra para cambiar el orden. El primer proyecto ocupa el bloque grande.
+                fields:
+                  - { label: Título, name: title, widget: string }
+                  - { label: Identificador, name: slug, widget: string, required: false, hint: Se genera automáticamente si queda vacío. }
+                  - { label: Tipo de proyecto, name: category, widget: string }
+                  - { label: Imagen principal, name: image, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+                  - { label: Texto alternativo, name: alt, widget: string, hint: Describe la imagen para una persona que no puede verla. }
+                  - { label: Pie de foto, name: caption, widget: string, required: false }
+                  - { label: Encuadre, name: objectPosition, widget: select, options: ["center", "center 40%", "center 42%", "center top", "center bottom"], default: center }
+                  - { label: Visible, name: visible, widget: boolean, default: true }
+                  - { label: Destacado, name: featured, widget: boolean, default: false }
+              - { label: Título del proceso, name: processTitle, widget: string }
+              - { label: Introducción del proceso, name: processDescription, widget: text }
+              - label: Pasos del proceso
+                name: process
+                widget: list
+                min: 1
+                max: 6
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Título, name: title, widget: string }
+                  - { label: Descripción, name: description, widget: text }
+              - { label: Título de confianza, name: trustTitle, widget: string }
+              - label: Motivos de confianza
+                name: trust
+                widget: list
+                min: 1
+                max: 6
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: Título, name: title, widget: string }
+                  - { label: Descripción, name: description, widget: text }
+              - { label: Título del formulario, name: formTitle, widget: string }
+              - { label: Introducción del formulario, name: formDescription, widget: text }
+              - label: Opciones del formulario
+                name: formServices
+                widget: list
+                min: 1
+                max: 20
+                summary: "{{fields.label}}"
+                fields:
+                  - { label: Valor interno, name: value, widget: string, hint: Minúsculas y guiones; no cambiar si ya está en uso. }
+                  - { label: Nombre visible, name: label, widget: string }
+
+      - name: servicios_detallados
+        label: Páginas detalladas de servicios
+        file: src/content/cms/detailed-services.json
+        format: json
+        description: Páginas existentes bajo /servicios/. Se pueden añadir, ocultar, eliminar y reordenar.
+        preview_path: /servicios/
+        fields:
+          - label: Servicios detallados
+            name: services
+            widget: list
+            max: 30
+            collapsed: true
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Nombre, name: title, widget: string }
+              - { label: Slug, name: slug, widget: string, required: false, hint: Se genera automáticamente si queda vacío. Cambiarlo modifica la URL. }
+              - { label: División, name: divisionId, widget: select, options: [{ label: Madera tecnológica, value: madera_tecnologica }, { label: Reformas, value: reformas }] }
+              - { label: Publicado, name: published, widget: boolean, default: true }
+              - { label: Icono, name: icon, widget: select, options: [{ label: Jardín, value: garden }, { label: Pérgola, value: pergola }, { label: Fachada, value: facade }, { label: Interior, value: interior }] }
+              - { label: Descripción corta, name: shortDescription, widget: text }
+              - label: Párrafos descriptivos
+                name: longDescription
+                widget: list
+                min: 1
+                max: 12
+                field: { label: Párrafo, name: paragraph, widget: text }
+              - label: Características
+                name: features
+                widget: list
+                max: 12
+                field: { label: Característica, name: feature, widget: string }
+              - label: Elementos incluidos
+                name: bullets
+                widget: list
+                max: 20
+                field: { label: Elemento, name: bullet, widget: string }
+              - label: Galería
+                name: gallery
+                widget: list
+                max: 20
+                collapsed: true
+                summary: "{{fields.alt}}"
+                fields:
+                  - { label: Imagen, name: src, widget: image, choose_url: false, media_library: { config: { max_file_size: 8388608 } } }
+                  - { label: Texto alternativo, name: alt, widget: string }
+                  - { label: Pie de foto, name: caption, widget: string, required: false }
+              - label: Llamadas a la acción
+                name: cta
+                widget: object
+                fields:
+                  - { label: Texto principal, name: primaryText, widget: string }
+                  - { label: Enlace principal, name: primaryHref, widget: string }
+                  - { label: Texto secundario, name: secondaryText, widget: string }
+                  - { label: Enlace secundario, name: secondaryHref, widget: string }
+              - label: Preguntas frecuentes
+                name: faq
+                widget: list
+                max: 20
+                collapsed: true
+                summary: "{{fields.question}}"
+                fields:
+                  - { label: Pregunta, name: question, widget: string }
+                  - { label: Respuesta, name: answer, widget: text }
+                  - { label: Visible, name: visible, widget: boolean, default: true }
+              - label: SEO
+                name: seo
+                widget: object
+                fields:
+                  - { label: Título, name: title, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
+                  - { label: Descripción, name: description, widget: text }

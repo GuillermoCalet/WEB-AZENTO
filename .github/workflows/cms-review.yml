@@ -1,0 +1,58 @@
+name: Validar cambios del CMS
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/content/cms/**"
+      - "public/images/uploads/**"
+      - "public/admin/**"
+      - "src/lib/cms/**"
+      - "src/pages/**"
+      - "src/components/**"
+      - "scripts/cms/validate-content.mjs"
+      - "package.json"
+      - "package-lock.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cms-review-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Contenido, tipos y compilación
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Descargar el cambio propuesto
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Validar contenido e imágenes
+        run: npm run cms:validate
+
+      - name: Comprobar Astro y TypeScript
+        run: npm run check
+
+      - name: Compilar vista previa
+        run: npm run build
+
+      - name: Guardar la web compilada para revisión
+        uses: actions/upload-artifact@v4
+        with:
+          name: vista-previa-cms-${{ github.event.pull_request.number || github.run_number }}
+          path: dist
+          retention-days: 7
+

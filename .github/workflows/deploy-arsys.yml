@@ -1,0 +1,83 @@
+name: Publicar en Arsys
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/**"
+      - "*.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: production-arsys
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    name: Compilar y publicar contenido aprobado
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      ARSYS_HOST: ${{ secrets.ARSYS_HOST }}
+      ARSYS_KNOWN_HOSTS: ${{ secrets.ARSYS_KNOWN_HOSTS }}
+    steps:
+      - name: Descargar main aprobada
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Validar y compilar
+        run: npm run validate
+
+      - name: Guardar copia de la publicación
+        uses: actions/upload-artifact@v4
+        with:
+          name: azento-produccion-${{ github.sha }}
+          path: dist
+          retention-days: 30
+
+      - name: Instalar cliente SFTP/FTPS
+        if: ${{ env.ARSYS_HOST != '' }}
+        run: sudo apt-get update && sudo apt-get install --yes lftp
+
+      - name: Subir a Arsys
+        if: ${{ env.ARSYS_HOST != '' }}
+        env:
+          ARSYS_PROTOCOL: ${{ secrets.ARSYS_PROTOCOL }}
+          ARSYS_HOST: ${{ secrets.ARSYS_HOST }}
+          ARSYS_PORT: ${{ secrets.ARSYS_PORT }}
+          ARSYS_USERNAME: ${{ secrets.ARSYS_USERNAME }}
+          ARSYS_PASSWORD: ${{ secrets.ARSYS_PASSWORD }}
+          ARSYS_REMOTE_DIR: ${{ secrets.ARSYS_REMOTE_DIR }}
+        run: |
+          test -n "$ARSYS_PROTOCOL"
+          test -n "$ARSYS_HOST"
+          test -n "$ARSYS_PORT"
+          test -n "$ARSYS_USERNAME"
+          test -n "$ARSYS_PASSWORD"
+          test -n "$ARSYS_REMOTE_DIR"
+          [[ "$ARSYS_PROTOCOL" =~ ^(sftp|ftps)$ ]]
+          [[ "$ARSYS_PORT" =~ ^[0-9]+$ ]]
+          [[ "$ARSYS_HOST" =~ ^[A-Za-z0-9.-]+$ ]]
+          [[ "$ARSYS_REMOTE_DIR" =~ ^/[A-Za-z0-9._/-]+/?$ ]]
+          if [[ "$ARSYS_PROTOCOL" == "sftp" ]]; then
+            test -n "$ARSYS_KNOWN_HOSTS"
+            install -d -m 700 "$HOME/.ssh"
+            printf "%s\n" "$ARSYS_KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+            chmod 600 "$HOME/.ssh/known_hosts"
+          fi
+          lftp -u "$ARSYS_USERNAME","$ARSYS_PASSWORD" "${ARSYS_PROTOCOL}://${ARSYS_HOST}:${ARSYS_PORT}" -e "set ssl:verify-certificate yes; set sftp:auto-confirm no; mirror --reverse --verbose dist/ ${ARSYS_REMOTE_DIR}; bye"
+
+      - name: Avisar si falta configurar Arsys
+        if: ${{ env.ARSYS_HOST == '' }}
+        run: echo "Compilación correcta. El despliegue se ha omitido porque aún no están configurados los secretos ARSYS_*."

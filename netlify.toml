@@ -1,0 +1,9 @@
+[build]
+  command = "npm run validate"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[context.deploy-preview]
+  command = "npm run validate"

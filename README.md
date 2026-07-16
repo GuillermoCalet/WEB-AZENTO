@@ -1,69 +1,69 @@
-# AZento Web
+# AZento Home
 
-Sitio web corporativo construido con Astro, React y TailwindCSS.
+Web corporativa estática construida con Astro 5, TypeScript, React y Tailwind CSS. El contenido se gestiona con Decap CMS mediante un flujo gratuito de borrador, revisión por pull request y publicación aprobada.
 
-## 🚀 Instalación Rápida (Ubuntu)
+## Requisitos
 
-**Opción 1: Script automático** (recomendado)
+- Node.js 22 recomendado.
+- npm.
 
-```bash
-# Clonar repositorio
-git clone https://github.com/tu-usuario/web-azento.git
-cd web-azento
-
-# Dar permisos y ejecutar script
-chmod +x setup-ubuntu.sh
-./setup-ubuntu.sh
-```
-
-**Opción 2: Instalación manual**
+## Desarrollo
 
 ```bash
-# 1. Instalar Node.js 20 LTS
-curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# 2. Instalar pnpm
-sudo npm install -g pnpm
-
-# 3. Clonar e instalar
-git clone https://github.com/tu-usuario/web-azento.git
-cd web-azento
-pnpm install
+npm install
+npm run dev
 ```
 
-## 🧞 Comandos
+Para editar con Decap en local, inicia en otro terminal:
 
-| Comando           | Acción                                        |
-| :---------------- | :-------------------------------------------- |
-| `pnpm dev`        | Inicia servidor de desarrollo en `localhost:4321` |
-| `pnpm build`      | Construye el sitio para producción en `./dist/` |
-| `pnpm preview`    | Previsualiza el build local                   |
-| `pnpm start`      | Previsualiza el build local                   |
+```bash
+npm run cms:dev
+```
 
-## 📁 Estructura del Proyecto
+Después abre `http://localhost:4321/admin/index.html`.
+
+## Comandos
+
+| Comando | Acción |
+| --- | --- |
+| `npm run dev` | Servidor Astro local |
+| `npm run cms:dev` | Backend local de Decap |
+| `npm run cms:validate` | Valida JSON, relaciones e imágenes |
+| `npm run check` | Comprueba Astro y TypeScript |
+| `npm run build` | Genera la web estática en `dist/` |
+| `npm run validate` | Ejecuta validación, check y build |
+| `npm run preview` | Sirve el build local |
+
+## Estructura principal
 
 ```text
-/
-├── public/
-│   └── images/           # Imágenes estáticas
-├── src/
-│   ├── components/       # Componentes Astro/React
-│   ├── data/             # Datos (servicios, etc.)
-│   ├── layouts/          # Layouts base
-│   └── pages/            # Páginas y rutas
-│       ├── api/          # Endpoints API
-│       └── servicios/    # Páginas de servicios
-└── package.json
+public/
+  admin/                 Panel y configuración de Decap
+  api/quote.php          Formulario para Arsys
+  images/                Medios existentes y subidas del CMS
+src/
+  components/            Componentes visuales
+  content/cms/           Contenido JSON publicado
+  lib/cms/               Tipos, esquemas y repositorio
+  layouts/               Layout base
+  pages/                 Rutas Astro
+scripts/cms/             Validación de contenido
+.github/workflows/       Revisión y despliegue
 ```
 
-## ⚙️ Configuración
+## Configuración
 
-1. Copia `.env.example` o edita `.env` con tus credenciales
-2. Consulta [SETUP.md](SETUP.md) para configurar notificaciones (Email/WhatsApp)
+- Copia `.env.example` a `.env` solo para variables locales.
+- La configuración privada del formulario de producción permanece en `public/api/quote-config.php` dentro de Arsys y no se versiona.
+- Los secretos OAuth se guardan en Cloudflare Workers.
+- Las credenciales de despliegue se guardan en GitHub Actions Secrets.
 
-## 📚 Documentación
+## Documentación
 
-- [ARSYS_DEPLOY.md](ARSYS_DEPLOY.md) - Despliegue en Arsys
-- [SETUP.md](SETUP.md) - Configuración de notificaciones
-- [DOCUMENTACION.md](DOCUMENTACION.md) - Documentación técnica
+- [Auditoría y decisión](docs/cms/AUDITORIA_Y_DECISION.md)
+- [Plan de implementación](docs/cms/PLAN_IMPLEMENTACION.md)
+- [Guía técnica](docs/cms/GUIA_TECNICA.md)
+- [Configuración manual](docs/cms/CONFIGURACION_MANUAL.md)
+- [Guía para clientas](docs/cms/GUIA_CLIENTAS.md)
+- [Despliegue en Arsys](ARSYS_DEPLOY.md)
+- [Formulario y notificaciones](SETUP.md)
