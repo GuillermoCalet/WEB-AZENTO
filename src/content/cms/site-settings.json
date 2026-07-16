@@ -1,0 +1,35 @@
+{
+  "companyName": "AZento Home",
+  "legalName": "AZento Home Solutions",
+  "siteUrl": "https://azentohome.com",
+  "logo": {
+    "src": "/images/logo_azento.jpg",
+    "alt": "AZento Home"
+  },
+  "lightLogo": {
+    "src": "/images/logo_claro.jpg",
+    "alt": ""
+  },
+  "phoneDisplay": "919 898 717",
+  "phoneHref": "tel:+34919898717",
+  "email": "info@azentohome.com",
+  "location": "Madrid y alrededores",
+  "address": "Madrid, España",
+  "whatsapp": "",
+  "instagram": {
+    "label": "@azentohome",
+    "url": "https://www.instagram.com/azentohome/"
+  },
+  "hours": "",
+  "footerTagline": "Madera tecnológica y reformas como dos divisiones de una misma marca.",
+  "legal": {
+    "cif": "B12345678",
+    "registry": "Registro Mercantil de Madrid, Tomo XXXX, Folio XXX, Hoja M-XXXXXX"
+  },
+  "defaultSeo": {
+    "title": "AZento Home | Madera tecnológica y reformas",
+    "description": "AZento Home transforma viviendas y exteriores mediante dos divisiones: madera tecnológica y reformas.",
+    "image": "/images/jardin_2.png",
+    "imageAlt": "Proyecto realizado por AZento Home"
+  }
+}
