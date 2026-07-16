@@ -6,11 +6,11 @@
 import Layout from '../../layouts/Layout.astro';
 import Navbar from '../../components/Navbar.astro';
 import Footer from '../../components/Footer.astro';
-import { services, serviceIcons, getServiceBySlug, type Service } from '../../data/services';
-import { reformsUnit, woodUnit } from '../../data/businessUnits';
+import { services, getServiceBySlug, getServiceDivision, reformsUnit, siteSettings, woodUnit, type DetailedService } from '../../lib/cms';
+import { serviceIcons } from '../../lib/cms/service-icons';
 
 export function getStaticPaths() {
-	return services.map((service: Service) => ({
+	return services.map((service: DetailedService) => ({
 		params: { slug: service.slug },
 	}));
 }
@@ -27,13 +27,13 @@ if (!service) {
 }
 
 // SEO - Descripción recortada para meta
-const metaDescription = service.longDescription[0].substring(0, 160) + "...";
-const pageTitle = `${service.title} | AZento Home`;
-const divisionUnit = service.slug === 'reformas-interiores' ? reformsUnit : woodUnit;
+const metaDescription = service.seo.description;
+const pageTitle = service.seo.title;
+const divisionUnit = getServiceDivision(service);
 const otherUnit = divisionUnit.id === 'reformas' ? woodUnit : reformsUnit;
 ---
 
-<Layout title={pageTitle} description={metaDescription} canonicalPath={`/servicios/${service.slug}`} image={service.gallery[0]}>
+<Layout title={pageTitle} description={metaDescription} canonicalPath={`/servicios/${service.slug}`} image={service.gallery[0]?.src ?? siteSettings.defaultSeo.image}>
 	<Navbar unit={divisionUnit} otherUnit={otherUnit} />
 	
 	<main class="pt-24">
@@ -153,7 +153,7 @@ const otherUnit = divisionUnit.id === 'reformas' ? woodUnit : reformsUnit;
 							</p>
 							<div class="space-y-3">
 								<a 
-								href={`${divisionUnit.slug}#presupuesto`}
+								href={service.cta.primaryHref}
 									class="block w-full bg-accent-400 text-neutral-900 px-6 py-3 rounded-full 
 										font-semibold shadow-lg hover:bg-accent-300 hover:-translate-y-0.5 
 										transition-all duration-300"
@@ -161,7 +161,7 @@ const otherUnit = divisionUnit.id === 'reformas' ? woodUnit : reformsUnit;
 									{service.cta.primaryText}
 								</a>
 								<a 
-								href={`${divisionUnit.slug}#proyectos`}
+								href={service.cta.secondaryHref}
 									class="block w-full bg-white/10 text-white px-6 py-3 rounded-full 
 										font-semibold border border-white/20 hover:bg-white/20 
 										transition-all duration-300"
@@ -177,21 +177,21 @@ const otherUnit = divisionUnit.id === 'reformas' ? woodUnit : reformsUnit;
 								Contacto directo
 							</h3>
 							<div class="space-y-4">
-								<a href="tel:+34919898717" class="flex items-center gap-3 text-azento-600 hover:text-accent-600 transition-colors">
+								<a href={siteSettings.phoneHref} class="flex items-center gap-3 text-azento-600 hover:text-accent-600 transition-colors">
 									<span class="w-10 h-10 rounded-full bg-azento-50 flex items-center justify-center">
 										<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>
 										</svg>
 									</span>
-									<span class="font-medium">919 898 717</span>
+									<span class="font-medium">{siteSettings.phoneDisplay}</span>
 								</a>
-								<a href="mailto:info@azentohome.com" class="flex items-center gap-3 text-azento-600 hover:text-accent-600 transition-colors">
+								<a href={`mailto:${siteSettings.email}`} class="flex items-center gap-3 text-azento-600 hover:text-accent-600 transition-colors">
 									<span class="w-10 h-10 rounded-full bg-azento-50 flex items-center justify-center">
 										<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
 										</svg>
 									</span>
-									<span class="font-medium">info@azentohome.com</span>
+									<span class="font-medium">{siteSettings.email}</span>
 								</a>
 							</div>
 						</div>
@@ -214,11 +214,11 @@ const otherUnit = divisionUnit.id === 'reformas' ? woodUnit : reformsUnit;
 					</div>
 
 					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-						{service.gallery.map((image, index) => (
+						{service.gallery.map((image) => (
 							<div class="group relative aspect-[4/3] rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
 								<img 
-									src={image}
-									alt={`${service.title} - Proyecto ${index + 1}`}
+									src={image.src}
+									alt={image.alt}
 									class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
 									loading="lazy"
 								/>
@@ -248,7 +248,7 @@ const otherUnit = divisionUnit.id === 'reformas' ? woodUnit : reformsUnit;
 					</div>
 
 					<div class="space-y-4">
-						{service.faq.map((item, index) => (
+						{service.faq.map((item) => (
 							<details class="group bg-white rounded-2xl shadow-sm border border-neutral-200 overflow-hidden">
 								<summary class="flex items-center justify-between p-6 cursor-pointer list-none">
 									<h3 class="font-medium text-azento-700 pr-4">

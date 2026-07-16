@@ -1,6 +1,6 @@
 ---
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
-import type { BusinessUnitConfig } from "../data/businessUnits";
+import type { BusinessUnitConfig } from "../lib/cms";
 
 interface Props {
 	unit: BusinessUnitConfig;
@@ -8,6 +8,7 @@ interface Props {
 
 const { unit } = Astro.props;
 const isWood = unit.tone === "wood";
+const firstProject = unit.projects[0];
 ---
 
 <section id="proyectos" class:list={["py-20 text-white sm:py-24 lg:py-28", isWood ? "bg-accent-950" : "bg-azento-900"]}>
@@ -25,6 +26,10 @@ const isWood = unit.tone === "wood";
 				{unit.projectsDescription}
 			</p>
 		</div>
+
+		{unit.projects.length === 0 && (
+			<p class="mt-12 rounded-lg border border-white/20 p-6 text-center text-white/70">No hay proyectos publicados en este momento.</p>
+		)}
 
 		<div class="mt-12 grid auto-rows-[18rem] gap-3 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:auto-rows-[20rem]">
 			{unit.projects.map((project, index) => (
@@ -76,8 +81,8 @@ const isWood = unit.tone === "wood";
 		<figure class="flex h-full w-full max-w-6xl flex-col items-center justify-center gap-4 px-10">
 			<img
 				class="max-h-[78vh] max-w-full rounded-lg object-contain shadow-2xl"
-				src={unit.projects[0].image}
-				alt={unit.projects[0].alt}
+				src={firstProject?.image ?? unit.heroImage}
+				alt={firstProject?.alt ?? ""}
 				data-lightbox-image
 			/>
 			<figcaption class="text-center">

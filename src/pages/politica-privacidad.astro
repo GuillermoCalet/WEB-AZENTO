@@ -5,17 +5,19 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { siteSettings } from '../lib/cms';
 
 const pageTitle = "Política de privacidad | AZento Home";
 const pageDescription = "Política de privacidad y protección de datos de AZento Home Solutions.";
 
 // Datos de la empresa - Editar según corresponda
 const companyData = {
-	name: "AZento Home Solutions",
-	cif: "B12345678", // TODO: Actualizar con CIF real
-	address: "Madrid, España", // TODO: Actualizar con dirección real
-	email: "info@azentohome.com",
-	phone: "919 898 717"
+	name: siteSettings.legalName,
+	cif: siteSettings.legal.cif,
+	address: siteSettings.address,
+	email: siteSettings.email,
+	phone: siteSettings.phoneDisplay,
+	phoneHref: siteSettings.phoneHref,
 };
 ---
 
@@ -46,7 +48,7 @@ const companyData = {
 						<strong>CIF:</strong> {companyData.cif}<br>
 						<strong>Dirección:</strong> {companyData.address}<br>
 						<strong>Email:</strong> <a href={`mailto:${companyData.email}`} class="text-accent-600">{companyData.email}</a><br>
-						<strong>Teléfono:</strong> <a href={`tel:+34${companyData.phone.replace(/\s/g, '')}`} class="text-accent-600">{companyData.phone}</a>
+						<strong>Teléfono:</strong> <a href={companyData.phoneHref} class="text-accent-600">{companyData.phone}</a>
 					</p>
 
 					<h2 class="font-display text-2xl font-semibold text-azento-700">2. Datos que recopilamos</h2>

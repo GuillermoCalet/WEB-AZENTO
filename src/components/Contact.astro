@@ -1,6 +1,6 @@
 ---
 import { Instagram, Mail, MapPin, Phone, Send } from "lucide-react";
-import type { BusinessUnitConfig } from "../data/businessUnits";
+import { siteSettings, type BusinessUnitConfig } from "../lib/cms";
 
 interface Props {
 	unit: BusinessUnitConfig;
@@ -10,10 +10,10 @@ const { unit } = Astro.props;
 const isWood = unit.tone === "wood";
 
 const contactInfo = [
-	{ type: "phone", label: "Teléfono", value: "919 898 717", href: "tel:+34919898717" },
-	{ type: "email", label: "Correo", value: "info@azentohome.com", href: "mailto:info@azentohome.com" },
-	{ type: "instagram", label: "Instagram", value: "@azentohome", href: "https://www.instagram.com/azentohome/" },
-	{ type: "location", label: "Zona de trabajo", value: "Madrid y alrededores" },
+	{ type: "phone", label: "Teléfono", value: siteSettings.phoneDisplay, href: siteSettings.phoneHref },
+	{ type: "email", label: "Correo", value: siteSettings.email, href: `mailto:${siteSettings.email}` },
+	{ type: "instagram", label: "Instagram", value: siteSettings.instagram.label, href: siteSettings.instagram.url },
+	{ type: "location", label: "Zona de trabajo", value: siteSettings.location },
 ];
 ---
 

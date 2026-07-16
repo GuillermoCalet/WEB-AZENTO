@@ -302,6 +302,16 @@ function validate_phone(string $phone): bool
 
 function business_unit_config(string $businessUnit): ?array
 {
+	$generatedPath = __DIR__ . '/quote-services.json';
+	if (is_readable($generatedPath)) {
+		$decoded = json_decode((string)file_get_contents($generatedPath), true);
+		$generatedUnit = is_array($decoded) ? ($decoded[$businessUnit] ?? null) : null;
+		$normalized = normalize_generated_business_unit($generatedUnit);
+		if ($normalized !== null) {
+			return $normalized;
+		}
+	}
+
 	$units = [
 		'madera_tecnologica' => [
 			'label' => 'Madera Tecnológica',
@@ -334,6 +344,44 @@ function business_unit_config(string $businessUnit): ?array
 	];
 
 	return $units[$businessUnit] ?? null;
+}
+
+function normalize_generated_business_unit($unit): ?array
+{
+	if (!is_array($unit)) {
+		return null;
+	}
+
+	$label = sanitize_single_line($unit['label'] ?? '', 80);
+	$subject = sanitize_single_line($unit['subject'] ?? '', 160);
+	$sourcePage = sanitize_single_line($unit['source_page'] ?? '', 120);
+	$rawServices = $unit['services'] ?? null;
+
+	if ($label === '' || $subject === '' || !preg_match('#^/[a-z0-9-]+$#', $sourcePage) || !is_array($rawServices)) {
+		return null;
+	}
+
+	$services = [];
+	foreach ($rawServices as $value => $serviceLabel) {
+		if (!is_string($value) || !preg_match('/^[a-z0-9-]+$/', $value)) {
+			continue;
+		}
+		$cleanLabel = sanitize_single_line($serviceLabel, 100);
+		if ($cleanLabel !== '') {
+			$services[$value] = $cleanLabel;
+		}
+	}
+
+	if ($services === []) {
+		return null;
+	}
+
+	return [
+		'label' => $label,
+		'subject' => $subject,
+		'source_page' => $sourcePage,
+		'services' => $services,
+	];
 }
 
 function service_name(string $businessUnit, string $service): string

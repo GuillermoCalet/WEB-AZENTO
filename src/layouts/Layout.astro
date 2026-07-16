@@ -1,6 +1,7 @@
 ---
 import CookieBanner from "../components/CookieBanner.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+import { siteSettings } from "../lib/cms";
 
 interface Props {
 	title?: string;
@@ -10,15 +11,14 @@ interface Props {
 }
 
 const {
-	title = "AZento Home | Madera tecnológica y reformas",
-	description = "AZento Home transforma viviendas y exteriores mediante dos divisiones: madera tecnológica y reformas.",
+	title = siteSettings.defaultSeo.title,
+	description = siteSettings.defaultSeo.description,
 	canonicalPath = "/",
-	image = "/images/jardin_2.png",
+	image = siteSettings.defaultSeo.image,
 } = Astro.props;
 
-const siteUrl = "https://azentohome.com";
-const canonicalUrl = new URL(canonicalPath, siteUrl).toString();
-const socialImage = new URL(image, siteUrl).toString();
+const canonicalUrl = new URL(canonicalPath, siteSettings.siteUrl).toString();
+const socialImage = new URL(image, siteSettings.siteUrl).toString();
 ---
 
 <!doctype html>
@@ -38,8 +38,8 @@ const socialImage = new URL(image, siteUrl).toString();
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={socialImage} />
-		<meta property="og:image:alt" content="Proyecto realizado por AZento Home" />
-		<meta property="og:site_name" content="AZento Home" />
+		<meta property="og:image:alt" content={siteSettings.defaultSeo.imageAlt} />
+		<meta property="og:site_name" content={siteSettings.companyName} />
 		<meta property="og:locale" content="es_ES" />
 
 		<meta name="twitter:card" content="summary_large_image" />
@@ -47,9 +47,9 @@ const socialImage = new URL(image, siteUrl).toString();
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={socialImage} />
 
-		<link rel="icon" type="image/jpeg" href="/images/logo_azento.jpg?v=3" />
-		<link rel="shortcut icon" type="image/jpeg" href="/images/logo_azento.jpg?v=3" />
-		<link rel="apple-touch-icon" href="/images/logo_azento.jpg?v=3" />
+		<link rel="icon" type="image/jpeg" href={`${siteSettings.logo.src}?v=3`} />
+		<link rel="shortcut icon" type="image/jpeg" href={`${siteSettings.logo.src}?v=3`} />
+		<link rel="apple-touch-icon" href={`${siteSettings.logo.src}?v=3`} />
 
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -1,6 +1,6 @@
 ---
 import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
-import type { BusinessUnitConfig } from "../data/businessUnits";
+import { siteSettings, type BusinessUnitConfig } from "../lib/cms";
 
 interface Props {
 	unit?: BusinessUnitConfig;
@@ -33,8 +33,8 @@ const navLinks = [
 >
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex h-20 items-center justify-between gap-4">
-			<a href="/" class="logo-link inline-flex shrink-0 rounded-lg bg-white p-1 shadow-md" aria-label="AZento Home, volver a la selección de área">
-				<img src="/images/logo_azento.jpg" alt="AZento Home" class="h-12 w-12 object-contain" />
+			<a href="/" class="logo-link inline-flex shrink-0 rounded-lg bg-white p-1 shadow-md" aria-label={`${siteSettings.companyName}, volver a la selección de área`}>
+				<img src={siteSettings.logo.src} alt={siteSettings.logo.alt} class="h-12 w-12 object-contain" />
 			</a>
 
 			<div class="hidden min-w-0 items-center gap-5 lg:flex">

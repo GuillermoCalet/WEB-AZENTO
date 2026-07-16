@@ -5,6 +5,7 @@
 import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+import { siteSettings } from '../lib/cms';
 
 const pageTitle = "Política de cookies | AZento Home";
 const pageDescription = "Información sobre el uso de cookies en el sitio web de AZento Home Solutions.";
@@ -86,8 +87,8 @@ const pageDescription = "Información sobre el uso de cookies en el sitio web de
 						Si tienes alguna pregunta sobre nuestra política de cookies, puedes contactarnos en:
 					</p>
 					<ul class="text-azento-600">
-						<li>Email: <a href="mailto:info@azentohome.com" class="text-accent-600 hover:text-accent-500">info@azentohome.com</a></li>
-						<li>Teléfono: <a href="tel:+34919898717" class="text-accent-600 hover:text-accent-500">919 898 717</a></li>
+						<li>Email: <a href={`mailto:${siteSettings.email}`} class="text-accent-600 hover:text-accent-500">{siteSettings.email}</a></li>
+						<li>Teléfono: <a href={siteSettings.phoneHref} class="text-accent-600 hover:text-accent-500">{siteSettings.phoneDisplay}</a></li>
 					</ul>
 
 					<!-- Botón para abrir configuración -->
