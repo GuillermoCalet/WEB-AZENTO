@@ -1,76 +1,73 @@
-# Plan de implementacion del CMS
+# Plan de implementación del CMS
 
-## Alcance
+## Estado
 
-La integracion conservara rutas, textos, imagenes, SEO, estilos y responsive actuales. No se convertira la web en un page builder generico.
+- [x] Auditoría de Astro, rutas, componentes, contenido, imágenes, formulario, entorno y hosting.
+- [x] Comparativa y elección de una solución sin coste obligatorio.
+- [x] Modelos de contenido y validación.
+- [x] Migración de textos, imágenes, proyectos, servicios y FAQ existentes.
+- [x] Capa central `src/lib/cms/`.
+- [x] Panel Decap en español y flujo editorial.
+- [x] Integración del formulario PHP.
+- [x] Workflows de revisión y despliegue.
+- [x] Guías técnica y de clientas.
+- [x] Build, typecheck y validación de imágenes.
+- [ ] Configuración manual de OAuth, permisos de GitHub, preview y secretos de Arsys.
+- [ ] Sustitución de CIF/registro provisionales tras validación legal.
 
-## Fase A. Base de contenido
+## Estructura
 
-1. Crear la rama `feature/cms-integration` desde `reestructuracion-web`.
-2. Anadir tipos TypeScript, esquemas Zod, cliente Sanity y consultas centralizadas.
-3. Extraer el contenido actual a fallbacks JSON validados.
-4. Adaptar paginas y componentes para recibir datos por props.
-5. Mantener la web operativa sin variables de Sanity mediante los fallbacks.
+```text
+public/admin/
+  index.html             Panel del CMS
+  config.yml             Campos, listas, ayudas y workflow
+  azento-cms.js          Slugs automáticos y avisos
+src/content/cms/
+  site-settings.json     Marca, contacto, legal y SEO general
+  home.json              Portada
+  business-units.json    Dos divisiones, 14 servicios y 12 proyectos
+  detailed-services.json Cuatro páginas, galerías y 12 FAQ
+src/lib/cms/
+  types.ts               Contratos TypeScript
+  schemas.ts             Validaciones Zod
+  repository.ts          Lectura, filtrado y consultas
+  service-icons.ts       Iconos permitidos por diseño
+scripts/cms/
+  validate-content.mjs   Validación de contenido e imágenes
+.github/workflows/
+  cms-review.yml         Control de cada PR
+  deploy-arsys.yml       Publicación de main aprobada
+```
 
-## Fase B. Sanity Studio
+## Decisiones de modelo
 
-1. Crear un Studio independiente en `studio/` con interfaz espanola.
-2. Definir los documentos `configuracionGeneral`, `paginaInicio`, `division`, `servicio`, `proyecto` y `paginaLegal`.
-3. Configurar campos comprensibles, ayudas, slugs automaticos, validaciones y listas reordenables.
-4. Limitar imagenes a JPEG, PNG y WebP, 8 MB por archivo, dimensiones minimas y un maximo de 20 imagenes por galeria.
-5. Anadir estados editoriales y acciones de envio a revision/devolucion.
-6. Mantener iconos, tonos, rutas y opciones tecnicas como listas controladas.
+- Inicio y configuración son documentos únicos.
+- Las divisiones son exactamente dos porque sus rutas y estilos forman parte del diseño.
+- Servicios y proyectos son listas controladas, añadibles y reordenables.
+- Las páginas detalladas de servicio son una lista separada para no obligar a que todas las tarjetas tengan ruta propia.
+- FAQ pertenece al servicio real donde se muestra.
+- No se crea testimonios porque la web no los tiene.
+- No se crean páginas de proyecto porque no existen rutas ni diseño para ellas.
+- No se permite ordenar secciones completas: su orden forma parte de la composición aprobada.
 
-## Fase C. Migracion
+## Publicación
 
-1. Crear documentos fallback con todo el contenido actual.
-2. Crear un script idempotente de importacion que suba solo imagenes utilizadas.
-3. Mantener IDs estables para los singletons y slugs actuales para servicios.
-4. No crear testimonios ni paginas de proyecto porque no existen en la web actual.
-5. Marcar los datos societarios provisionales para revision, sin sustituirlos.
+1. La clienta guarda un borrador en su fork.
+2. Lo mueve a «Lista para revisión».
+3. Decap crea un pull request.
+4. GitHub ejecuta validación CMS, Astro check y build.
+5. Netlify puede publicar una vista previa temporal.
+6. El administrador solicita cambios, cierra o aprueba.
+7. Solo el merge a `main` dispara producción.
+8. Si Arsys aún no tiene secretos, se genera un ZIP/artefacto listo para subida manual.
 
-## Fase D. Integracion y publicacion
+## Validaciones de medios
 
-1. Produccion consultara la perspectiva `published` sin token privado en el navegador.
-2. Preview consultara `drafts` durante el build con `SANITY_API_READ_TOKEN` solo en servidor/CI.
-3. Anadir un workflow de GitHub Actions para build y despliegue a Arsys.
-4. Generar desde contenido aprobado la lista blanca de servicios aceptados por `quote.php`.
-5. Documentar webhooks de Sanity para preview y publicacion.
-6. Configurar `X-Robots-Tag: noindex, nofollow` en el preview.
+- JPG/JPEG, PNG o WebP reales; no basta con cambiar la extensión.
+- Máximo 8 MB por archivo.
+- Entre 300 × 300 y 8000 × 8000 px para contenido; logo existente permitido desde 64 px.
+- Texto alternativo obligatorio en imágenes informativas.
+- Hasta 20 proyectos, imágenes por galería y FAQ por servicio.
+- Archivo local existente y ruta dentro de `/images/`.
 
-## Fase E. Seguridad y validacion
-
-1. Separar variables `PUBLIC_SANITY_*`, token de lectura de preview, token de escritura de migracion y secretos de despliegue.
-2. No incluir tokens en bundles ni repositorio.
-3. Renderizar texto enriquecido mediante componentes permitidos, sin `set:html` procedente del CMS.
-4. Validar todos los resultados del CMS con Zod y registrar fallos con fallback seguro.
-5. Comprobar estados vacios, referencias rotas, imagenes ausentes y contenido oculto.
-
-## Fase F. Documentacion y entrega
-
-1. Guia tecnica: arquitectura, modelos, consultas, preview, webhooks, despliegue, seguridad, backups y migracion.
-2. Guia de clientas: acceso, textos, imagenes, proyectos, galerias, borradores, revision y publicacion.
-3. Lista de configuracion manual en Sanity, Netlify, GitHub y Arsys.
-4. Commits pequenos por capa: documentacion, base CMS, Studio/modelos, migracion, integracion, CI y guias.
-
-## Criterios de aceptacion
-
-- `npm run build` y build del Studio correctos.
-- Typecheck Astro correcto.
-- Las 10 rutas actuales siguen generandose.
-- El contenido visible coincide con el actual cuando se usan fallbacks.
-- Un Contributor no puede publicar.
-- Produccion nunca consulta borradores.
-- Ningun token privado aparece en HTML o JavaScript cliente.
-- Galerias vacias, servicios ocultos e imagenes ausentes no rompen el build.
-- La subida de imagenes aplica tipos, peso, dimensiones, alt y limite de galeria.
-
-## Pasos externos que no pueden automatizarse desde el repositorio
-
-- Crear o seleccionar el proyecto Sanity y contratar Growth.
-- Invitar usuarios y asignar roles Administrator/Contributor.
-- Crear tokens y webhooks en Sanity.
-- Crear el sitio de preview en Netlify y su build hook.
-- Guardar secretos de Arsys y Sanity en GitHub Actions.
-- Activar protecciones de rama y autorizar el despliegue final.
-
+Recomendación editorial: 1600–2400 px de lado largo, WebP o JPEG, menos de 1 MB y proporción 4:3 para galerías. Las imágenes principales admiten el encuadre controlado definido en el CMS.

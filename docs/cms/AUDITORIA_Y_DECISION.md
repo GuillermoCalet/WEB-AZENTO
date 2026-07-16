@@ -1,22 +1,35 @@
-# Auditoria CMS y decision tecnica
+# Auditoría y decisión del CMS
 
-Fecha de revision: 2026-07-16
+Fecha de revisión: 16 de julio de 2026.
 
-## 1. Estado actual
+## Resultado
 
-- Framework: Astro `^5.17.3`, React `^19.2.3` y Tailwind CSS `^3.4.19`.
-- Renderizado: salida estatica de Astro. No hay adaptador SSR ni modo hibrido.
-- Build verificado: 10 paginas estaticas, sin errores, en aproximadamente 2 segundos.
-- Hosting: Arsys Hosting Avanzado Linux. Se sube manualmente el contenido de `dist/`.
-- Backend existente: `public/api/quote.php` procesa presupuestos mediante PHP, SMTP y Twilio opcional.
-- Repositorio: GitHub (`GuillermoCalet/WEB-AZENTO`). No hay workflows de GitHub Actions ni otra CI/CD versionada.
-- Rama de partida: `reestructuracion-web`; la rama por defecto remota es `main`.
-- Gestor efectivo: existe `package-lock.json`; la documentacion menciona pnpm y `.gitignore` ignora `pnpm-lock.yaml`. Se normalizara la documentacion en npm sin cambiar de gestor durante esta integracion.
-- Variables actuales: SMTP, Twilio y `PUBLIC_GA_MEASUREMENT_ID`. Los secretos PHP pueden vivir en `public/api/quote-config.php`, que esta ignorado por Git.
+Se ha elegido **Decap CMS 3.14.1 con GitHub Open Authoring**. Es software libre, no cobra por usuaria ni por contenido y encaja con el Astro estático y el hosting Arsys actuales. La autenticación se resuelve con un proxy OAuth en Cloudflare Workers Free y la revisión con ramas y pull requests de GitHub. El coste obligatorio de esta arquitectura es **0 €**.
 
-## 2. Rutas y componentes
+La integración incompleta de Sanity encontrada en la rama se ha retirado porque el flujo requerido necesita roles de pago. No se ha conectado ninguna cuenta ni migrado contenido a un proveedor externo.
 
-Rutas existentes:
+## Arquitectura auditada
+
+| Área | Estado encontrado |
+| --- | --- |
+| Framework | Astro 5.17.3, TypeScript, React 19 y Tailwind CSS 3 |
+| Renderizado | Estático; no existe adaptador SSR instalado |
+| Páginas | Inicio, dos divisiones, cuatro servicios detallados y tres páginas legales |
+| Rutas | 10 rutas públicas conservadas sin cambios |
+| Componentes | Layout, Navbar, Hero, Services, Gallery, ProcessTrust, Contact, Footer, cookies y analítica |
+| Contenido | Dos grandes archivos TypeScript y textos repetidos dentro de páginas/componentes |
+| Proyectos | 12 proyectos dentro de las dos divisiones; no hay páginas de proyecto individuales |
+| Servicios | 14 tarjetas, de las que cuatro tienen página detallada |
+| FAQ | 12 preguntas dentro de las cuatro páginas de servicio |
+| Testimonios | No existen; no se ha creado una colección vacía ni contenido ficticio |
+| Imágenes | Recursos locales en `public/images`; varias imágenes grandes y cinco archivos HEIF con extensión PNG que no están usados por el contenido migrado |
+| Formularios | Formulario Astro que envía JSON a `public/api/quote.php`; SMTP y WhatsApp opcional |
+| Entorno | Variables SMTP/Twilio; analítica usa `PUBLIC_GA_MEASUREMENT_ID` |
+| Hosting | Arsys Hosting Avanzado Linux; contenido de `dist/` subido manualmente por FTP/SFTP |
+| CI/CD | No había workflows de GitHub ni despliegue automático |
+| Repositorio | GitHub, remoto `GuillermoCalet/WEB-AZENTO` |
+
+### Rutas preservadas
 
 - `/`
 - `/madera-tecnologica`
@@ -29,113 +42,85 @@ Rutas existentes:
 - `/politica-privacidad`
 - `/politica-cookies`
 
-La presentacion esta bien dividida en componentes: `BusinessPage`, `Navbar`, `Hero`, `Services`, `Gallery`, `ProcessTrust`, `Contact`, `Footer`, `CookieBanner` y `GoogleAnalytics`. `Welcome.astro` y los SVG de ejemplo de Astro no se usan.
+## Contenido editable detectado
 
-## 3. Contenido actual
+- Datos de marca, logotipos, teléfono, email, zona, dirección, Instagram, horario, textos del footer y SEO general.
+- Textos y SEO de la portada.
+- Hero, introducciones, procesos, bloques de confianza y formulario de las dos divisiones.
+- Tarjetas de servicios: alta, edición, ocultación, borrado y orden.
+- Proyectos: alta, edición, ocultación, borrado, orden, imagen, encuadre, categoría, texto alternativo y pie opcional.
+- Las cuatro páginas detalladas: textos, características, elementos incluidos, galería, CTA, FAQ, visibilidad y SEO.
+- CIF, razón social, dirección y registro mercantil que se interpolan en las páginas legales.
 
-Fuentes principales:
+## Contenido protegido en código
 
-- `src/data/businessUnits.ts`: dos divisiones, 14 tarjetas de servicio, 12 proyectos, heroes, proceso, confianza, formularios y SEO.
-- `src/data/services.ts`: cuatro servicios con detalle, galerias, listas, CTA y 12 preguntas frecuentes.
-- `src/pages/index.astro`: textos de inicio, SEO y contacto.
-- `src/components/Contact.astro`, `Footer.astro`, `Navbar.astro` y `ProcessTrust.astro`: contacto y rotulos repetidos.
-- Paginas legales: texto completo y datos societarios escritos en cada pagina.
+- CSS, Tailwind, paleta, tamaños, posiciones generales, responsive y estructura HTML.
+- Componentes, iconos disponibles y comportamiento del lightbox/formulario/cookies.
+- Rutas principales de las dos divisiones.
+- Cuerpo de las políticas legales. Puede cambiar por requisitos normativos y debe revisarlo asesoría legal; las clientas solo gestionan los datos identificativos.
+- Implementación PHP, SMTP, validación anti-spam y permisos.
+- Opciones de cookies y Google Analytics.
 
-No existen testimonios ni una seccion de testimonios. Tampoco existen paginas individuales de proyecto. No se crearan colecciones o rutas que la web no utiliza.
+No se ha creado un page builder genérico. Las listas reordenables cubren el contenido real sin permitir romper el diseño.
 
-## 4. Contenido que pasara al CMS
+## Riesgos y correcciones
 
-- Configuracion general: marca, logos, telefono, email, direccion/zona, Instagram, datos societarios y SEO general.
-- Inicio: antetitulo, titulo, subtitulo, textos de contacto y SEO.
-- Divisiones: hero, textos de seccion, proceso, confianza, CTA, opciones de formulario y SEO.
-- Servicios: nombre, slug, division, resumen, contenido largo, caracteristicas, incluidos, icono controlado, imagen, galeria, CTA, FAQ, visibilidad y SEO.
-- Proyectos: division, titulo, slug, categoria, imagen principal, galeria, textos alternativos, pies, orden, destacado y visibilidad.
-- Paginas legales: titulo, fecha, SEO y cuerpo estructurado, manteniendo exactamente el contenido actual.
+1. **Contenido duplicado:** teléfono, email y datos legales estaban repetidos. Ahora salen de una configuración validada.
+2. **Formulario desincronizado:** PHP tenía otra lista fija de servicios. El build genera `/api/quote-services.json`; PHP la valida y mantiene una lista interna de respaldo.
+3. **Imágenes inválidas:** se detectaron archivos HEIF con extensión `.png`. La validación comprueba extensión, firma real, existencia, peso y dimensiones antes de aprobar.
+4. **Galería vacía:** antes accedía siempre al primer proyecto. Ahora tiene fallback seguro y mensaje de estado vacío.
+5. **Publicación accidental:** las clientas no reciben escritura en el repositorio; Open Authoring solo les permite crear un PR.
+6. **Datos legales provisionales:** `B12345678` y los datos registrales siguen siendo los valores existentes. Deben sustituirse por los reales tras revisión legal.
+7. **Hosting manual:** se añade CI y despliegue condicional. Hasta configurar secretos de Arsys, GitHub genera un artefacto y omite la subida.
+8. **Dependencias:** el proyecto no tenía lint ni tests. Se han añadido validación CMS, typecheck y build como controles obligatorios.
 
-## 5. Contenido que permanecera en codigo
+## Comparativa
 
-- Componentes, layouts, Tailwind, colores, tipografias, espaciado y responsive.
-- Rutas base, secciones permitidas y componentes de bloque disponibles.
-- Iconos y el mapa controlado de iconos de servicio.
-- Estructura y validacion del formulario, anti-spam, rate limit, SMTP y Twilio.
-- Consentimiento de cookies y carga condicional de Analytics.
-- Generacion de canonical, Open Graph y metadatos tecnicos.
-- Consultas GROQ, validaciones Zod, fallbacks y transformacion de imagenes.
+La comparación usa los planes publicados en julio de 2026. Conviene revisar precios si se reconsidera la decisión.
 
-Esto impide que una editora pueda introducir CSS, pixeles, scripts o una estructura arbitraria.
-
-## 6. Riesgos detectados
-
-- Los datos de contacto estan duplicados en varias paginas y componentes.
-- Las opciones del formulario estan duplicadas en TypeScript y PHP; pueden desincronizarse.
-- El CIF `B12345678` y los datos registrales son valores provisionales. Deben revisarse legalmente antes de publicar.
-- Cinco archivos con extension `.png` son realmente HEIF. No todos los navegadores los interpretan y Sanity debe rechazarlos o convertirlos antes de migrarlos.
-- Varias imagenes PNG pesan entre 1 y 2.9 MB. El CMS debe aplicar limites y servir variantes optimizadas.
-- No hay lint, typecheck dedicado ni pruebas automatizadas configuradas.
-- Los ZIP de despliegue estan versionados y pueden quedar obsoletos.
-- El despliegue es manual y no existe reconstruccion automatica al cambiar contenido.
-- El endpoint PHP confia en `X-Forwarded-For` sin comprobar un proxy de confianza. No afecta a la integracion CMS, pero limita la robustez del rate limit.
-
-## 7. Comparativa de CMS
-
-Precios y limites consultados el 2026-07-16; pueden cambiar.
-
-| CMS | Encaje | Flujo editorial | Coste orientativo | Decision |
-| --- | --- | --- | --- | --- |
-| Sanity | Integracion directa con Astro, contenido estructurado, excelente gestion/optimizacion de imagenes y Studio personalizable en espanol | El rol Contributor de Growth edita borradores y no puede publicar; comentarios, tareas y borradores programados | Free: 0 USD, pero solo Administrador/Lector. Growth: 15 USD por asiento/mes | Elegido |
-| Decap CMS | Muy simple para sitio estatico y contenido en Git | Editorial Workflow crea ramas y PR, pero Git Gateway no separa de forma segura editor y publicador dentro del CMS | Software gratuito; requiere Netlify/Git y configuracion de identidad | Descartado por permisos y crecimiento del repositorio con imagenes |
-| Storyblok | Mejor editor visual de la comparativa y buen CDN de imagenes | Flujos/roles personalizados quedan en planes altos | Starter 0 USD con 1 asiento; Growth 99 USD/mes; Growth Plus 349 USD/mes | Excesivo para este sitio y equipo |
-| DatoCMS | Muy buena experiencia, imagenes y Astro | Workflow editorial no esta en Free | Free: 2 editores/300 registros/200 MB; Professional desde 149 EUR/mes anual | Coste alto |
-| Contentful | Solido, escalable y buen ecosistema | Free limita los roles a Admin/Editor y no resuelve la aprobacion estricta | Free hasta 10 usuarios, 100k API/mes y 50 GB de CDN | Modelo y UI mas complejos de lo necesario |
-| Directus | Permisos granulares, archivos y API excelentes | Se puede modelar el flujo, pero necesita instancia, base de datos y almacenamiento | Cloud desde 15 USD/mes con 1 usuario; Professional 99 USD/mes con 5 | Servidor adicional y mas mantenimiento |
-| Strapi | Open source, buen modelado y media library | Draft/Publish es comun; Review Workflows es Enterprise | Hosting Cloud desde 0/15 USD; licencia CMS Growth 45 USD/mes para 3 asientos; workflow avanzado Enterprise | Dos capas de coste y servidor Node |
-| Payload CMS | Permisos y borradores muy flexibles en codigo | Se puede impedir publicar a editores de forma robusta | Software open source; requiere servidor Node, base de datos y almacenamiento | Excelente tecnicamente, innecesario para Arsys estatico |
-| WordPress Headless | Familiar para muchas editoras, roles y revisiones maduros | Posible con roles/plugins | Software gratuito, pero requiere hosting, plugins, seguridad y mantenimiento | Demasiada superficie operativa y mayor riesgo de plugins |
+| CMS | Coste gratuito útil | Revisión/aprobación gratuita | Experiencia y medios | Infraestructura/mantenimiento | Decisión |
+| --- | --- | --- | --- | --- | --- |
+| **Decap CMS** | Software libre, sin límite propio de usuarias o registros | Sí mediante Editorial Workflow + Open Authoring + PR | Formularios controlados, listas y carga/reordenación de imágenes; preview por deploy | Sin base de datos ni servidor CMS; OAuth Worker gratuito | **Elegido** |
+| Sanity | Free útil para administración/lectura | El rol colaborador que no publica pertenece a Growth, desde 15 USD por asiento/mes | Studio muy bueno y contenido estructurado | SaaS externo y dataset propietario | Descartado por coste por clienta |
+| Storyblok | Starter gratuito limitado a una plaza | Workflows/roles avanzados no cubren gratis este equipo | Editor visual excelente | SaaS y límites de plan | Descartado por plazas/coste |
+| DatoCMS | Free: pocas editoras, registros y medios | Workflow editorial completo en planes de pago | Muy buena UX e imágenes | SaaS; límites reducidos y plan profesional caro | Descartado por workflow/coste |
+| Contentful | Plan Free disponible | Roles gratuitos insuficientes para impedir publicación con aprobación separada | Editor estructurado y CDN | SaaS, límites y complejidad de modelo | Descartado |
+| Directus | Core gratuito al autoalojar | Flujos y permisos potentes | Buen panel y ficheros | Requiere servidor, base de datos, actualizaciones y backups | Descartado por mantenimiento adicional |
+| Strapi | Community autoalojada | Review Workflows es una función Enterprise | Buen panel estructurado | Servidor Node, BD, medios y parches | Descartado |
+| Payload CMS | Código abierto autoalojado | Puede programarse, pero no ofrece este flujo sin trabajo adicional | Flexible para desarrolladores | Servidor Node/BD y mantenimiento | Descartado |
+| WordPress Headless | Software gratuito | Roles básicos; aprobación sólida suele requerir plugins/proceso | Familiar, biblioteca multimedia madura | PHP/BD, plugins, superficie de ataque y actualizaciones | Descartado |
 
 Fuentes principales:
 
-- Sanity: https://www.sanity.io/pricing y https://www.sanity.io/docs/user-guides/roles
-- Decap: https://decapcms.org/docs/editorial-workflows/
-- Storyblok: https://www.storyblok.com/pricing
-- DatoCMS: https://www.datocms.com/pricing
-- Contentful: https://www.contentful.com/pricing/
-- Directus: https://directus.io/pricing/
-- Strapi: https://strapi.io/pricing-cms
-- Payload: https://payloadcms.com/docs/versions/drafts
+- [Decap Open Authoring](https://decapcms.org/docs/open-authoring/)
+- [Decap Editorial Workflow](https://decapcms.org/docs/editorial-workflows/)
+- [Decap OAuth proxy](https://decapcms.org/docs/backends-overview/#using-github-with-an-oauth-proxy)
+- [Sanity pricing](https://www.sanity.io/pricing)
+- [Storyblok pricing](https://www.storyblok.com/pricing)
+- [DatoCMS pricing](https://www.datocms.com/pricing)
+- [Directus pricing](https://directus.io/pricing)
+- [Strapi pricing](https://strapi.io/pricing)
+- [Contentful pricing](https://www.contentful.com/pricing/)
 
-## 8. Decision
+## Arquitectura final
 
-Se utilizara Sanity Studio con el plan Growth.
+```text
+Clienta → /admin/ → OAuth GitHub → fork/branch de la clienta
+        → Borrador → Lista para revisión → Pull request
+        → validación de JSON/imágenes + Astro check + build
+        → deploy preview gratuito
+Administrador → revisa preview y PR → solicita cambios, rechaza o aprueba
+        → merge a main → build → artefacto → SFTP/FTPS a Arsys
+```
 
-Motivos determinantes:
+La producción sigue siendo estática. No hay consultas al CMS en el navegador, tokens en el frontend ni dependencia de una API externa para servir la web. SEO y rendimiento se mantienen.
 
-1. El rol Contributor impide publicar a las clientas a nivel de permisos, no solo ocultando un boton.
-2. No requiere desplegar ni mantener un servidor o base de datos propios.
-3. Las imagenes se suben, recortan, reordenan y sirven desde CDN con formatos y tamanos optimizados.
-4. El esquema puede limitar campos, longitudes, formatos, cantidad de imagenes y bloques disponibles.
-5. Astro seguira generando HTML estatico publicado, por lo que SEO y rendimiento no dependen de una consulta CMS en cada visita.
-6. El coste es menor que las alternativas con workflow equivalente y la migracion futura queda cubierta por exportaciones JSON/NDJSON y una capa de acceso aislada.
+## Coste y límites
 
-## 9. Flujo editorial
+- Decap CMS: 0 €.
+- GitHub Free: 0 € dentro de sus límites.
+- Cloudflare Workers Free para OAuth: 0 € dentro de su cuota.
+- Netlify Free para deploy previews: 0 € dentro de su cuota, sin activar recargas ni complementos.
+- Arsys: es el hosting existente; la integración no añade una tarifa.
 
-1. La clienta entra en Sanity Studio con rol Contributor.
-2. Crea o edita contenido; Sanity guarda un borrador y conserva la version publicada.
-3. Marca el documento como `Pendiente de revision`.
-4. Un webhook genera una reconstruccion del sitio de preview con la perspectiva de borradores.
-5. El administrador revisa el documento, la previsualizacion y los comentarios.
-6. El administrador devuelve cambios con comentarios/tareas o aprueba y publica.
-7. Solo el rol Administrador puede ejecutar la publicacion.
-8. Un webhook de contenido publicado dispara GitHub Actions, compila Astro y despliega `dist/` en Arsys.
-
-El estado editorial complementa el borrador nativo con `borrador`, `pendiente_revision` y `cambios_solicitados`. La publicacion real sigue siendo la operacion protegida de Sanity.
-
-## 10. Arquitectura resultante
-
-- Produccion: Astro estatico en Arsys, leyendo solo contenido publicado durante el build.
-- CMS: Sanity Content Lake y Sanity Studio alojado.
-- Preview: build estatico separado en Netlify, sin indexacion, con token de solo lectura de borradores.
-- Publicacion: webhook de Sanity a GitHub Actions y despliegue FTP/SFTP a Arsys.
-- Codigo: `src/lib/cms/` concentra cliente, consultas, validacion, fallbacks e imagenes.
-- Migracion: JSON local versionado y script idempotente que sube las imagenes actuales y crea los documentos.
-- Backups: exportacion periodica NDJSON de Sanity mas historial de Assets y copia del repositorio.
-
+Si se supera una cuota gratuita, el servicio debe detenerse, no cambiarse automáticamente a un plan de pago. La arquitectura puede funcionar sin Netlify: se conserva el artefacto de preview de GitHub Actions y el despliegue de producción.
