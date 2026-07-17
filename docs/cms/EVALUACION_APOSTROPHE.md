@@ -12,7 +12,7 @@ La razón no es la capacidad general de ApostropheCMS, sino la combinación conc
 
 | Área | Estado actual |
 | --- | --- |
-| Framework | Astro 5.17.3, TypeScript estricto, React 19 y Tailwind CSS 3 |
+| Framework | Astro declarado como `^5.17.3` y resuelto a 5.18.2 por el lockfile, TypeScript estricto, React 19 y Tailwind CSS 3 |
 | Renderizado | Generación estática; no hay adaptador SSR |
 | Rutas | Inicio, dos divisiones, cuatro servicios detallados, tres páginas legales y una salida JSON generada para el formulario |
 | Componentes | Layout, navegación, hero, servicios, galería, proceso/confianza, contacto, footer, cookies y analítica |

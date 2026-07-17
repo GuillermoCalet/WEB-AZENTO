@@ -61,7 +61,7 @@ Las clientas de Open Authoring siguen sin poder hacer merge aunque no exista est
 
 1. Pida a cada clienta una cuenta gratuita de GitHub con 2FA.
 2. Si el repo es privado, añada solo permiso `Read`. Como el scope OAuth `repo` abarca los repositorios privados accesibles por esa cuenta, es preferible que la cuenta editorial no tenga acceso a ningún otro repositorio. Si el repo pasa a ser público, cambie `auth_scope` a `public_repo`.
-3. Envíe únicamente `https://azentohome.com/admin/` y la guía de clientas.
+3. Envíe únicamente `https://azentohome.com/admin/index.html` y la guía de clientas.
 4. Haga una prueba: crear borrador, enviar a revisión y confirmar que no aparece opción de publicar.
 
 No se crean usuarias dentro de Decap: la identidad la gestiona GitHub.
