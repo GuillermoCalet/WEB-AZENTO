@@ -91,7 +91,7 @@ collections:
         format: json
         preview_path: /
         fields:
-          - { label: Publicada, name: published, widget: boolean, default: true, hint: Si se desactiva, la compilación se detiene para evitar dejar la portada vacía. }
+          - { label: Estado de la portada, name: published, widget: hidden, default: true }
           - { label: Título SEO, name: seoTitle, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
           - { label: Descripción SEO, name: seoDescription, widget: text }
           - { label: Imagen social, name: seoImage, widget: image, choose_url: false }
@@ -124,7 +124,7 @@ collections:
               - { label: Nombre corto, name: shortName, widget: string }
               - { label: Ruta, name: slug, widget: select, options: ["/madera-tecnologica", "/reformas"], hint: No cambiar sin intervención técnica. }
               - { label: Estilo visual, name: tone, widget: select, options: [{ label: Madera, value: wood }, { label: Reformas, value: reform }], hint: Mantiene la paleta definida en el diseño. }
-              - { label: Publicada, name: published, widget: boolean, default: true }
+              - { label: Estado de la división, name: published, widget: hidden, default: true }
               - { label: Descripción de la tarjeta de inicio, name: selectorDescription, widget: text }
               - { label: Imagen de la tarjeta de inicio, name: selectorImage, widget: image, choose_url: false }
               - { label: Texto alternativo de la tarjeta, name: selectorAlt, widget: string }

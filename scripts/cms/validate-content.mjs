@@ -64,6 +64,9 @@ function imageReference(src, alt, label, optionalAlt = false, minDimension = 300
 if (home.published !== true) errors.push("home.json: la portada debe permanecer publicada");
 if (units.length !== 2) errors.push("business-units.json: deben existir exactamente dos divisiones");
 
+if (units.some((unit) => unit.published !== true)) {
+  errors.push("business-units.json: las dos divisiones estructurales deben permanecer publicadas");
+}
 unique(units.map((unit) => unit.id), "Identificadores de división");
 unique(services.map((service) => service.slug), "Slugs de páginas de servicio");
 
@@ -100,7 +103,7 @@ for (const unit of units) {
 }
 
 const unitIds = new Set(units.map((unit) => unit.id));
-const detailSlugs = new Set(services.map((service) => service.slug));
+const detailSlugs = new Set(services.filter((service) => service.published).map((service) => service.slug));
 for (const service of services) {
   if (!unitIds.has(service.divisionId)) {
     errors.push(`Servicio ${service.slug}: división inexistente`);
