@@ -1,11 +1,15 @@
 import { defineConfig } from "tinacms";
 
-// Your hosting provider likely exposes this as an environment variable
 const branch =
+  process.env.NEXT_PUBLIC_TINA_BRANCH ||
   process.env.GITHUB_BRANCH ||
+  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF ||
   process.env.VERCEL_GIT_COMMIT_REF ||
   process.env.HEAD ||
   "main";
+
+const clientId = process.env.NEXT_PUBLIC_TINA_CLIENT_ID;
+const token = process.env.TINA_TOKEN;
 
 const linkFields = [
   { type: "string", name: "label", label: "Label" },
@@ -26,6 +30,8 @@ const sectionHeaderFields = [
 ] as any[];
 
 export default defineConfig({
+  ...(clientId ? { clientId } : {}),
+  ...(token ? { token } : {}),
   branch,
 
   build: {
