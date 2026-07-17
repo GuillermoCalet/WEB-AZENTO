@@ -1,0 +1,193 @@
+{
+  "name": "Madera Tecnológica",
+  "shortName": "Madera Tecnológica",
+  "selectorDescription": "Proyectos de exterior, tarimas, pérgolas, fachadas, cerramientos y soluciones a medida.",
+  "selectorImage": "/images/jardin_2.png",
+  "selectorAlt": "Exterior de vivienda con celosías y acabados de madera tecnológica",
+  "heroEyebrow": "División de AZento Home",
+  "heroTitle": "Madera tecnológica para espacios exteriores",
+  "heroDescription": "Diseñamos e instalamos soluciones de exterior que combinan calidez, funcionalidad y una ejecución cuidada para cada espacio.",
+  "heroImage": "/images/jardin_2.png",
+  "heroAlt": "Proyecto exterior de AZento Home con celosías de madera tecnológica",
+  "seoTitle": "Madera Tecnológica | AZento Home",
+  "seoDescription": "Tarimas, pérgolas, celosías, fachadas, cerramientos y proyectos exteriores a medida con madera tecnológica en Madrid.",
+  "servicesTitle": "Soluciones para transformar el exterior",
+  "servicesDescription": "Desde una tarima hasta una envolvente completa, planteamos cada elemento como parte de un mismo proyecto.",
+  "services": [
+    {
+      "slug": "tarimas-madera-tecnologica",
+      "title": "Tarimas de madera tecnológica",
+      "description": "Tarimas para terrazas, zonas de descanso y espacios junto a piscina, adaptadas a la geometría de cada exterior.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "pergolas-celosias",
+      "title": "Pérgolas y celosías",
+      "description": "Estructuras y soluciones de sombra o privacidad diseñadas para integrarse con la arquitectura existente.",
+      "href": "/servicios/pergolas-celosias",
+      "visible": true
+    },
+    {
+      "slug": "fachadas-revestimientos",
+      "title": "Fachadas y revestimientos",
+      "description": "Revestimientos de madera tecnológica para renovar volúmenes, entradas y fachadas con un acabado continuo.",
+      "href": "/servicios/fachadas-revestimientos",
+      "visible": true
+    },
+    {
+      "slug": "cerramientos-separadores",
+      "title": "Cerramientos y separadores",
+      "description": "Elementos de ocultación y delimitación que aportan privacidad sin perder coherencia visual.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "jardines-terrazas",
+      "title": "Jardines y terrazas",
+      "description": "Diseño de espacios exteriores que integra pavimentos, vegetación, iluminación y zonas de uso.",
+      "href": "/servicios/jardines-terrazas",
+      "visible": true
+    },
+    {
+      "slug": "instalaciones-exteriores-medida",
+      "title": "Instalaciones exteriores a medida",
+      "description": "Soluciones específicas para encuentros, mobiliario, bancos, jardineras y otros elementos singulares.",
+      "href": "",
+      "visible": true
+    }
+  ],
+  "projectsTitle": "Madera tecnológica aplicada a cada espacio",
+  "projectsDescription": "Una selección de trabajos de exterior, revestimiento, celosías y cerramientos realizados por AZento Home.",
+  "projects": [
+    {
+      "slug": "cerramiento-integrado-jardin",
+      "title": "Cerramiento integrado en jardín",
+      "category": "Cerramientos",
+      "image": "/images/exteriores_1.png",
+      "alt": "Jardín con cerramiento vertical de madera tecnológica",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": true
+    },
+    {
+      "slug": "revestimiento-fachada",
+      "title": "Revestimiento de fachada",
+      "category": "Fachadas",
+      "image": "/images/revestimiento_fachadas_3.jpg",
+      "alt": "Fachada contemporánea revestida con lamas de madera tecnológica",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "pergola-celosia-exterior",
+      "title": "Pérgola y celosía exterior",
+      "category": "Pérgolas y celosías",
+      "image": "/images/pergola_1.JPG",
+      "alt": "Pérgola exterior con techo y celosía de lamas",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "celosia-exterior-iluminada",
+      "title": "Celosía exterior iluminada",
+      "category": "Celosías",
+      "image": "/images/image0.JPEG",
+      "alt": "Vivienda contemporánea con celosía exterior iluminada",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "jardin-revestimiento-vertical",
+      "title": "Jardín con revestimiento vertical",
+      "category": "Jardines y terrazas",
+      "image": "/images/jardin_1.png",
+      "alt": "Jardín con paneles verticales de madera tecnológica y vegetación",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "separador-banco-terraza",
+      "title": "Separador y banco de terraza",
+      "category": "Soluciones a medida",
+      "image": "/images/madera2_azento.png",
+      "alt": "Terraza con separador y banco acabado en madera tecnológica",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    }
+  ],
+  "processTitle": "Un proceso pensado de principio a fin",
+  "processDescription": "Estudiamos el espacio, definimos la solución y coordinamos la instalación para que todos los elementos funcionen como un conjunto.",
+  "process": [
+    {
+      "title": "Visita y necesidades",
+      "description": "Conocemos el espacio, el uso previsto y las prioridades del proyecto."
+    },
+    {
+      "title": "Diseño y materiales",
+      "description": "Definimos distribución, encuentros, acabados y soluciones constructivas."
+    },
+    {
+      "title": "Planificación",
+      "description": "Organizamos mediciones, fabricación, suministros y calendario de instalación."
+    },
+    {
+      "title": "Instalación",
+      "description": "Ejecutamos y revisamos el conjunto hasta completar los últimos detalles."
+    }
+  ],
+  "trustTitle": "Una solución exterior coherente",
+  "trust": [
+    {
+      "title": "Diseño a medida",
+      "description": "Cada propuesta se adapta al espacio, al uso y a la arquitectura de la vivienda."
+    },
+    {
+      "title": "Materiales para exterior",
+      "description": "Seleccionamos sistemas y acabados adecuados para su instalación al aire libre."
+    },
+    {
+      "title": "Proyecto coordinado",
+      "description": "Integramos revestimientos, iluminación, vegetación y elementos auxiliares cuando el proyecto lo requiere."
+    }
+  ],
+  "formTitle": "Cuéntanos tu proyecto de madera tecnológica",
+  "formDescription": "Explícanos qué espacio quieres transformar y te responderemos lo antes posible.",
+  "formServices": [
+    {
+      "value": "tarima-madera-tecnologica",
+      "label": "Tarima de madera tecnológica"
+    },
+    {
+      "value": "pergolas-celosias",
+      "label": "Pérgolas y celosías"
+    },
+    {
+      "value": "fachadas-revestimientos",
+      "label": "Fachadas y revestimientos"
+    },
+    {
+      "value": "cerramientos-separadores",
+      "label": "Cerramientos y separadores"
+    },
+    {
+      "value": "jardines-terrazas",
+      "label": "Jardines y terrazas"
+    },
+    {
+      "value": "otro-madera-tecnologica",
+      "label": "Otro proyecto de madera tecnológica"
+    }
+  ]
+}

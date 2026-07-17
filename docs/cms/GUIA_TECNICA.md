@@ -29,13 +29,15 @@ Marca y razón social, URL, dos logos, teléfono, email, ubicación, dirección,
 
 Estado, SEO, etiqueta, H1, introducción, textos de tarjetas y contacto. La página es estructurada; no admite bloques libres.
 
-### Divisiones
+### Madera tecnológica y Reformas
 
-Existen exactamente `madera_tecnologica` y `reformas`. Cada una incluye hero, SEO, servicios, proyectos, proceso, confianza y opciones de formulario. Las listas se filtran por `visible` y mantienen el orden del JSON.
+El panel presenta una colección independiente para cada división. Cada una incluye su página, hero, SEO, servicios, proyectos, proceso, confianza, formulario y páginas detalladas. Los campos estructurales (`id`, ruta y tono visual) se añaden en `repository.ts` y no se muestran en el CMS, por lo que una clienta no puede mover contenido accidentalmente entre divisiones ni cambiar sus rutas.
+
+Los archivos `madera-tecnologica.json` y `reformas.json` contienen las páginas principales. `servicios-madera.json` y `servicios-reformas.json` contienen sus páginas detalladas y galerías. La capa CMS los combina en los mismos tipos que consumían los componentes antes de la reorganización.
 
 ### Servicios detallados
 
-Slug, división, publicado, icono permitido, textos, características, bullets, galería con alt/pie, CTA, FAQ visibles y SEO. Solo los documentos publicados generan una ruta estática.
+Slug, publicado, icono permitido, textos, características, bullets, galería con alt/pie, CTA, FAQ visibles y SEO. La división se determina por el apartado del CMS y no es editable. Solo los documentos publicados generan una ruta estática.
 
 ### Entidades no creadas
 

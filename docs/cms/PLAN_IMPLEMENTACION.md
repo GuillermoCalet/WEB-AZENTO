@@ -25,8 +25,10 @@ public/admin/
 src/content/cms/
   site-settings.json     Marca, contacto, legal y SEO general
   home.json              Portada
-  business-units.json    Dos divisiones, 14 servicios y 12 proyectos
-  detailed-services.json Cuatro páginas, galerías y 12 FAQ
+  madera-tecnologica.json Página, servicios y proyectos de madera
+  servicios-madera.json   Páginas detalladas, galerías y FAQ de madera
+  reformas.json            Página, servicios y proyectos de reformas
+  servicios-reformas.json Páginas detalladas, galerías y FAQ de reformas
 src/lib/cms/
   types.ts               Contratos TypeScript
   schemas.ts             Validaciones Zod
@@ -42,6 +44,7 @@ scripts/cms/
 ## Decisiones de modelo
 
 - Inicio y configuración son documentos únicos.
+- El panel se organiza por negocio: «Madera tecnológica» y «Reformas», no por tipos técnicos globales.
 - Las divisiones son exactamente dos porque sus rutas y estilos forman parte del diseño.
 - Servicios y proyectos son listas controladas, añadibles y reordenables.
 - Las páginas detalladas de servicio son una lista separada para no obligar a que todas las tarjetas tengan ruta propia.

@@ -2,7 +2,6 @@
   "services": [
     {
       "slug": "jardines-terrazas",
-      "divisionId": "madera_tecnologica",
       "published": true,
       "icon": "garden",
       "title": "Jardines y Terrazas",
@@ -81,7 +80,6 @@
     },
     {
       "slug": "pergolas-celosias",
-      "divisionId": "madera_tecnologica",
       "published": true,
       "icon": "pergola",
       "title": "Pérgolas y Celosías",
@@ -153,7 +151,6 @@
     },
     {
       "slug": "fachadas-revestimientos",
-      "divisionId": "madera_tecnologica",
       "published": true,
       "icon": "facade",
       "title": "Fachadas y Revestimientos",
@@ -220,74 +217,6 @@
       "seo": {
         "title": "Fachadas y Revestimientos | AZento Home",
         "description": "La fachada es la carta de presentación de tu vivienda. En AZento Home, nos especializamos en la renovación y diseño de fachadas utilizando los materiales más in..."
-      }
-    },
-    {
-      "slug": "reformas-interiores",
-      "divisionId": "reformas",
-      "published": true,
-      "icon": "interior",
-      "title": "Reformas Interiores",
-      "shortDescription": "Estudiamos los espacios y ofrecemos un diseño personalizado adaptandonos a los requerimientos de nuestros clientes.",
-      "longDescription": [
-        "En AZento Home, analizamos todas las características de cada uno de nuestros proyectos para conseguir unos resultados exclusivos y personalizados.",
-        "Nuestro equipo trabaja contigo durante todo el proceso para dar un sello personal a cada uno de los trabajos. Disponemos de un amplio equipo de profesionales con muchos años de experiencia.",
-        "Utilizamos materiales de alta calidad y colaboramos con los mejores fabricantes de mobiliario, iluminación y acabados. Gestionamos todo el proceso: diseño, obra, instalaciones y decoración final, para que tú solo tengas que disfrutar del resultado."
-      ],
-      "features": [
-        "Diseño de cocinas",
-        "Iluminación",
-        "Mobiliario a medida"
-      ],
-      "bullets": [
-        "Diseño integral de cocinas",
-        "Reforma completa de baños",
-        "Mobiliario a medida",
-        "Iluminación arquitectónica LED",
-        "Suelos de porcelánico y laminado",
-        "Pintura y acabados decorativos",
-        "Instalaciones eléctricas y fontanería",
-        "Climatización",
-        "Carpintería interior personalizada"
-      ],
-      "gallery": [
-        {
-          "src": "/images/cocina_1.png",
-          "alt": "Cocina contemporánea con isla central e iluminación suspendida",
-          "caption": ""
-        },
-        {
-          "src": "/images/cocina_exterior_premium.jpeg",
-          "alt": "Cocina exterior integrada en una terraza",
-          "caption": ""
-        }
-      ],
-      "cta": {
-        "primaryText": "Solicitar Presupuesto",
-        "primaryHref": "/reformas#presupuesto",
-        "secondaryText": "Ver Proyectos",
-        "secondaryHref": "/reformas#proyectos"
-      },
-      "faq": [
-        {
-          "question": "¿Cuánto tiempo dura una reforma integral de cocina?",
-          "answer": "Una reforma completa de cocina, incluyendo instalaciones, suele durar entre 3 y 5 semanas. Esto incluye demolición, nuevas instalaciones de agua y luz, alicatado, mobiliario y electrodomésticos. Te proporcionamos un planning detallado.",
-          "visible": true
-        },
-        {
-          "question": "¿Se puede vivir en casa durante la reforma?",
-          "answer": "Depende del alcance de la obra. Para reformas parciales, sí es posible con algunas molestias. Para reformas integrales, recomendamos buscar alojamiento alternativo durante las fases más intensivas para mayor comodidad y rapidez de ejecución.",
-          "visible": true
-        },
-        {
-          "question": "¿Gestionáis los permisos y licencias necesarios?",
-          "answer": "Sí, nos encargamos de toda la tramitación con el ayuntamiento. Esto incluye licencias de obra, comunicaciones previas, certificados de fin de obra y cualquier documentación técnica necesaria.",
-          "visible": true
-        }
-      ],
-      "seo": {
-        "title": "Reformas Interiores | AZento Home",
-        "description": "En AZento Home, analizamos todas las características de cada uno de nuestros proyectos para conseguir unos resultados exclusivos y personalizados...."
       }
     }
   ]

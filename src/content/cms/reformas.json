@@ -1,0 +1,215 @@
+{
+  "name": "Reformas",
+  "shortName": "Reformas",
+  "selectorDescription": "Reformas integrales, interiores, cocinas, baños, iluminación y mobiliario a medida.",
+  "selectorImage": "/images/cocina_1.png",
+  "selectorAlt": "Cocina contemporánea reformada por AZento Home",
+  "heroEyebrow": "División de AZento Home",
+  "heroTitle": "Reformas que ordenan y renuevan tu hogar",
+  "heroDescription": "Planificamos y ejecutamos reformas integrales o parciales con una visión común de distribución, materiales, iluminación y mobiliario.",
+  "heroImage": "/images/cocina_1.png",
+  "heroAlt": "Interior de cocina contemporánea proyectada por AZento Home",
+  "seoTitle": "Reformas Integrales e Interiores | AZento Home",
+  "seoDescription": "Reformas integrales, cocinas, baños, iluminación, mobiliario a medida y renovación de espacios interiores y exteriores en Madrid.",
+  "servicesTitle": "Reformas para vivir mejor cada espacio",
+  "servicesDescription": "Coordinamos decisiones, materiales y oficios para que el resultado responda al conjunto de la vivienda.",
+  "services": [
+    {
+      "slug": "reformas-integrales",
+      "title": "Reformas integrales",
+      "description": "Renovación completa de la vivienda, desde la redistribución inicial hasta los acabados finales.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "reformas-interiores",
+      "title": "Reformas interiores",
+      "description": "Actualización de estancias y zonas de paso con una lectura conjunta de distribución, materiales e instalaciones.",
+      "href": "/servicios/reformas-interiores",
+      "visible": true
+    },
+    {
+      "slug": "cocinas",
+      "title": "Cocinas",
+      "description": "Diseño y reforma de cocinas atendiendo al uso diario, el almacenamiento, la iluminación y los acabados.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "banos",
+      "title": "Baños",
+      "description": "Reformas de baño que integran distribución, revestimientos, sanitarios, grifería e iluminación.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "iluminacion",
+      "title": "Iluminación",
+      "description": "Planificación de luz general, ambiental y funcional para reforzar el carácter de cada estancia.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "mobiliario-medida",
+      "title": "Mobiliario a medida",
+      "description": "Soluciones de almacenaje y mobiliario pensadas para aprovechar mejor el espacio disponible.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "redistribucion-espacios",
+      "title": "Redistribución de espacios",
+      "description": "Reorganización de circulaciones y estancias para adaptar la vivienda a nuevas necesidades.",
+      "href": "",
+      "visible": true
+    },
+    {
+      "slug": "renovacion-exteriores",
+      "title": "Renovación de exteriores",
+      "description": "Actualización de pavimentos, revestimientos, iluminación y zonas de uso exterior.",
+      "href": "",
+      "visible": true
+    }
+  ],
+  "projectsTitle": "Interiores y exteriores renovados",
+  "projectsDescription": "Cocinas, espacios interiores y actuaciones exteriores que muestran distintas maneras de actualizar una vivienda.",
+  "projects": [
+    {
+      "slug": "cocina-lineas-contemporaneas",
+      "title": "Cocina de líneas contemporáneas",
+      "category": "Cocinas",
+      "image": "/images/cocina_1.png",
+      "alt": "Cocina contemporánea con isla central e iluminación suspendida",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": true
+    },
+    {
+      "slug": "iluminacion-mobiliario-cocina",
+      "title": "Iluminación y mobiliario de cocina",
+      "category": "Cocinas e iluminación",
+      "image": "/images/cocina_2.png",
+      "alt": "Zona de cocina con mobiliario oscuro e iluminación cálida",
+      "objectPosition": "center 42%",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "renovacion-exterior-porcelanico",
+      "title": "Renovación exterior con porcelánico",
+      "category": "Reforma exterior",
+      "image": "/images/revestimiento_fachada_porcelanic.JPG",
+      "alt": "Fachada exterior renovada con revestimiento porcelánico",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "cocina-exterior",
+      "title": "Cocina exterior",
+      "category": "Reforma exterior",
+      "image": "/images/cocina_exterior_premium.jpeg",
+      "alt": "Cocina exterior integrada en una terraza",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "zona-descanso-exterior",
+      "title": "Zona de descanso exterior",
+      "category": "Exterior",
+      "image": "/images/jacuzzi_exterior.jpeg",
+      "alt": "Terraza renovada con zona de descanso exterior",
+      "objectPosition": "center 40%",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    },
+    {
+      "slug": "composicion-decoracion-exterior",
+      "title": "Composición y decoración exterior",
+      "category": "Acabados",
+      "image": "/images/decoracion_2.JPG",
+      "alt": "Detalle de composición y decoración en un espacio exterior",
+      "objectPosition": "center",
+      "caption": "",
+      "visible": true,
+      "featured": false
+    }
+  ],
+  "processTitle": "Una reforma con decisiones ordenadas",
+  "processDescription": "Definimos el alcance, proyectamos cada intervención y coordinamos la ejecución para mantener una visión común durante toda la obra.",
+  "process": [
+    {
+      "title": "Escucha y visita",
+      "description": "Revisamos la vivienda, las necesidades y las prioridades de la reforma."
+    },
+    {
+      "title": "Propuesta",
+      "description": "Trabajamos distribución, materiales, iluminación y soluciones de mobiliario."
+    },
+    {
+      "title": "Planificación",
+      "description": "Coordinamos oficios, suministros y fases antes de iniciar los trabajos."
+    },
+    {
+      "title": "Obra y entrega",
+      "description": "Seguimos la ejecución y revisamos los acabados hasta completar la reforma."
+    }
+  ],
+  "trustTitle": "Un único proyecto, todas las decisiones conectadas",
+  "trust": [
+    {
+      "title": "Visión de conjunto",
+      "description": "Distribución, materiales e iluminación se plantean como partes del mismo espacio."
+    },
+    {
+      "title": "Coordinación de oficios",
+      "description": "Organizamos las distintas intervenciones necesarias durante la reforma."
+    },
+    {
+      "title": "Acompañamiento",
+      "description": "Te ayudamos a tomar decisiones y mantenemos el seguimiento durante la ejecución."
+    }
+  ],
+  "formTitle": "Cuéntanos la reforma que tienes en mente",
+  "formDescription": "Indícanos el tipo de espacio y el alcance aproximado. Te responderemos lo antes posible.",
+  "formServices": [
+    {
+      "value": "reforma-integral",
+      "label": "Reforma integral"
+    },
+    {
+      "value": "cocina",
+      "label": "Cocina"
+    },
+    {
+      "value": "bano",
+      "label": "Baño"
+    },
+    {
+      "value": "reforma-interior",
+      "label": "Reforma interior"
+    },
+    {
+      "value": "iluminacion",
+      "label": "Iluminación"
+    },
+    {
+      "value": "mobiliario-medida",
+      "label": "Mobiliario a medida"
+    },
+    {
+      "value": "reforma-exterior",
+      "label": "Reforma exterior"
+    },
+    {
+      "value": "otro-reforma",
+      "label": "Otro proyecto de reforma"
+    }
+  ]
+}

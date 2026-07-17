@@ -84,6 +84,13 @@ export const businessUnitsSchema = z.object({
   }
 });
 
+export const businessUnitContentSchema = businessUnitSchema.omit({
+  id: true,
+  slug: true,
+  tone: true,
+  published: true,
+});
+
 export const detailedServiceSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   divisionId: z.enum(["madera_tecnologica", "reformas"]),
@@ -111,6 +118,10 @@ export const detailedServiceSchema = z.object({
 
 export const detailedServicesSchema = z.object({
   services: z.array(detailedServiceSchema).max(30),
+});
+
+export const detailedServicesContentSchema = z.object({
+  services: z.array(detailedServiceSchema.omit({ divisionId: true })).max(30),
 });
 
 export const siteSettingsSchema = z.object({

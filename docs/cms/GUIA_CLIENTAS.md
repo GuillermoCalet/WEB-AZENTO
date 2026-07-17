@@ -22,14 +22,14 @@ Las clientas deben utilizar la dirección de producción. El modo local es para 
 
 - Configuración general: contacto, logotipos y datos de empresa.
 - Página de inicio.
-- Divisiones, servicios y proyectos.
-- Páginas detalladas, galerías y preguntas frecuentes.
+- Madera tecnológica: página, servicios, proyectos, galerías y preguntas frecuentes.
+- Reformas: página, servicios, proyectos, galerías y preguntas frecuentes.
 
 No modifiques rutas, identificadores internos, CIF ni datos registrales sin confirmarlo con el administrador. No puedes editar estilos, tamaños, píxeles, código ni la estructura de la web.
 
 ## Cambiar un texto
 
-1. Abre «Editar la web».
+1. Abre «Contenido general», «Madera tecnológica» o «Reformas».
 2. Entra en la página correspondiente.
 3. Cambia el campo indicado.
 4. Pulsa «Guardar». Esto crea o actualiza un borrador; no publica.
@@ -45,8 +45,8 @@ Usa JPG, PNG o WebP, máximo 3 MB. Recomendación: 1600–2400 px, proporción 4
 
 ## Añadir un proyecto
 
-1. Entra en «Divisiones, proyectos y servicios».
-2. Abre la división correcta.
+1. Entra directamente en «Madera tecnológica» o «Reformas».
+2. Abre «Página, proyectos y servicios».
 3. En «Proyectos», pulsa «Añadir».
 4. Rellena título, tipo, imagen y texto alternativo.
 5. Deja «Visible» activado si debe aparecer tras la aprobación.

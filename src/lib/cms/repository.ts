@@ -1,16 +1,19 @@
-import businessUnitsSource from "../../content/cms/business-units.json";
-import detailedServicesSource from "../../content/cms/detailed-services.json";
+import woodUnitSource from "../../content/cms/madera-tecnologica.json";
+import reformsUnitSource from "../../content/cms/reformas.json";
+import woodServicesSource from "../../content/cms/servicios-madera.json";
+import reformsServicesSource from "../../content/cms/servicios-reformas.json";
 import homeSource from "../../content/cms/home.json";
 import siteSettingsSource from "../../content/cms/site-settings.json";
 import {
-  businessUnitsSchema,
-  detailedServicesSchema,
+  businessUnitContentSchema,
+  detailedServicesContentSchema,
   homePageSchema,
   siteSettingsSchema,
 } from "./schemas";
 import type {
   BusinessUnitConfig,
   BusinessUnitId,
+  BusinessTone,
   DetailedService,
   HomePage,
   SiteSettings,
@@ -33,27 +36,57 @@ export const siteSettings: SiteSettings = parseContent(
 
 export const homePage: HomePage = parseContent("home.json", homePageSchema, homeSource);
 
-const parsedUnits = parseContent(
-  "business-units.json",
-  businessUnitsSchema,
-  businessUnitsSource,
-).units;
+function loadBusinessUnit(
+  label: string,
+  source: unknown,
+  structural: {
+    id: BusinessUnitId;
+    slug: "/madera-tecnologica" | "/reformas";
+    tone: BusinessTone;
+  },
+): BusinessUnitConfig {
+  const content = parseContent(label, businessUnitContentSchema, source);
+  return {
+    ...content,
+    ...structural,
+    published: true,
+  };
+}
 
-export const businessUnits: BusinessUnitConfig[] = parsedUnits
-  .filter((unit) => unit.published)
-  .map((unit) => ({
-    ...unit,
-    services: unit.services.filter((service) => service.visible),
-    projects: unit.projects
-      .filter((project) => project.visible)
-      .sort((left, right) => Number(right.featured) - Number(left.featured)),
-  }));
+const parsedUnits: BusinessUnitConfig[] = [
+  loadBusinessUnit("madera-tecnologica.json", woodUnitSource, {
+    id: "madera_tecnologica",
+    slug: "/madera-tecnologica",
+    tone: "wood",
+  }),
+  loadBusinessUnit("reformas.json", reformsUnitSource, {
+    id: "reformas",
+    slug: "/reformas",
+    tone: "reform",
+  }),
+];
 
-const parsedServices = parseContent(
-  "detailed-services.json",
-  detailedServicesSchema,
-  detailedServicesSource,
-).services;
+export const businessUnits: BusinessUnitConfig[] = parsedUnits.map((unit) => ({
+  ...unit,
+  services: unit.services.filter((service) => service.visible),
+  projects: unit.projects
+    .filter((project) => project.visible)
+    .sort((left, right) => Number(right.featured) - Number(left.featured)),
+}));
+
+function loadDetailedServices(
+  label: string,
+  source: unknown,
+  divisionId: BusinessUnitId,
+): DetailedService[] {
+  const content = parseContent(label, detailedServicesContentSchema, source);
+  return content.services.map((service) => ({ ...service, divisionId }));
+}
+
+const parsedServices: DetailedService[] = [
+  ...loadDetailedServices("servicios-madera.json", woodServicesSource, "madera_tecnologica"),
+  ...loadDetailedServices("servicios-reformas.json", reformsServicesSource, "reformas"),
+];
 
 export const services: DetailedService[] = parsedServices
   .filter((service) => service.published)

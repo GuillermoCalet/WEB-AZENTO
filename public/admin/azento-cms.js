@@ -127,13 +127,14 @@
   CMS.registerEventListener({
     name: "preSave",
     handler: ({ entry }) => {
-      if (entry.get("collection") !== "contenido") return;
+      const collection = entry.get("collection");
+      if (!["general", "madera", "reformas"].includes(collection)) return;
 
       const slug = entry.get("slug");
       let data = entry.get("data");
       validateImages(data.toJS());
 
-      if (slug === "divisiones") {
+      if (["pagina_madera", "pagina_reformas"].includes(slug)) {
         data = data.update("units", (units) =>
           units.map((unit) =>
             unit
@@ -143,7 +144,7 @@
         );
       }
 
-      if (slug === "servicios_detallados") {
+      if (["servicios_madera", "servicios_reformas"].includes(slug)) {
         data = data.update("services", ensureSlugs);
       }
 

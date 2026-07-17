@@ -18,6 +18,13 @@ try {
     }
     if (!Array.isArray(config.collections) || config.collections.length === 0) {
       errors.push("admin/config.yml: no hay colecciones");
+    } else {
+      const collectionNames = new Set(config.collections.map((collection) => collection.name));
+      for (const requiredCollection of ["general", "madera", "reformas"]) {
+        if (!collectionNames.has(requiredCollection)) {
+          errors.push(`admin/config.yml: falta la colección ${requiredCollection}`);
+        }
+      }
     }
   }
 } catch (error) {
@@ -35,11 +42,21 @@ async function loadJson(relativePath) {
 
 const settings = await loadJson("src/content/cms/site-settings.json");
 const home = await loadJson("src/content/cms/home.json");
-const businessContent = await loadJson("src/content/cms/business-units.json");
-const serviceContent = await loadJson("src/content/cms/detailed-services.json");
+const woodContent = await loadJson("src/content/cms/madera-tecnologica.json");
+const reformsContent = await loadJson("src/content/cms/reformas.json");
+const woodServiceContent = await loadJson("src/content/cms/servicios-madera.json");
+const reformsServiceContent = await loadJson("src/content/cms/servicios-reformas.json");
 
-const units = Array.isArray(businessContent.units) ? businessContent.units : [];
-const services = Array.isArray(serviceContent.services) ? serviceContent.services : [];
+const units = [
+  { ...woodContent, id: "madera_tecnologica", slug: "/madera-tecnologica", tone: "wood", published: true },
+  { ...reformsContent, id: "reformas", slug: "/reformas", tone: "reform", published: true },
+];
+const services = [
+  ...(Array.isArray(woodServiceContent.services) ? woodServiceContent.services : [])
+    .map((service) => ({ ...service, divisionId: "madera_tecnologica" })),
+  ...(Array.isArray(reformsServiceContent.services) ? reformsServiceContent.services : [])
+    .map((service) => ({ ...service, divisionId: "reformas" })),
+];
 
 function requireValue(value, label) {
   if (typeof value !== "string" || value.trim() === "") {
@@ -62,11 +79,6 @@ function imageReference(src, alt, label, optionalAlt = false, minDimension = 300
 }
 
 if (home.published !== true) errors.push("home.json: la portada debe permanecer publicada");
-if (units.length !== 2) errors.push("business-units.json: deben existir exactamente dos divisiones");
-
-if (units.some((unit) => unit.published !== true)) {
-  errors.push("business-units.json: las dos divisiones estructurales deben permanecer publicadas");
-}
 unique(units.map((unit) => unit.id), "Identificadores de división");
 unique(services.map((service) => service.slug), "Slugs de páginas de servicio");
 
