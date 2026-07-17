@@ -4,18 +4,38 @@
  * Sticky navigation con backdrop-blur y diseño elegante
  */
 
-// Datos de navegación - Fácil de editar
-const navLinks = [
+// @ts-nocheck (generated Tina types appear after tinacms dev/build)
+import { sanitizeHref, sanitizeImageSrc } from '@tinacms/astro/sanitize';
+import { tinaField } from '@tinacms/astro/tina-field';
+import type { PageQuery } from '../../tina/__generated__/types';
+
+interface Props {
+	data?: PageQuery['page'] | null;
+}
+
+const { data } = Astro.props;
+const navbar = data?.navbar;
+
+const fallbackNavbar = {
+	logoImage: "/images/logo_azento.jpg",
+	logoAlt: "AZento Home Solutions",
+	navLinks: [
 	{ label: "Inicio", href: "#inicio" },
 	{ label: "Servicios", href: "#servicios" },
 	{ label: "Proyectos", href: "#proyectos" },
 	{ label: "Contacto", href: "#contacto" },
-];
-
-const ctaButton = {
-	label: "Pedir Presupuesto",
-	href: "/#presupuesto",
+	],
+	ctaButton: {
+		label: "Pedir Presupuesto",
+		href: "/#presupuesto",
+	},
 };
+
+const editableNavLinks = navbar?.navLinks?.filter((link) => link?.label && link?.href) ?? [];
+const navLinks = editableNavLinks.length ? editableNavLinks : fallbackNavbar.navLinks;
+const ctaButton = { ...fallbackNavbar.ctaButton, ...(navbar?.ctaButton ?? {}) };
+const logoImage = navbar?.logoImage || fallbackNavbar.logoImage;
+const logoAlt = navbar?.logoAlt || fallbackNavbar.logoAlt;
 ---
 
 <nav 
@@ -32,10 +52,11 @@ const ctaButton = {
 				<!-- Contenedor del logo con fondo que coincide con el logo -->
 				<div class="logo-container relative rounded-lg overflow-hidden transition-all duration-300
 					group-hover:scale-[1.02] group-hover:shadow-lg">
-					<img 
-						src="/images/logo_azento.jpg" 
-						alt="AZento Home Solutions" 
+					<img
+						src={sanitizeImageSrc(logoImage, fallbackNavbar.logoImage)}
+						alt={logoAlt}
 						class="h-14 w-auto object-contain"
+						data-tina-field={navbar ? tinaField(navbar, 'logoImage') : undefined}
 					/>
 				</div>
 			</a>
@@ -46,11 +67,12 @@ const ctaButton = {
 				<ul class="flex items-center gap-6">
 					{navLinks.map((link) => (
 						<li>
-							<a 
-								href={link.href}
+							<a
+								href={sanitizeHref(link.href, '#inicio')}
 								class="nav-link relative font-medium text-sm tracking-wide py-2 transition-colors
-									after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent-400 
+									after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-accent-400
 									after:transition-all after:duration-300 hover:after:w-full"
+								data-tina-field={navbar ? tinaField(link, 'label') : undefined}
 							>
 								{link.label}
 							</a>
@@ -59,12 +81,13 @@ const ctaButton = {
 				</ul>
 
 				<!-- CTA Button -->
-				<a 
-					href={ctaButton.href}
-					class="inline-flex items-center gap-2 bg-azento-600 text-white px-6 py-2.5 rounded-full 
+				<a
+					href={sanitizeHref(ctaButton.href, '/#presupuesto')}
+					class="inline-flex items-center gap-2 bg-azento-600 text-white px-6 py-2.5 rounded-full
 						font-medium text-sm tracking-wide shadow-lg shadow-azento-600/25
-						hover:bg-azento-500 hover:shadow-xl hover:shadow-azento-600/30 
+						hover:bg-azento-500 hover:shadow-xl hover:shadow-azento-600/30
 						hover:-translate-y-0.5 transition-all duration-300"
+					data-tina-field={navbar?.ctaButton ? tinaField(navbar.ctaButton, 'label') : undefined}
 				>
 					{ctaButton.label}
 				</a>
@@ -96,10 +119,11 @@ const ctaButton = {
 			<ul class="space-y-3">
 				{navLinks.map((link) => (
 					<li>
-						<a 
-							href={link.href}
+						<a
+							href={sanitizeHref(link.href, '#inicio')}
 							class="block text-azento-700 font-medium text-lg py-2 px-4 rounded-lg
 								hover:bg-azento-50 hover:text-azento-600 transition-colors"
+							data-tina-field={navbar ? tinaField(link, 'label') : undefined}
 						>
 							{link.label}
 						</a>
@@ -107,10 +131,11 @@ const ctaButton = {
 				))}
 			</ul>
 			<div class="pt-4 border-t border-neutral-200">
-				<a 
-					href={ctaButton.href}
-					class="block text-center bg-azento-600 text-white px-6 py-3 rounded-full 
+				<a
+					href={sanitizeHref(ctaButton.href, '/#presupuesto')}
+					class="block text-center bg-azento-600 text-white px-6 py-3 rounded-full
 						font-medium shadow-lg hover:bg-azento-500 transition-colors"
+					data-tina-field={navbar?.ctaButton ? tinaField(navbar.ctaButton, 'label') : undefined}
 				>
 					{ctaButton.label}
 				</a>

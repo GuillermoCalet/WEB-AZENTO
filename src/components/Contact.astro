@@ -4,14 +4,25 @@
  * Diseño minimalista con efecto glassmorphism
  */
 
-// Datos de contacto - Fácil de editar
-const sectionData = {
+// @ts-nocheck (generated Tina types appear after tinacms dev/build)
+import { sanitizeHref } from '@tinacms/astro/sanitize';
+import { tinaField } from '@tinacms/astro/tina-field';
+import type { PageQuery } from '../../tina/__generated__/types';
+
+interface Props {
+	data?: PageQuery['page'] | null;
+}
+
+const { data } = Astro.props;
+const contactSection = data?.contactSection;
+
+const fallbackSectionData = {
 	tagline: "Contacto",
 	headline: "Hagamos realidad tu proyecto",
 	description: "Cuéntanos tu visión y te ayudaremos a transformar tu espacio. Te responderemos lo antes posible.",
 };
 
-const contactInfo = [
+const fallbackContactInfo = [
 	{
 		icon: "phone",
 		label: "Teléfono fijo",
@@ -38,6 +49,50 @@ const contactInfo = [
 	},
 ];
 
+const fallbackFormData = {
+	formTitle: "Solicita tu presupuesto",
+	nameLabel: "Nombre completo",
+	namePlaceholder: "Tu nombre",
+	emailLabel: "Correo electrónico",
+	emailPlaceholder: "tu@email.com",
+	phoneLabel: "Teléfono",
+	phonePlaceholder: "+34 600 000 000",
+	serviceLabel: "Servicio de interés",
+	servicePlaceholder: "Selecciona un servicio",
+	serviceOptions: [
+		{ label: "Jardines y Terrazas", value: "jardines-terrazas" },
+		{ label: "Pérgolas y Celosías", value: "pergolas-celosias" },
+		{ label: "Fachadas y Revestimientos", value: "fachadas-revestimientos" },
+		{ label: "Reformas Interiores", value: "reformas-interiores" },
+		{ label: "Otro proyecto", value: "otro" },
+	],
+	messageLabel: "Cuéntanos tu proyecto",
+	messagePlaceholder: "Describe brevemente qué tienes en mente...",
+	consentText: "Acepto que AZento Home pueda escribirme y tratar mis datos para responder a esta solicitud.",
+	submitLabel: "Enviar solicitud",
+	submittingLabel: "Enviando...",
+	successTitle: "¡Solicitud enviada!",
+	successMessage: "Te contactaremos lo antes posible.",
+	errorTitle: "Error al enviar",
+	errorMessage: "Por favor, inténtalo de nuevo.",
+	localErrorMessage: "En local, el formulario necesita un servidor PHP. Prueba la web en Arsys o instala PHP para probarlo en tu ordenador.",
+	privacyNote: "No enviaremos comunicaciones comerciales sin tu consentimiento.",
+};
+
+const editableContactInfo = contactSection?.contactInfo?.filter((info) => info?.label && info?.value) ?? [];
+const editableServiceOptions = contactSection?.serviceOptions?.filter((option) => option?.label && option?.value) ?? [];
+const sectionData = {
+	tagline: contactSection?.tagline || fallbackSectionData.tagline,
+	headline: contactSection?.headline || fallbackSectionData.headline,
+	description: contactSection?.description || fallbackSectionData.description,
+};
+const formData = {
+	...fallbackFormData,
+	...(contactSection ?? {}),
+	contactInfo: editableContactInfo.length ? editableContactInfo : fallbackContactInfo,
+	serviceOptions: editableServiceOptions.length ? editableServiceOptions : fallbackFormData.serviceOptions,
+};
+
 // Iconos SVG
 const icons: Record<string, string> = {
 	phone: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/>`,
@@ -59,35 +114,45 @@ const icons: Record<string, string> = {
 			<!-- Left Column - Content -->
 			<div>
 				<!-- Section Header -->
-				<span class="inline-block text-accent-600 font-medium text-sm tracking-widest uppercase mb-4">
+				<span
+					class="inline-block text-accent-600 font-medium text-sm tracking-widest uppercase mb-4"
+					data-tina-field={contactSection ? tinaField(contactSection, 'tagline') : undefined}
+				>
 					{sectionData.tagline}
 				</span>
-				
-				<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-azento-700 mb-6">
+
+				<h2
+					class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-azento-700 mb-6"
+					data-tina-field={contactSection ? tinaField(contactSection, 'headline') : undefined}
+				>
 					{sectionData.headline}
 				</h2>
-				
-				<p class="text-lg text-azento-500/80 leading-relaxed mb-10">
+
+				<p
+					class="text-lg text-azento-500/80 leading-relaxed mb-10"
+					data-tina-field={contactSection ? tinaField(contactSection, 'description') : undefined}
+				>
 					{sectionData.description}
 				</p>
 
 				<!-- Contact Info Cards -->
 				<div class="space-y-4">
-					{contactInfo.map((info) => (
-						<a 
-							href={info.href}
+					{formData.contactInfo.map((info) => (
+						<a
+							href={sanitizeHref(info.href, '#contacto')}
 							class="flex items-center gap-4 p-4 rounded-2xl bg-white/50 backdrop-blur-sm
 								border border-neutral-200 hover:border-accent-300 hover:bg-white
 								transition-all duration-300 group"
+							data-tina-field={contactSection ? tinaField(info, 'value') : undefined}
 						>
 							<div class="w-12 h-12 rounded-xl bg-azento-600 flex items-center justify-center
 								group-hover:bg-azento-500 transition-colors">
 								<svg 
 									class="w-5 h-5 text-white" 
 									fill="none" 
-									stroke="currentColor" 
+									stroke="currentColor"
 									viewBox="0 0 24 24"
-									set:html={icons[info.icon]}
+									set:html={icons[info.icon] ?? icons.phone}
 								/>
 							</div>
 							<div>
@@ -103,11 +168,21 @@ const icons: Record<string, string> = {
 
 			<!-- Right Column - Form -->
 			<div id="presupuesto" class="scroll-mt-28 bg-white/80 backdrop-blur-xl rounded-3xl p-8 lg:p-10 shadow-xl shadow-azento-900/5 border border-neutral-200">
-				<h3 class="font-display text-2xl font-semibold text-azento-700 mb-6">
-					Solicita tu presupuesto
+				<h3
+					class="font-display text-2xl font-semibold text-azento-700 mb-6"
+					data-tina-field={contactSection ? tinaField(contactSection, 'formTitle') : undefined}
+				>
+					{formData.formTitle}
 				</h3>
 
-				<form id="quote-form" class="space-y-5">
+				<form
+					id="quote-form"
+					class="space-y-5"
+					data-submit-label={formData.submitLabel}
+					data-submitting-label={formData.submittingLabel}
+					data-default-error-message={formData.errorMessage}
+					data-local-error-message={formData.localErrorMessage}
+				>
 					<!-- Honeypot field (anti-spam) - oculto para usuarios -->
 					<div class="hidden" aria-hidden="true">
 						<label for="website">Website</label>
@@ -123,13 +198,13 @@ const icons: Record<string, string> = {
 					<!-- Name Field -->
 					<div>
 						<label for="name" class="block text-sm font-medium text-azento-600 mb-2">
-							Nombre completo <span class="text-red-500">*</span>
+							<span data-tina-field={contactSection ? tinaField(contactSection, 'nameLabel') : undefined}>{formData.nameLabel}</span> <span class="text-red-500">*</span>
 						</label>
-						<input 
+						<input
 							type="text" 
 							id="name" 
 							name="name"
-							placeholder="Tu nombre"
+							placeholder={formData.namePlaceholder}
 							maxlength="100"
 							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
 								text-azento-700 placeholder:text-neutral-400
@@ -142,13 +217,13 @@ const icons: Record<string, string> = {
 					<!-- Email Field -->
 					<div>
 						<label for="email" class="block text-sm font-medium text-azento-600 mb-2">
-							Correo electrónico <span class="text-red-500">*</span>
+							<span data-tina-field={contactSection ? tinaField(contactSection, 'emailLabel') : undefined}>{formData.emailLabel}</span> <span class="text-red-500">*</span>
 						</label>
 						<input 
 							type="email" 
 							id="email" 
 							name="email"
-							placeholder="tu@email.com"
+							placeholder={formData.emailPlaceholder}
 							maxlength="254"
 							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
 								text-azento-700 placeholder:text-neutral-400
@@ -161,13 +236,13 @@ const icons: Record<string, string> = {
 					<!-- Phone Field -->
 					<div>
 						<label for="phone" class="block text-sm font-medium text-azento-600 mb-2">
-							Teléfono
+							<span data-tina-field={contactSection ? tinaField(contactSection, 'phoneLabel') : undefined}>{formData.phoneLabel}</span>
 						</label>
 						<input 
 							type="tel" 
 							id="phone" 
 							name="phone"
-							placeholder="+34 600 000 000"
+							placeholder={formData.phonePlaceholder}
 							maxlength="30"
 							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
 								text-azento-700 placeholder:text-neutral-400
@@ -179,35 +254,34 @@ const icons: Record<string, string> = {
 					<!-- Service Select -->
 					<div>
 						<label for="service" class="block text-sm font-medium text-azento-600 mb-2">
-							Servicio de interés
+							<span data-tina-field={contactSection ? tinaField(contactSection, 'serviceLabel') : undefined}>{formData.serviceLabel}</span>
 						</label>
 						<select 
-							id="service" 
+							id="service"
 							name="service"
 							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
 								text-azento-700 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20
 								transition-all duration-200"
+							data-tina-field={contactSection ? tinaField(contactSection, 'serviceOptions') : undefined}
 						>
-							<option value="">Selecciona un servicio</option>
-							<option value="jardines-terrazas">Jardines y Terrazas</option>
-							<option value="pergolas-celosias">Pérgolas y Celosías</option>
-							<option value="fachadas-revestimientos">Fachadas y Revestimientos</option>
-							<option value="reformas-interiores">Reformas Interiores</option>
-							<option value="otro">Otro proyecto</option>
+							<option value="">{formData.servicePlaceholder}</option>
+							{formData.serviceOptions.map((option) => (
+								<option value={option.value}>{option.label}</option>
+							))}
 						</select>
 					</div>
 
 					<!-- Message Field -->
 					<div>
 						<label for="message" class="block text-sm font-medium text-azento-600 mb-2">
-							Cuéntanos tu proyecto
+							<span data-tina-field={contactSection ? tinaField(contactSection, 'messageLabel') : undefined}>{formData.messageLabel}</span>
 						</label>
 						<textarea 
 							id="message" 
 							name="message"
 							rows="4"
 							maxlength="2000"
-							placeholder="Describe brevemente qué tienes en mente..."
+							placeholder={formData.messagePlaceholder}
 							class="w-full px-4 py-3 rounded-xl border border-neutral-300 bg-white
 								text-azento-700 placeholder:text-neutral-400 resize-none
 								focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20
@@ -224,8 +298,8 @@ const icons: Record<string, string> = {
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
 								</svg>
 								<div>
-									<p class="font-semibold text-green-800">¡Solicitud enviada!</p>
-									<p class="text-sm text-green-600">Te contactaremos lo antes posible.</p>
+									<p class="font-semibold text-green-800" data-tina-field={contactSection ? tinaField(contactSection, 'successTitle') : undefined}>{formData.successTitle}</p>
+									<p class="text-sm text-green-600" data-tina-field={contactSection ? tinaField(contactSection, 'successMessage') : undefined}>{formData.successMessage}</p>
 								</div>
 							</div>
 						</div>
@@ -237,8 +311,8 @@ const icons: Record<string, string> = {
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
 								</svg>
 								<div>
-									<p class="font-semibold text-red-800">Error al enviar</p>
-									<p id="error-message" class="text-sm text-red-600">Por favor, inténtalo de nuevo.</p>
+									<p class="font-semibold text-red-800" data-tina-field={contactSection ? tinaField(contactSection, 'errorTitle') : undefined}>{formData.errorTitle}</p>
+									<p id="error-message" class="text-sm text-red-600" data-tina-field={contactSection ? tinaField(contactSection, 'errorMessage') : undefined}>{formData.errorMessage}</p>
 								</div>
 							</div>
 						</div>
@@ -254,7 +328,7 @@ const icons: Record<string, string> = {
 							required
 						/>
 						<label for="contact-consent" class="text-xs leading-relaxed text-azento-500">
-							Acepto que AZento Home pueda escribirme y tratar mis datos para responder a esta solicitud.
+							<span data-tina-field={contactSection ? tinaField(contactSection, 'consentText') : undefined}>{formData.consentText}</span>
 						</label>
 					</div>
 
@@ -267,7 +341,7 @@ const icons: Record<string, string> = {
 							active:scale-[0.98] transition-all duration-300
 							disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:bg-azento-600"
 					>
-						<span id="btn-text">Enviar solicitud</span>
+						<span id="btn-text" data-tina-field={contactSection ? tinaField(contactSection, 'submitLabel') : undefined}>{formData.submitLabel}</span>
 						<svg id="btn-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
 								d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
@@ -280,7 +354,7 @@ const icons: Record<string, string> = {
 					</button>
 
 					<p class="text-xs text-azento-400 text-center">
-						No enviaremos comunicaciones comerciales sin tu consentimiento.
+						<span data-tina-field={contactSection ? tinaField(contactSection, 'privacyNote') : undefined}>{formData.privacyNote}</span>
 					</p>
 				</form>
 			</div>
@@ -298,10 +372,14 @@ const icons: Record<string, string> = {
 	const statusSuccess = document.getElementById('status-success') as HTMLDivElement;
 	const statusError = document.getElementById('status-error') as HTMLDivElement;
 	const errorMessage = document.getElementById('error-message') as HTMLParagraphElement;
+	const submitLabel = form.dataset.submitLabel || 'Enviar solicitud';
+	const submittingLabel = form.dataset.submittingLabel || 'Enviando...';
+	const defaultErrorMessage = form.dataset.defaultErrorMessage || 'Por favor, inténtalo de nuevo.';
+	const localErrorMessage = form.dataset.localErrorMessage || 'En local, el formulario necesita un servidor PHP. Prueba la web en Arsys o instala PHP para probarlo en tu ordenador.';
 
 	function setLoading(loading: boolean) {
 		submitBtn.disabled = loading;
-		btnText.textContent = loading ? 'Enviando...' : 'Enviar solicitud';
+		btnText.textContent = loading ? submittingLabel : submitLabel;
 		btnIcon.classList.toggle('hidden', loading);
 		btnSpinner.classList.toggle('hidden', !loading);
 	}
@@ -375,8 +453,8 @@ const icons: Record<string, string> = {
 			showStatus(
 				'error',
 				isLocal
-					? 'En local, el formulario necesita un servidor PHP. Prueba la web en Arsys o instala PHP para probarlo en tu ordenador.'
-					: 'El formulario no está disponible ahora mismo. Inténtalo de nuevo en unos minutos.'
+					? localErrorMessage
+					: defaultErrorMessage
 			);
 		} finally {
 			setLoading(false);

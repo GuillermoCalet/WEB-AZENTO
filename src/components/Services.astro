@@ -5,16 +5,49 @@
  * Las cards enlazan a páginas de detalle: /servicios/[slug]
  */
 
+// @ts-nocheck (generated Tina types appear after tinacms dev/build)
+import { sanitizeHref } from '@tinacms/astro/sanitize';
+import { tinaField } from '@tinacms/astro/tina-field';
+import type { PageQuery } from '../../tina/__generated__/types';
 import { services, serviceIcons } from '../data/services';
 
-// Datos de la sección - Fácil de editar
-const sectionData = {
+interface Props {
+	data?: PageQuery['page'] | null;
+}
+
+const { data } = Astro.props;
+const servicesSection = data?.servicesSection;
+
+const fallbackSectionData = {
 	tagline: "Nuestros Servicios",
 	headline: "Soluciones integrales para tu hogar",
 	description: "Ofrecemos un servicio completo de diseño, construcción y acabados para espacios exteriores e interiores. Cada proyecto es único, como tu hogar.",
+	ctaText: "¿No encuentras lo que buscas? Cuéntanos tu proyecto.",
+	ctaLink: {
+		label: "Contactar con un especialista",
+		href: "#contacto",
+	},
 };
 
-// Usamos los iconos desde el archivo de datos centralizado
+const fallbackServiceItems = services.map((service) => ({
+	title: service.title,
+	shortDescription: service.shortDescription,
+	icon: service.icon,
+	href: `/servicios/${service.slug}`,
+	linkLabel: "Ver más",
+	features: service.features,
+}));
+
+const editableServiceItems = servicesSection?.items?.filter((service) => service?.title) ?? [];
+const sectionData = {
+	tagline: servicesSection?.tagline || fallbackSectionData.tagline,
+	headline: servicesSection?.headline || fallbackSectionData.headline,
+	description: servicesSection?.description || fallbackSectionData.description,
+	ctaText: servicesSection?.ctaText || fallbackSectionData.ctaText,
+	ctaLink: { ...fallbackSectionData.ctaLink, ...(servicesSection?.ctaLink ?? {}) },
+	items: editableServiceItems.length ? editableServiceItems : fallbackServiceItems,
+};
+
 const icons = serviceIcons;
 ---
 
@@ -27,27 +60,36 @@ const icons = serviceIcons;
 		<!-- Section Header -->
 		<div class="text-center max-w-3xl mx-auto mb-16 lg:mb-20">
 			<!-- Tagline -->
-			<span class="inline-block text-accent-600 font-medium text-sm tracking-widest uppercase mb-4">
+			<span
+				class="inline-block text-accent-600 font-medium text-sm tracking-widest uppercase mb-4"
+				data-tina-field={servicesSection ? tinaField(servicesSection, 'tagline') : undefined}
+			>
 				{sectionData.tagline}
 			</span>
-			
+
 			<!-- Headline -->
-			<h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-azento-700 mb-6">
+			<h2
+				class="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-azento-700 mb-6"
+				data-tina-field={servicesSection ? tinaField(servicesSection, 'headline') : undefined}
+			>
 				{sectionData.headline}
 			</h2>
-			
+
 			<!-- Description -->
-			<p class="text-lg text-azento-500/80 leading-relaxed">
+			<p
+				class="text-lg text-azento-500/80 leading-relaxed"
+				data-tina-field={servicesSection ? tinaField(servicesSection, 'description') : undefined}
+			>
 				{sectionData.description}
 			</p>
 		</div>
 
 		<!-- Services Grid -->
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-			{services.map((service, index) => (
-				<a 
-					href={`/servicios/${service.slug}`}
-					class="group relative bg-white rounded-3xl p-8 lg:p-10 
+			{sectionData.items.map((service, index) => (
+				<a
+					href={sanitizeHref(service.href, '#servicios')}
+					class="group relative bg-white rounded-3xl p-8 lg:p-10
 						shadow-sm hover:shadow-xl hover:shadow-azento-900/5
 						border border-neutral-200 hover:border-accent-300
 						transition-all duration-500 hover:-translate-y-2
@@ -56,31 +98,39 @@ const icons = serviceIcons;
 					aria-label={`Ver más sobre ${service.title}`}
 				>
 					<!-- Icon Container -->
-					<div class="w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-azento-500 to-azento-600 
+					<div class="w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br from-azento-500 to-azento-600
 						flex items-center justify-center shadow-lg shadow-azento-600/20
-						group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
-						<svg 
-							class="w-8 h-8 text-white" 
-							fill="none" 
-							stroke="currentColor" 
+						group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300"
+						data-tina-field={servicesSection ? tinaField(service, 'icon') : undefined}>
+						<svg
+							class="w-8 h-8 text-white"
+							fill="none"
+							stroke="currentColor"
 							viewBox="0 0 24 24"
-							set:html={icons[service.icon]}
+							set:html={icons[service.icon] ?? icons.garden}
 						/>
 					</div>
 
 					<!-- Content -->
-					<h3 class="font-display text-xl lg:text-2xl font-semibold text-azento-700 mb-4 
-						group-hover:text-azento-600 transition-colors">
+					<h3 class="font-display text-xl lg:text-2xl font-semibold text-azento-700 mb-4
+						group-hover:text-azento-600 transition-colors"
+						data-tina-field={servicesSection ? tinaField(service, 'title') : undefined}>
 						{service.title}
 					</h3>
-					
-					<p class="text-azento-500/80 leading-relaxed mb-6">
+
+					<p
+						class="text-azento-500/80 leading-relaxed mb-6"
+						data-tina-field={servicesSection ? tinaField(service, 'shortDescription') : undefined}
+					>
 						{service.shortDescription}
 					</p>
 
 					<!-- Features List -->
-					<ul class="space-y-3 mb-6">
-						{service.features.map((feature) => (
+					<ul
+						class="space-y-3 mb-6"
+						data-tina-field={servicesSection ? tinaField(service, 'features') : undefined}
+					>
+						{(service.features ?? []).map((feature) => (
 							<li class="flex items-center gap-3 text-sm text-azento-600">
 								<span class="flex-shrink-0 w-5 h-5 rounded-full bg-accent-100 flex items-center justify-center">
 									<svg class="w-3 h-3 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,10 +143,11 @@ const icons = serviceIcons;
 					</ul>
 
 					<!-- Ver más indicator -->
-					<span class="inline-flex items-center gap-2 text-sm font-medium text-accent-600 
-						group-hover:text-accent-500 transition-colors">
-						Ver más
-						<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" 
+					<span class="inline-flex items-center gap-2 text-sm font-medium text-accent-600
+						group-hover:text-accent-500 transition-colors"
+						data-tina-field={servicesSection ? tinaField(service, 'linkLabel') : undefined}>
+						{service.linkLabel || "Ver más"}
+						<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform"
 							fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
 						</svg>
@@ -112,15 +163,19 @@ const icons = serviceIcons;
 
 		<!-- CTA Section -->
 		<div class="mt-16 lg:mt-20 text-center">
-			<p class="text-azento-500 mb-6">
-				¿No encuentras lo que buscas? Cuéntanos tu proyecto.
-			</p>
-			<a 
-				href="#contacto"
-				class="inline-flex items-center gap-2 text-azento-600 font-semibold 
-					hover:text-accent-600 transition-colors group"
+			<p
+				class="text-azento-500 mb-6"
+				data-tina-field={servicesSection ? tinaField(servicesSection, 'ctaText') : undefined}
 			>
-				Contactar con un especialista
+				{sectionData.ctaText}
+			</p>
+			<a
+				href={sanitizeHref(sectionData.ctaLink.href, '#contacto')}
+				class="inline-flex items-center gap-2 text-azento-600 font-semibold
+					hover:text-accent-600 transition-colors group"
+				data-tina-field={servicesSection?.ctaLink ? tinaField(servicesSection.ctaLink, 'label') : undefined}
+			>
+				{sectionData.ctaLink.label}
 				<svg 
 					class="w-5 h-5 group-hover:translate-x-1 transition-transform" 
 					fill="none" 

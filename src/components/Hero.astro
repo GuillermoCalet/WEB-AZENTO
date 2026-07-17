@@ -4,9 +4,21 @@
  * Imagen de fondo con overlay y CTAs destacados
  */
 
-// Datos del Hero - Fácil de editar
-const heroContent = {
-	headline: "Reformas con AZento",
+// @ts-nocheck (generated Tina types appear after tinacms dev/build)
+import { sanitizeHref, sanitizeImageSrc } from '@tinacms/astro/sanitize';
+import { tinaField } from '@tinacms/astro/tina-field';
+import type { PageQuery } from '../../tina/__generated__/types';
+
+interface Props {
+	data?: PageQuery['page'] | null;
+}
+
+const { data } = Astro.props;
+
+const fallbackHeroContent = {
+	badge: "Jardines · Terrazas · Pérgolas · Fachadas",
+	headlinePrefix: "Reformas con",
+	headlineAccent: "AZento",
 	subheadline: "Diseño y ejecución de espacios exteriores e interiores.",
 	ctaPrimary: {
 		label: "Solicitar Presupuesto",
@@ -28,6 +40,25 @@ const heroContent = {
 		{ value: "Madrid", label: "y alrededores" },
 	],
 };
+
+const fallbackBackgroundImages = fallbackHeroContent.backgroundImages.map((image) => ({
+	image,
+	alt: "AZento Home",
+}));
+
+const editableBackgroundImages = data?.backgroundImages?.filter((img) => img?.image) ?? [];
+const editableStats = data?.stats?.filter((stat) => stat?.value || stat?.label) ?? [];
+
+const heroContent = {
+	badge: data?.badge || fallbackHeroContent.badge,
+	headlinePrefix: data?.headlinePrefix || fallbackHeroContent.headlinePrefix,
+	headlineAccent: data?.headlineAccent || fallbackHeroContent.headlineAccent,
+	subheadline: data?.subheadline || fallbackHeroContent.subheadline,
+	ctaPrimary: { ...fallbackHeroContent.ctaPrimary, ...(data?.ctaPrimary ?? {}) },
+	ctaSecondary: { ...fallbackHeroContent.ctaSecondary, ...(data?.ctaSecondary ?? {}) },
+	backgroundImages: editableBackgroundImages.length ? editableBackgroundImages : fallbackBackgroundImages,
+	stats: editableStats.length ? editableStats : fallbackHeroContent.stats,
+};
 ---
 
 <section 
@@ -39,11 +70,12 @@ const heroContent = {
 		<!-- Contenedor de imágenes con transición -->
 		<div id="hero-slideshow" class="relative w-full h-full">
 			{heroContent.backgroundImages.map((img, index) => (
-				<img 
-					src={img}
-					alt={`AZento Home - Imagen ${index + 1}`}
+				<img
+					src={sanitizeImageSrc(img.image, fallbackBackgroundImages[0].image)}
+					alt={img.alt || `AZento Home - Imagen ${index + 1}`}
 					class={`hero-slide absolute inset-0 w-full h-full object-cover object-[55%_center] sm:object-center transition-opacity duration-1000 ${index === 0 ? 'opacity-100' : 'opacity-0'}`}
 					data-slide-index={index}
+					data-tina-field={data ? tinaField(img, 'image') : undefined}
 					loading={index === 0 ? "eager" : "lazy"}
 				/>
 			))}
@@ -58,10 +90,11 @@ const heroContent = {
 	<div class="relative z-10 w-full max-w-[390px] sm:max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 text-center">
 		<!-- Badge superior -->
 		<div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 
-			max-w-full rounded-full px-4 py-2 mb-8 animate-fade-in">
+			max-w-full rounded-full px-4 py-2 mb-8 animate-fade-in"
+			data-tina-field={data ? tinaField(data, 'badge') : undefined}>
 			<span class="w-2 h-2 shrink-0 bg-accent-400 rounded-full animate-pulse"></span>
 			<span class="text-neutral-100 text-xs sm:text-sm font-medium tracking-wide leading-snug">
-				Jardines · Terrazas · Pérgolas · Fachadas
+				{heroContent.badge}
 			</span>
 		</div>
 
@@ -70,14 +103,15 @@ const heroContent = {
 			text-white leading-[0.95] mb-6 animate-slide-up"
 			style="animation-delay: 0.1s;"
 		>
-			<span class="block">Reformas con</span>
-			<span class="block text-accent-300">AZento</span>
+			<span class="block" data-tina-field={data ? tinaField(data, 'headlinePrefix') : undefined}>{heroContent.headlinePrefix}</span>
+			<span class="block text-accent-300" data-tina-field={data ? tinaField(data, 'headlineAccent') : undefined}>{heroContent.headlineAccent}</span>
 		</h1>
 
 		<!-- Subtítulo -->
 		<p class="max-w-2xl mx-auto text-lg sm:text-xl text-neutral-200/90 leading-relaxed mb-10 
 			animate-slide-up"
 			style="animation-delay: 0.2s;"
+			data-tina-field={data ? tinaField(data, 'subheadline') : undefined}
 		>
 			{heroContent.subheadline}
 		</p>
@@ -88,8 +122,9 @@ const heroContent = {
 			style="animation-delay: 0.3s;"
 		>
 			<!-- CTA Principal -->
-			<a 
-				href={heroContent.ctaPrimary.href}
+			<a
+				href={sanitizeHref(heroContent.ctaPrimary.href, '/#presupuesto')}
+				data-tina-field={data?.ctaPrimary ? tinaField(data.ctaPrimary, 'label') : undefined}
 				class="group inline-flex items-center gap-3 bg-accent-400 text-neutral-900 
 					w-full max-w-sm justify-center px-6 sm:px-8 py-4 rounded-full font-semibold text-lg shadow-2xl shadow-accent-500/30
 					hover:bg-accent-300 hover:shadow-accent-400/40 hover:-translate-y-1 
@@ -107,8 +142,9 @@ const heroContent = {
 			</a>
 
 			<!-- CTA Secundario -->
-			<a 
-				href={heroContent.ctaSecondary.href}
+			<a
+				href={sanitizeHref(heroContent.ctaSecondary.href, '#proyectos')}
+				data-tina-field={data?.ctaSecondary ? tinaField(data.ctaSecondary, 'label') : undefined}
 				class="group inline-flex items-center gap-3 bg-transparent text-white 
 					w-full max-w-xs justify-center px-6 sm:px-8 py-4 rounded-full font-semibold text-lg border-2 border-white/30
 					hover:bg-white/10 hover:border-white/50 hover:-translate-y-1 
@@ -132,10 +168,12 @@ const heroContent = {
 		>
 			{heroContent.stats.map((stat) => (
 				<div class="min-w-0 h-full min-h-[5.4rem] sm:min-h-0 text-center px-2 py-3 sm:p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 overflow-hidden">
-					<div class="font-display text-[clamp(1.35rem,5.8vw,1.65rem)] sm:text-4xl font-bold leading-none text-accent-400 mb-2 whitespace-nowrap">
+					<div class="font-display text-[clamp(1.35rem,5.8vw,1.65rem)] sm:text-4xl font-bold leading-none text-accent-400 mb-2 whitespace-nowrap"
+						data-tina-field={data ? tinaField(stat, 'value') : undefined}>
 						{stat.value}
 					</div>
-					<div class="text-[0.68rem] sm:text-sm leading-tight text-neutral-300 font-medium break-words">
+					<div class="text-[0.68rem] sm:text-sm leading-tight text-neutral-300 font-medium break-words"
+						data-tina-field={data ? tinaField(stat, 'label') : undefined}>
 						{stat.label}
 					</div>
 				</div>

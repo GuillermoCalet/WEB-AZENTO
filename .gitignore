@@ -3,6 +3,8 @@ dist/
 
 # generated types
 .astro/
+tina/__generated__/
+public/admin/
 
 # dependencies
 node_modules/
@@ -24,3 +26,5 @@ public/api/quote-config.php
 
 # jetbrains setting folder
 .idea/
+
+node_modules

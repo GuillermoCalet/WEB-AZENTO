@@ -6,6 +6,7 @@
 
 // Layout principal
 import Layout from '../layouts/Layout.astro';
+import TinaIsland from '@tinacms/astro/TinaIsland.astro';
 
 // Componentes de la landing page
 import Navbar from '../components/Navbar.astro';
@@ -14,31 +15,47 @@ import Services from '../components/Services.astro';
 import Gallery from '../components/Gallery.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import { getPage } from '../lib/tina/data';
+import { islands } from '../lib/tina/islands';
 
 // Metadatos de la página (opcional - usa los valores por defecto del Layout)
-const pageTitle = "AZento Home";
-const pageDescription = "Transformamos espacios exteriores en jardines de ensueño. Paisajismo exclusivo, reformas integrales y mantenimiento premium en Madrid y toda España.";
+const page = await getPage('home');
+const pageData = page.data?.page;
+const pageTitle = pageData?.title || "AZento Home";
+const pageDescription = pageData?.description || "Transformamos espacios exteriores en jardines de ensueño. Paisajismo exclusivo, reformas integrales y mantenimiento premium en Madrid y toda España.";
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
 	<!-- Navegación -->
-	<Navbar />
+	<TinaIsland name="homeNavbar" wrapper={islands.homeNavbar.wrapper}>
+		<Navbar data={pageData} />
+	</TinaIsland>
 	
 	<!-- Contenido principal -->
 	<main>
 		<!-- Hero Section -->
-		<Hero />
+		<TinaIsland name="homeHero" wrapper={islands.homeHero.wrapper} primary>
+			<Hero data={pageData} />
+		</TinaIsland>
 		
 		<!-- Servicios -->
-		<Services />
+		<TinaIsland name="homeServices" wrapper={islands.homeServices.wrapper}>
+			<Services data={pageData} />
+		</TinaIsland>
 		
 		<!-- Galería de Proyectos -->
-		<Gallery />
+		<TinaIsland name="homeGallery" wrapper={islands.homeGallery.wrapper}>
+			<Gallery data={pageData} />
+		</TinaIsland>
 		
 		<!-- Contacto -->
-		<Contact />
+		<TinaIsland name="homeContact" wrapper={islands.homeContact.wrapper}>
+			<Contact data={pageData} />
+		</TinaIsland>
 	</main>
 	
 	<!-- Footer -->
-	<Footer />
+	<TinaIsland name="homeFooter" wrapper={islands.homeFooter.wrapper}>
+		<Footer data={pageData} />
+	</TinaIsland>
 </Layout>
