@@ -1,0 +1,271 @@
+{
+  "legalNotice": {
+    "seoTitle": "Aviso legal | AZento Home",
+    "seoDescription": "Aviso legal y condiciones de uso del sitio web de AZento Home.",
+    "title": "Aviso Legal",
+    "updatedDate": "Enero 2026",
+    "sections": [
+      {
+        "heading": "1. Datos identificativos",
+        "paragraphs": [
+          "En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSICE), se informa:"
+        ],
+        "list": [
+          { "label": "Denominación social", "text": "{{legalName}}" },
+          { "label": "CIF", "text": "{{cif}}" },
+          { "label": "Domicilio", "text": "{{address}}" },
+          { "label": "Email", "text": "{{email}}", "href": "mailto:{{email}}" },
+          { "label": "Teléfono", "text": "{{phone}}", "href": "{{phoneHref}}" },
+          { "label": "Datos registrales", "text": "{{registry}}" }
+        ]
+      },
+      {
+        "heading": "2. Objeto",
+        "paragraphs": [
+          "El presente aviso legal regula el uso del sitio web {{siteUrl}} (en adelante, el Sitio Web), del que es titular {{legalName}}.",
+          "La navegación por el Sitio Web atribuye la condición de usuario del mismo e implica la aceptación plena y sin reservas de todas las disposiciones incluidas en este Aviso Legal."
+        ]
+      },
+      {
+        "heading": "3. Condiciones de uso",
+        "paragraphs": [
+          "El usuario se compromete a hacer un uso adecuado de los contenidos y servicios que {{legalName}} ofrece a través de su Sitio Web y, con carácter enunciativo pero no limitativo, a no emplearlos para:"
+        ],
+        "list": [
+          { "text": "Incurrir en actividades ilícitas, ilegales o contrarias a la buena fe y al orden público." },
+          { "text": "Difundir contenidos o propaganda de carácter racista, xenófobo, pornográfico-ilegal, de apología del terrorismo o atentatorio contra los derechos humanos." },
+          { "text": "Provocar daños en los sistemas físicos y lógicos del Sitio Web, de sus proveedores o de terceras personas." },
+          { "text": "Introducir o difundir virus informáticos o cualesquiera otros sistemas que sean susceptibles de provocar daños." }
+        ]
+      },
+      {
+        "heading": "4. Propiedad intelectual e industrial",
+        "paragraphs": [
+          "Todos los contenidos del Sitio Web, incluyendo sin limitación, textos, fotografías, gráficos, imágenes, iconos, tecnología, software, links y demás contenidos audiovisuales, así como su diseño gráfico y códigos fuente, son propiedad intelectual de {{legalName}} o de terceros, sin que puedan entenderse cedidos al usuario ninguno de los derechos de explotación reconocidos por la normativa vigente en materia de propiedad intelectual.",
+          "Las marcas, nombres comerciales o signos distintivos son titularidad de {{legalName}} o de terceros, sin que pueda entenderse que el acceso al Sitio Web atribuya ningún derecho sobre las citadas marcas, nombres comerciales y/o signos distintivos."
+        ]
+      },
+      {
+        "heading": "5. Exclusión de garantías y responsabilidad",
+        "paragraphs": [
+          "{{legalName}} no se hace responsable, en ningún caso, de los daños y perjuicios de cualquier naturaleza que pudieran ocasionar, a título enunciativo: errores u omisiones en los contenidos, falta de disponibilidad del Sitio Web o la transmisión de virus o programas maliciosos o lesivos en los contenidos, a pesar de haber adoptado todas las medidas tecnológicas necesarias para evitarlo."
+        ]
+      },
+      {
+        "heading": "6. Enlaces externos",
+        "paragraphs": [
+          "El Sitio Web puede contener enlaces a otros sitios web gestionados por terceros. {{legalName}} no ejerce ningún tipo de control sobre dichos sitios y contenidos, y no asume responsabilidad alguna por los contenidos de ningún sitio web vinculado, ni garantiza la disponibilidad técnica, calidad, fiabilidad, exactitud, amplitud, veracidad, validez y constitucionalidad de cualquier material o información contenida en dichos sitios."
+        ]
+      },
+      {
+        "heading": "7. Política de privacidad",
+        "paragraphs": [
+          "El tratamiento de los datos personales de los usuarios se rige por nuestra [Política de Privacidad](/politica-privacidad)."
+        ]
+      },
+      {
+        "heading": "8. Política de cookies",
+        "paragraphs": [
+          "El uso de cookies en este Sitio Web se rige por nuestra [Política de Cookies](/politica-cookies)."
+        ]
+      },
+      {
+        "heading": "9. Modificaciones",
+        "paragraphs": [
+          "{{legalName}} se reserva el derecho de efectuar sin previo aviso las modificaciones que considere oportunas en su Sitio Web, pudiendo cambiar, suprimir o añadir tanto los contenidos y servicios que se presten a través de la misma como la forma en la que éstos aparezcan presentados o localizados."
+        ]
+      },
+      {
+        "heading": "10. Legislación aplicable y jurisdicción",
+        "paragraphs": [
+          "La relación entre {{legalName}} y el usuario se regirá por la normativa española vigente. Para la resolución de cualquier controversia, las partes se someterán a los Juzgados y Tribunales de Madrid, renunciando expresamente a cualquier otro fuero que pudiera corresponderles."
+        ]
+      }
+    ]
+  },
+  "privacyPolicy": {
+    "seoTitle": "Política de privacidad | AZento Home",
+    "seoDescription": "Política de privacidad y protección de datos de AZento Home.",
+    "title": "Política de Privacidad",
+    "updatedDate": "Enero 2026",
+    "sections": [
+      {
+        "heading": "1. Responsable del tratamiento",
+        "list": [
+          { "label": "Identidad", "text": "{{legalName}}" },
+          { "label": "CIF", "text": "{{cif}}" },
+          { "label": "Dirección", "text": "{{address}}" },
+          { "label": "Email", "text": "{{email}}", "href": "mailto:{{email}}" },
+          { "label": "Teléfono", "text": "{{phone}}", "href": "{{phoneHref}}" }
+        ]
+      },
+      {
+        "heading": "2. Datos que recopilamos",
+        "paragraphs": [
+          "Recopilamos los siguientes datos personales cuando utilizas nuestro sitio web:"
+        ],
+        "list": [
+          { "label": "Datos de contacto", "text": "Nombre, email, teléfono y dirección cuando rellenas nuestro formulario de contacto o solicitas un presupuesto." },
+          { "label": "Datos de navegación", "text": "Dirección IP, tipo de navegador, páginas visitadas y tiempo de permanencia mediante cookies analíticas, si las aceptas." },
+          { "label": "Datos del proyecto", "text": "Información sobre el servicio que necesitas, ubicación de la obra y cualquier detalle que nos proporciones." }
+        ]
+      },
+      {
+        "heading": "3. Finalidad del tratamiento",
+        "paragraphs": [
+          "Utilizamos tus datos personales para:"
+        ],
+        "list": [
+          { "text": "Responder a tus consultas y solicitudes de presupuesto." },
+          { "text": "Gestionar la relación comercial y prestación de servicios contratados." },
+          { "text": "Enviarte comunicaciones comerciales sobre nuestros servicios solo si das tu consentimiento." },
+          { "text": "Mejorar nuestro sitio web y servicios mediante análisis estadísticos." },
+          { "text": "Cumplir con obligaciones legales y fiscales." }
+        ]
+      },
+      {
+        "heading": "4. Base legal del tratamiento",
+        "list": [
+          { "label": "Consentimiento", "text": "Para el envío de comunicaciones comerciales y el uso de cookies analíticas." },
+          { "label": "Ejecución de contrato", "text": "Para gestionar presupuestos y servicios solicitados." },
+          { "label": "Interés legítimo", "text": "Para mejorar nuestros servicios y prevenir fraudes." },
+          { "label": "Obligación legal", "text": "Para cumplir con requerimientos fiscales y legales." }
+        ]
+      },
+      {
+        "heading": "5. Conservación de datos",
+        "paragraphs": [
+          "Conservaremos tus datos personales mientras exista una relación comercial contigo, y posteriormente durante los plazos legalmente establecidos.",
+          "Los datos de contacto para fines comerciales se conservarán hasta que solicites su supresión."
+        ]
+      },
+      {
+        "heading": "6. Destinatarios de los datos",
+        "paragraphs": [
+          "No vendemos ni cedemos tus datos personales a terceros. Únicamente compartimos información con:"
+        ],
+        "list": [
+          { "label": "Proveedores de servicios", "text": "Empresas que nos ayudan a operar el sitio web, como hosting, email o análisis." },
+          { "label": "Autoridades públicas", "text": "Cuando estemos legalmente obligados a ello." }
+        ]
+      },
+      {
+        "heading": "7. Tus derechos",
+        "paragraphs": [
+          "Tienes derecho a:"
+        ],
+        "list": [
+          { "label": "Acceso", "text": "Conocer qué datos personales tenemos sobre ti." },
+          { "label": "Rectificación", "text": "Corregir datos inexactos o incompletos." },
+          { "label": "Supresión", "text": "Solicitar la eliminación de tus datos." },
+          { "label": "Oposición", "text": "Oponerte al tratamiento de tus datos." },
+          { "label": "Limitación", "text": "Solicitar la limitación del tratamiento." },
+          { "label": "Portabilidad", "text": "Recibir tus datos en formato estructurado." }
+        ]
+      },
+      {
+        "heading": "8. Seguridad",
+        "paragraphs": [
+          "Implementamos medidas técnicas y organizativas apropiadas para proteger tus datos personales contra acceso no autorizado, alteración, divulgación o destrucción."
+        ]
+      },
+      {
+        "heading": "9. Reclamaciones",
+        "paragraphs": [
+          "Si consideras que el tratamiento de tus datos no es adecuado, puedes presentar una reclamación ante la Agencia Española de Protección de Datos."
+        ],
+        "list": [
+          { "text": "www.aepd.es", "href": "https://www.aepd.es" }
+        ]
+      },
+      {
+        "heading": "10. Modificaciones",
+        "paragraphs": [
+          "Nos reservamos el derecho de modificar esta política de privacidad. Cualquier cambio será publicado en esta página con la fecha de actualización."
+        ]
+      }
+    ]
+  },
+  "cookiePolicy": {
+    "seoTitle": "Política de cookies | AZento Home",
+    "seoDescription": "Información sobre el uso de cookies en el sitio web de AZento Home.",
+    "title": "Política de Cookies",
+    "updatedDate": "Enero 2026",
+    "actionButtonLabel": "Configurar mis cookies",
+    "sections": [
+      {
+        "heading": "¿Qué son las cookies?",
+        "paragraphs": [
+          "Las cookies y tecnologías similares son pequeños identificadores o datos que se almacenan en tu dispositivo cuando visitas un sitio web. Se utilizan para hacer que los sitios web funcionen de manera más eficiente y para proporcionar información a los propietarios del sitio."
+        ]
+      },
+      {
+        "heading": "Tipos de cookies que utilizamos",
+        "paragraphs": [
+          "Estas son las categorías de cookies y tecnologías similares que puede utilizar este sitio."
+        ]
+      },
+      {
+        "heading": "Cookies necesarias",
+        "level": "h3",
+        "paragraphs": [
+          "Son esenciales para el funcionamiento del sitio web. Incluyen el almacenamiento técnico que permite recordar tus preferencias de privacidad. Sin estas tecnologías, el sitio web no puede funcionar correctamente."
+        ],
+        "list": [
+          { "label": "azento_cookie_consent", "text": "Almacena tus preferencias de cookies en el navegador. Duración: hasta que borres los datos del navegador o cambies tus preferencias." }
+        ]
+      },
+      {
+        "heading": "Cookies analíticas",
+        "level": "h3",
+        "paragraphs": [
+          "Nos ayudan a entender cómo los visitantes interactúan con nuestro sitio web recopilando información de forma anónima. Utilizamos Google Analytics para este propósito."
+        ],
+        "list": [
+          { "label": "_ga", "text": "Distingue usuarios únicos. Duración: 2 años." },
+          { "label": "_ga_*", "text": "Mantiene el estado de la sesión. Duración: 2 años." }
+        ]
+      },
+      {
+        "heading": "Cookies de marketing",
+        "level": "h3",
+        "paragraphs": [
+          "Actualmente no utilizamos cookies de marketing ni píxeles publicitarios. Si en el futuro se incorporan, actualizaremos esta política y solicitaremos el consentimiento correspondiente antes de activarlas."
+        ]
+      },
+      {
+        "heading": "¿Cómo gestionar las cookies?",
+        "paragraphs": [
+          "Puedes gestionar tus preferencias de cookies en cualquier momento haciendo clic en el enlace de configuración de cookies en el pie de página, o configurando tu navegador para rechazar cookies.",
+          "Ten en cuenta que si desactivas las cookies, algunas funcionalidades del sitio web pueden no funcionar correctamente."
+        ]
+      },
+      {
+        "heading": "Configuración en navegadores",
+        "level": "h3",
+        "list": [
+          { "text": "Google Chrome", "href": "https://support.google.com/chrome/answer/95647" },
+          { "text": "Mozilla Firefox", "href": "https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-sitios-web-rastrear-preferencias" },
+          { "text": "Safari", "href": "https://support.apple.com/es-es/guide/safari/sfri11471/mac" },
+          { "text": "Microsoft Edge", "href": "https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" }
+        ]
+      },
+      {
+        "heading": "Cambios en esta política",
+        "paragraphs": [
+          "Podemos actualizar esta política de cookies periódicamente. Te recomendamos revisar esta página de vez en cuando para estar informado de cualquier cambio."
+        ]
+      },
+      {
+        "heading": "Contacto",
+        "paragraphs": [
+          "Si tienes alguna pregunta sobre nuestra política de cookies, puedes contactarnos en:"
+        ],
+        "list": [
+          { "label": "Email", "text": "{{email}}", "href": "mailto:{{email}}" },
+          { "label": "Teléfono", "text": "{{phone}}", "href": "{{phoneHref}}" }
+        ]
+      }
+    ]
+  }
+}

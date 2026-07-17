@@ -1,6 +1,6 @@
 ---
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
-import type { BusinessUnitConfig } from "../lib/cms";
+import { siteCopy, type BusinessUnitConfig } from "../lib/cms";
 
 interface Props {
 	unit: BusinessUnitConfig;
@@ -9,6 +9,7 @@ interface Props {
 const { unit } = Astro.props;
 const isWood = unit.tone === "wood";
 const firstProject = unit.projects[0];
+const copy = siteCopy.businessPage;
 ---
 
 <section id="proyectos" class:list={["py-20 text-white sm:py-24 lg:py-28", isWood ? "bg-accent-950" : "bg-azento-900"]}>
@@ -16,7 +17,7 @@ const firstProject = unit.projects[0];
 		<div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-end lg:gap-16">
 			<div>
 				<p class:list={["mb-4 text-sm font-semibold uppercase tracking-widest", isWood ? "text-accent-300" : "text-azento-200"]}>
-					Proyectos
+					{siteCopy.navigation.projectsLabel}
 				</p>
 				<h2 class="font-display text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
 					{unit.projectsTitle}
@@ -28,7 +29,7 @@ const firstProject = unit.projects[0];
 		</div>
 
 		{unit.projects.length === 0 && (
-			<p class="mt-12 rounded-lg border border-white/20 p-6 text-center text-white/70">No hay proyectos publicados en este momento.</p>
+			<p class="mt-12 rounded-lg border border-white/20 p-6 text-center text-white/70">{copy.projectsEmptyText}</p>
 		)}
 
 		<div class="mt-12 grid auto-rows-[18rem] gap-3 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3 lg:auto-rows-[20rem]">
@@ -41,7 +42,7 @@ const firstProject = unit.projects[0];
 					]}
 					data-project-trigger
 					data-project-index={index}
-					aria-label={`Ampliar imagen: ${project.title}`}
+					aria-label={`${copy.galleryOpenImageAriaPrefix} ${project.title}`}
 				>
 					<img
 						src={project.image}
@@ -71,10 +72,10 @@ const firstProject = unit.projects[0];
 		aria-labelledby="lightbox-title"
 		data-projects={JSON.stringify(unit.projects)}
 	>
-		<button type="button" class="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-lg border border-white/25 bg-neutral-950/60 text-white hover:bg-neutral-800 sm:right-6 sm:top-6" aria-label="Cerrar imagen" data-lightbox-close>
+		<button type="button" class="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-lg border border-white/25 bg-neutral-950/60 text-white hover:bg-neutral-800 sm:right-6 sm:top-6" aria-label={copy.galleryCloseImageAriaLabel} data-lightbox-close>
 			<X size={22} aria-hidden="true" />
 		</button>
-		<button type="button" class="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-white/25 bg-neutral-950/60 text-white hover:bg-neutral-800 sm:left-6" aria-label="Imagen anterior" data-lightbox-prev>
+		<button type="button" class="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-white/25 bg-neutral-950/60 text-white hover:bg-neutral-800 sm:left-6" aria-label={copy.galleryPreviousImageAriaLabel} data-lightbox-prev>
 			<ChevronLeft size={24} aria-hidden="true" />
 		</button>
 
@@ -91,7 +92,7 @@ const firstProject = unit.projects[0];
 			</figcaption>
 		</figure>
 
-		<button type="button" class="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-white/25 bg-neutral-950/60 text-white hover:bg-neutral-800 sm:right-6" aria-label="Imagen siguiente" data-lightbox-next>
+		<button type="button" class="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-lg border border-white/25 bg-neutral-950/60 text-white hover:bg-neutral-800 sm:right-6" aria-label={copy.galleryNextImageAriaLabel} data-lightbox-next>
 			<ChevronRight size={24} aria-hidden="true" />
 		</button>
 	</div>

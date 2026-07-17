@@ -1,6 +1,6 @@
 ---
 import { ArrowDown, ArrowRight } from "lucide-react";
-import type { BusinessUnitConfig } from "../lib/cms";
+import { siteCopy, type BusinessUnitConfig } from "../lib/cms";
 
 interface Props {
 	unit: BusinessUnitConfig;
@@ -35,11 +35,11 @@ const isWood = unit.tone === "wood";
 
 			<div class="mt-9 flex flex-col items-start gap-3 sm:flex-row">
 				<a href="#presupuesto" class:list={["inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-lg px-6 py-3 font-semibold transition-colors sm:w-auto", isWood ? "bg-accent-400 text-neutral-950 hover:bg-accent-300" : "bg-white text-azento-900 hover:bg-neutral-100"]}>
-					Solicitar presupuesto
+					{siteCopy.businessPage.heroQuoteLabel}
 					<ArrowRight size={19} aria-hidden="true" />
 				</a>
 				<a href="#proyectos" class="inline-flex min-h-12 w-full items-center justify-center gap-3 rounded-lg border border-white/50 px-6 py-3 font-semibold text-white transition-colors hover:bg-white/10 sm:w-auto">
-					Ver proyectos
+					{siteCopy.businessPage.heroProjectsLabel}
 					<ArrowDown size={18} aria-hidden="true" />
 				</a>
 			</div>

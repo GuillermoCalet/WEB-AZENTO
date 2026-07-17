@@ -4,7 +4,7 @@
   "selectorDescription": "Proyectos de exterior, tarimas, pérgolas, fachadas, cerramientos y soluciones a medida.",
   "selectorImage": "/images/jardin_2.png",
   "selectorAlt": "Exterior de vivienda con celosías y acabados de madera tecnológica",
-  "heroEyebrow": "División de AZento Home",
+  "heroEyebrow": "Una de nuestras facetas ... ",
   "heroTitle": "Madera tecnológica para espacios exteriores",
   "heroDescription": "Diseñamos e instalamos soluciones de exterior que combinan calidez, funcionalidad y una ejecución cuidada para cada espacio.",
   "heroImage": "/images/jardin_2.png",
@@ -14,6 +14,13 @@
   "servicesTitle": "Soluciones para transformar el exterior",
   "servicesDescription": "Desde una tarima hasta una envolvente completa, planteamos cada elemento como parte de un mismo proyecto.",
   "services": [
+    {
+      "slug": "instalaciones-exteriores-medida",
+      "title": "Instalaciones exteriores a medida",
+      "description": "Soluciones específicas para encuentros, mobiliario, bancos, jardineras y otros elementos singulares.",
+      "href": "",
+      "visible": true
+    },
     {
       "slug": "tarimas-madera-tecnologica",
       "title": "Tarimas de madera tecnológica",
@@ -47,13 +54,6 @@
       "title": "Jardines y terrazas",
       "description": "Diseño de espacios exteriores que integra pavimentos, vegetación, iluminación y zonas de uso.",
       "href": "/servicios/jardines-terrazas",
-      "visible": true
-    },
-    {
-      "slug": "instalaciones-exteriores-medida",
-      "title": "Instalaciones exteriores a medida",
-      "description": "Soluciones específicas para encuentros, mobiliario, bancos, jardineras y otros elementos singulares.",
-      "href": "",
       "visible": true
     }
   ],

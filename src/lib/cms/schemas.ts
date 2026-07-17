@@ -15,6 +15,10 @@ const seoSchema = z.object({
   description: nonEmpty.max(320),
 });
 
+const shortCopy = nonEmpty.max(120);
+const mediumCopy = nonEmpty.max(500);
+const longCopy = nonEmpty.max(3000);
+
 const serviceCardSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   title: nonEmpty.max(100),
@@ -158,4 +162,152 @@ export const homePageSchema = z.object({
   cardCtaPrefix: nonEmpty.max(80),
   contactEyebrow: nonEmpty.max(80),
   contactTitle: nonEmpty.max(120),
+});
+
+const navigationCopySchema = z.object({
+  servicesLabel: shortCopy,
+  projectsLabel: shortCopy,
+  processLabel: shortCopy,
+  contactLabel: shortCopy,
+  backHomeLabel: shortCopy,
+  quoteLabel: shortCopy,
+  openMenuLabel: shortCopy,
+  closeMenuLabel: shortCopy,
+});
+
+export const siteCopySchema = z.object({
+  navigation: navigationCopySchema,
+  home: z.object({
+    logoAriaSuffix: shortCopy,
+    discoverAriaPrefix: shortCopy,
+    contactPhoneLabel: shortCopy,
+    contactEmailLabel: shortCopy,
+    contactInstagramLabel: shortCopy,
+    contactLocationLabel: shortCopy,
+    legalNavLabel: shortCopy,
+  }),
+  businessPage: z.object({
+    heroQuoteLabel: shortCopy,
+    heroProjectsLabel: shortCopy,
+    servicesEmptyText: mediumCopy,
+    projectsEmptyText: mediumCopy,
+    serviceMoreInfoAriaPrefix: shortCopy,
+    galleryOpenImageAriaPrefix: shortCopy,
+    galleryCloseImageAriaLabel: shortCopy,
+    galleryPreviousImageAriaLabel: shortCopy,
+    galleryNextImageAriaLabel: shortCopy,
+    processEyebrow: shortCopy,
+    ctaEyebrow: shortCopy,
+    ctaTitle: mediumCopy,
+  }),
+  contact: z.object({
+    phoneLabel: shortCopy,
+    emailLabel: shortCopy,
+    instagramLabel: shortCopy,
+    locationLabel: shortCopy,
+    formTitle: shortCopy,
+    requiredHint: mediumCopy,
+    honeypotLabel: shortCopy,
+    nameLabel: shortCopy,
+    namePlaceholder: shortCopy,
+    emailLabelField: shortCopy,
+    emailPlaceholder: shortCopy,
+    phoneLabelField: shortCopy,
+    phonePlaceholder: shortCopy,
+    serviceLabel: shortCopy,
+    servicePlaceholder: shortCopy,
+    messageLabel: shortCopy,
+    messagePlaceholder: mediumCopy,
+    privacyPrefix: shortCopy,
+    privacyLinkLabel: shortCopy,
+    privacySuffix: mediumCopy,
+    submitLabel: shortCopy,
+    submittingLabel: shortCopy,
+    successTitle: shortCopy,
+    successMessage: mediumCopy,
+    errorTitle: shortCopy,
+    fallbackError: mediumCopy,
+    localPhpError: mediumCopy,
+    unavailableError: mediumCopy,
+  }),
+  footer: z.object({
+    divisionHeading: shortCopy,
+    areasHeading: shortCopy,
+    legalHeading: shortCopy,
+    chooseAreaLabel: shortCopy,
+    privacyLabel: shortCopy,
+    legalNoticeLabel: shortCopy,
+    cookiesLabel: shortCopy,
+    cookieSettingsLabel: shortCopy,
+    rightsLabel: shortCopy,
+    backToTopLabel: shortCopy,
+    instagramAriaSuffix: shortCopy,
+    areaSelectionAriaSuffix: shortCopy,
+  }),
+  cookies: z.object({
+    bannerTitle: shortCopy,
+    bannerDescription: mediumCopy,
+    moreInfoLabel: shortCopy,
+    settingsLabel: shortCopy,
+    rejectLabel: shortCopy,
+    acceptAllLabel: shortCopy,
+    modalTitle: shortCopy,
+    modalCloseLabel: shortCopy,
+    necessaryTitle: shortCopy,
+    necessaryDescription: mediumCopy,
+    necessaryBadge: shortCopy,
+    analyticsTitle: shortCopy,
+    analyticsDescription: mediumCopy,
+    savePreferencesLabel: shortCopy,
+  }),
+  serviceDetail: z.object({
+    homeBreadcrumbLabel: shortCopy,
+    servicesBreadcrumbLabel: shortCopy,
+    heroEyebrow: shortCopy,
+    includedTitle: shortCopy,
+    interestTitle: shortCopy,
+    interestDescription: mediumCopy,
+    directContactTitle: shortCopy,
+    galleryEyebrow: shortCopy,
+    galleryTitle: shortCopy,
+    faqEyebrow: shortCopy,
+    faqTitle: shortCopy,
+    backToServicesLabel: shortCopy,
+    quoteLabel: shortCopy,
+  }),
+  legal: z.object({
+    updatedPrefix: shortCopy,
+    backHomeLabel: shortCopy,
+    contactEmailLabel: shortCopy,
+    contactPhoneLabel: shortCopy,
+    cookieConfigButtonLabel: shortCopy,
+  }),
+});
+
+const legalListItemSchema = z.object({
+  label: z.string().max(120).optional().default(""),
+  text: nonEmpty.max(2000),
+  href: z.string().max(500).optional().default(""),
+});
+
+const legalSectionSchema = z.object({
+  heading: shortCopy,
+  level: z.enum(["h2", "h3"]).optional().default("h2"),
+  paragraphs: z.array(longCopy).optional().default([]),
+  list: z.array(legalListItemSchema).optional().default([]),
+});
+
+const legalPageSchema = z.object({
+  seoTitle: nonEmpty.max(70),
+  seoDescription: nonEmpty.max(320),
+  title: shortCopy,
+  updatedDate: shortCopy,
+  actionButtonLabel: z.string().max(120).optional().default(""),
+  sections: z.array(legalSectionSchema).min(1).max(40),
+});
+
+export const legalPagesSchema = z.object({
+  legalNotice: legalPageSchema,
+  privacyPolicy: legalPageSchema,
+  cookiePolicy: legalPageSchema,
 });

@@ -3,11 +3,15 @@ import reformsUnitSource from "../../content/cms/reformas.json";
 import woodServicesSource from "../../content/cms/servicios-madera.json";
 import reformsServicesSource from "../../content/cms/servicios-reformas.json";
 import homeSource from "../../content/cms/home.json";
+import legalPagesSource from "../../content/cms/legal-pages.json";
+import siteCopySource from "../../content/cms/site-copy.json";
 import siteSettingsSource from "../../content/cms/site-settings.json";
 import {
   businessUnitContentSchema,
   detailedServicesContentSchema,
   homePageSchema,
+  legalPagesSchema,
+  siteCopySchema,
   siteSettingsSchema,
 } from "./schemas";
 import type {
@@ -16,6 +20,8 @@ import type {
   BusinessTone,
   DetailedService,
   HomePage,
+  LegalPages,
+  SiteCopy,
   SiteSettings,
 } from "./types";
 
@@ -35,6 +41,14 @@ export const siteSettings: SiteSettings = parseContent(
 );
 
 export const homePage: HomePage = parseContent("home.json", homePageSchema, homeSource);
+
+export const siteCopy: SiteCopy = parseContent("site-copy.json", siteCopySchema, siteCopySource);
+
+export const legalPages: LegalPages = parseContent(
+  "legal-pages.json",
+  legalPagesSchema,
+  legalPagesSource,
+);
 
 function loadBusinessUnit(
   label: string,

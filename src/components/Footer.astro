@@ -1,55 +1,56 @@
 ---
 import { ArrowUp, Instagram } from "lucide-react";
-import { siteSettings } from "../lib/cms";
+import { businessUnits, siteCopy, siteSettings } from "../lib/cms";
 
 interface Props {
 	basePath?: string;
 }
 
 const { basePath = "/madera-tecnologica" } = Astro.props;
+const navigation = siteCopy.navigation;
+const footerCopy = siteCopy.footer;
 ---
 
 <footer class="bg-azento-900 text-neutral-200">
 	<div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
 		<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_0.8fr_0.8fr_0.8fr]">
 			<div>
-				<a href="/" class="inline-flex rounded-lg bg-white p-1.5" aria-label={`${siteSettings.companyName}, selección de área`}>
+				<a href="/" class="inline-flex rounded-lg bg-white p-1.5" aria-label={`${siteSettings.companyName}, ${footerCopy.areaSelectionAriaSuffix}`}>
 					<img src={siteSettings.logo.src} alt={siteSettings.logo.alt} class="h-14 w-14 object-contain" />
 				</a>
 				<p class="mt-5 max-w-sm leading-relaxed text-neutral-400">
 					{siteSettings.footerTagline}
 				</p>
-				<a href={siteSettings.instagram.url} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/15 text-neutral-300 transition-colors hover:border-accent-400 hover:text-accent-400" aria-label={`${siteSettings.companyName} en Instagram`}>
+				<a href={siteSettings.instagram.url} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex h-11 w-11 items-center justify-center rounded-lg border border-white/15 text-neutral-300 transition-colors hover:border-accent-400 hover:text-accent-400" aria-label={`${siteSettings.companyName} ${footerCopy.instagramAriaSuffix}`}>
 					<Instagram size={20} aria-hidden="true" />
 				</a>
 			</div>
 
 			<div>
-				<h2 class="text-sm font-semibold uppercase tracking-widest text-white">Esta división</h2>
+				<h2 class="text-sm font-semibold uppercase tracking-widest text-white">{footerCopy.divisionHeading}</h2>
 				<ul class="mt-5 space-y-3 text-sm text-neutral-400">
-					<li><a href={`${basePath}#servicios`} class="hover:text-white">Servicios</a></li>
-					<li><a href={`${basePath}#proyectos`} class="hover:text-white">Proyectos</a></li>
-					<li><a href={`${basePath}#proceso`} class="hover:text-white">Proceso</a></li>
-					<li><a href={`${basePath}#contacto`} class="hover:text-white">Contacto</a></li>
+					<li><a href={`${basePath}#servicios`} class="hover:text-white">{navigation.servicesLabel}</a></li>
+					<li><a href={`${basePath}#proyectos`} class="hover:text-white">{navigation.projectsLabel}</a></li>
+					<li><a href={`${basePath}#proceso`} class="hover:text-white">{navigation.processLabel}</a></li>
+					<li><a href={`${basePath}#contacto`} class="hover:text-white">{navigation.contactLabel}</a></li>
 				</ul>
 			</div>
 
 			<div>
-				<h2 class="text-sm font-semibold uppercase tracking-widest text-white">Áreas</h2>
+				<h2 class="text-sm font-semibold uppercase tracking-widest text-white">{footerCopy.areasHeading}</h2>
 				<ul class="mt-5 space-y-3 text-sm text-neutral-400">
-					<li><a href="/madera-tecnologica" class="hover:text-white">Madera Tecnológica</a></li>
-					<li><a href="/reformas" class="hover:text-white">Reformas</a></li>
-					<li><a href="/" class="hover:text-white">Elegir área</a></li>
+					{businessUnits.map((unit) => <li><a href={unit.slug} class="hover:text-white">{unit.name}</a></li>)}
+					<li><a href="/" class="hover:text-white">{footerCopy.chooseAreaLabel}</a></li>
 				</ul>
 			</div>
 
 			<div>
-				<h2 class="text-sm font-semibold uppercase tracking-widest text-white">Legal</h2>
+				<h2 class="text-sm font-semibold uppercase tracking-widest text-white">{footerCopy.legalHeading}</h2>
 				<ul class="mt-5 space-y-3 text-sm text-neutral-400">
-					<li><a href="/politica-privacidad" class="hover:text-white">Privacidad</a></li>
-					<li><a href="/aviso-legal" class="hover:text-white">Aviso legal</a></li>
-					<li><a href="/politica-cookies" class="hover:text-white">Política de cookies</a></li>
-					<li><a href="#" id="open-cookie-settings" class="hover:text-white">Configurar cookies</a></li>
+					<li><a href="/politica-privacidad" class="hover:text-white">{footerCopy.privacyLabel}</a></li>
+					<li><a href="/aviso-legal" class="hover:text-white">{footerCopy.legalNoticeLabel}</a></li>
+					<li><a href="/politica-cookies" class="hover:text-white">{footerCopy.cookiesLabel}</a></li>
+					<li><a href="#" id="open-cookie-settings" class="hover:text-white">{footerCopy.cookieSettingsLabel}</a></li>
 				</ul>
 			</div>
 		</div>
@@ -57,9 +58,9 @@ const { basePath = "/madera-tecnologica" } = Astro.props;
 
 	<div class="border-t border-white/10">
 		<div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-5 text-center text-xs text-neutral-500 sm:flex-row sm:px-6 sm:text-left lg:px-8">
-			<p>© {new Date().getFullYear()} {siteSettings.companyName}. Todos los derechos reservados.</p>
+			<p>© {new Date().getFullYear()} {siteSettings.companyName}. {footerCopy.rightsLabel}</p>
 			<a href="#top" class="inline-flex items-center gap-2 hover:text-white">
-				Volver arriba
+				{footerCopy.backToTopLabel}
 				<ArrowUp size={16} aria-hidden="true" />
 			</a>
 		</div>

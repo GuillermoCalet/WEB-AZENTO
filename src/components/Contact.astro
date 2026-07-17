@@ -1,6 +1,6 @@
 ---
 import { Instagram, Mail, MapPin, Phone, Send } from "lucide-react";
-import { siteSettings, type BusinessUnitConfig } from "../lib/cms";
+import { siteCopy, siteSettings, type BusinessUnitConfig } from "../lib/cms";
 
 interface Props {
 	unit: BusinessUnitConfig;
@@ -8,12 +8,13 @@ interface Props {
 
 const { unit } = Astro.props;
 const isWood = unit.tone === "wood";
+const copy = siteCopy.contact;
 
 const contactInfo = [
-	{ type: "phone", label: "Teléfono", value: siteSettings.phoneDisplay, href: siteSettings.phoneHref },
-	{ type: "email", label: "Correo", value: siteSettings.email, href: `mailto:${siteSettings.email}` },
-	{ type: "instagram", label: "Instagram", value: siteSettings.instagram.label, href: siteSettings.instagram.url },
-	{ type: "location", label: "Zona de trabajo", value: siteSettings.location },
+	{ type: "phone", label: copy.phoneLabel, value: siteSettings.phoneDisplay, href: siteSettings.phoneHref },
+	{ type: "email", label: copy.emailLabel, value: siteSettings.email, href: `mailto:${siteSettings.email}` },
+	{ type: "instagram", label: copy.instagramLabel, value: siteSettings.instagram.label, href: siteSettings.instagram.url },
+	{ type: "location", label: copy.locationLabel, value: siteSettings.location },
 ];
 ---
 
@@ -21,7 +22,7 @@ const contactInfo = [
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
 			<div>
-				<p class:list={["mb-4 text-sm font-semibold uppercase tracking-widest", isWood ? "text-accent-700" : "text-azento-600"]}>Contacto</p>
+				<p class:list={["mb-4 text-sm font-semibold uppercase tracking-widest", isWood ? "text-accent-700" : "text-azento-600"]}>{siteCopy.navigation.contactLabel}</p>
 				<h2 class="font-display text-3xl font-semibold leading-tight text-azento-800 sm:text-4xl lg:text-5xl">
 					{unit.formTitle}
 				</h2>
@@ -57,53 +58,64 @@ const contactInfo = [
 			</div>
 
 			<div id="presupuesto" class="scroll-mt-24 rounded-lg border border-neutral-200 bg-white p-6 shadow-sm sm:p-8 lg:p-10">
-				<h3 class="font-display text-2xl font-semibold text-azento-800">Solicita tu presupuesto</h3>
-				<p class="mt-2 text-sm leading-relaxed text-neutral-500">Los campos marcados con * son obligatorios.</p>
+				<h3 class="font-display text-2xl font-semibold text-azento-800">{copy.formTitle}</h3>
+				<p class="mt-2 text-sm leading-relaxed text-neutral-500">{copy.requiredHint}</p>
 
-				<form class="mt-8 space-y-5" data-quote-form>
+				<form
+					class="mt-8 space-y-5"
+					data-quote-form
+					data-submit-label={copy.submitLabel}
+					data-submitting-label={copy.submittingLabel}
+					data-success-title={copy.successTitle}
+					data-success-message={copy.successMessage}
+					data-error-title={copy.errorTitle}
+					data-fallback-error={copy.fallbackError}
+					data-local-php-error={copy.localPhpError}
+					data-unavailable-error={copy.unavailableError}
+				>
 					<input type="hidden" name="business_unit" value={unit.id} />
 					<input type="hidden" name="source_page" value={unit.slug} />
 					<input type="hidden" name="source_url" value="" data-source-url />
 
 					<div class="absolute -left-[9999px]" aria-hidden="true">
-						<label for="website">No rellenar este campo</label>
+						<label for="website">{copy.honeypotLabel}</label>
 						<input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
 					</div>
 
 					<div class="grid gap-5 sm:grid-cols-2">
 						<div>
-							<label for="name" class="mb-2 block text-sm font-medium text-azento-700">Nombre completo *</label>
-							<input type="text" id="name" name="name" autocomplete="name" maxlength="100" placeholder="Tu nombre" class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20" required />
+							<label for="name" class="mb-2 block text-sm font-medium text-azento-700">{copy.nameLabel}</label>
+							<input type="text" id="name" name="name" autocomplete="name" maxlength="100" placeholder={copy.namePlaceholder} class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20" required />
 						</div>
 						<div>
-							<label for="email" class="mb-2 block text-sm font-medium text-azento-700">Correo electrónico *</label>
-							<input type="email" id="email" name="email" autocomplete="email" maxlength="254" placeholder="tu@email.com" class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20" required />
+							<label for="email" class="mb-2 block text-sm font-medium text-azento-700">{copy.emailLabelField}</label>
+							<input type="email" id="email" name="email" autocomplete="email" maxlength="254" placeholder={copy.emailPlaceholder} class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20" required />
 						</div>
 					</div>
 
 					<div class="grid gap-5 sm:grid-cols-2">
 						<div>
-							<label for="phone" class="mb-2 block text-sm font-medium text-azento-700">Teléfono</label>
-							<input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder="+34 600 000 000" class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20" />
+							<label for="phone" class="mb-2 block text-sm font-medium text-azento-700">{copy.phoneLabelField}</label>
+							<input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" maxlength="30" placeholder={copy.phonePlaceholder} class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20" />
 						</div>
 						<div>
-							<label for="service" class="mb-2 block text-sm font-medium text-azento-700">Servicio de interés *</label>
+							<label for="service" class="mb-2 block text-sm font-medium text-azento-700">{copy.serviceLabel}</label>
 							<select id="service" name="service" class="w-full rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20" required>
-								<option value="">Selecciona un servicio</option>
+								<option value="">{copy.servicePlaceholder}</option>
 								{unit.formServices.map((service) => <option value={service.value}>{service.label}</option>)}
 							</select>
 						</div>
 					</div>
 
 					<div>
-						<label for="message" class="mb-2 block text-sm font-medium text-azento-700">Cuéntanos tu proyecto</label>
-						<textarea id="message" name="message" rows="5" maxlength="2000" placeholder="Describe brevemente el espacio y qué tienes en mente..." class="w-full resize-y rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20"></textarea>
+						<label for="message" class="mb-2 block text-sm font-medium text-azento-700">{copy.messageLabel}</label>
+						<textarea id="message" name="message" rows="5" maxlength="2000" placeholder={copy.messagePlaceholder} class="w-full resize-y rounded-lg border border-neutral-300 bg-white px-4 py-3 text-azento-800 placeholder:text-neutral-400 focus:border-azento-500 focus:ring-2 focus:ring-azento-500/20"></textarea>
 					</div>
 
 					<div class="flex items-start gap-3 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
 						<input type="checkbox" id="contact-consent" name="contactConsent" class="mt-1 h-4 w-4 rounded border-neutral-300 text-azento-600 focus:ring-azento-500" required />
 						<label for="contact-consent" class="text-xs leading-relaxed text-neutral-600">
-							He leído la <a href="/politica-privacidad" class="font-semibold text-azento-700 underline underline-offset-2 hover:text-azento-500">política de privacidad</a> y acepto el tratamiento de mis datos para responder a esta solicitud. *
+							{copy.privacyPrefix} <a href="/politica-privacidad" class="font-semibold text-azento-700 underline underline-offset-2 hover:text-azento-500">{copy.privacyLinkLabel}</a> {copy.privacySuffix}
 						</label>
 					</div>
 
@@ -113,7 +125,7 @@ const contactInfo = [
 					</div>
 
 					<button type="submit" class:list={["flex min-h-12 w-full items-center justify-center gap-3 rounded-lg px-6 py-3 font-semibold text-white transition-colors disabled:cursor-not-allowed disabled:opacity-65", isWood ? "bg-accent-700 hover:bg-accent-600" : "bg-azento-700 hover:bg-azento-600"]} data-submit-button>
-						<span data-button-text>Enviar solicitud</span>
+						<span data-button-text>{copy.submitLabel}</span>
 						<Send size={19} data-button-icon aria-hidden="true" />
 						<span class="hidden h-5 w-5 animate-spin rounded-full border-2 border-white/35 border-t-white" data-button-spinner aria-hidden="true"></span>
 					</button>
@@ -133,6 +145,14 @@ const contactInfo = [
 	const statusTitle = form?.querySelector<HTMLElement>("[data-status-title]");
 	const statusMessage = form?.querySelector<HTMLElement>("[data-status-message]");
 	const sourceUrl = form?.querySelector<HTMLInputElement>("[data-source-url]");
+	const submitLabel = form?.dataset.submitLabel ?? "";
+	const submittingLabel = form?.dataset.submittingLabel ?? submitLabel;
+	const successTitle = form?.dataset.successTitle ?? "";
+	const successMessage = form?.dataset.successMessage ?? "";
+	const errorTitle = form?.dataset.errorTitle ?? "";
+	const fallbackError = form?.dataset.fallbackError ?? "";
+	const localPhpError = form?.dataset.localPhpError ?? fallbackError;
+	const unavailableError = form?.dataset.unavailableError ?? fallbackError;
 
 	const setSourceUrl = () => {
 		if (sourceUrl) sourceUrl.value = window.location.href;
@@ -140,7 +160,7 @@ const contactInfo = [
 
 	const setLoading = (loading: boolean) => {
 		if (submitButton) submitButton.disabled = loading;
-		if (buttonText) buttonText.textContent = loading ? "Enviando..." : "Enviar solicitud";
+		if (buttonText) buttonText.textContent = loading ? submittingLabel : submitLabel;
 		buttonIcon?.classList.toggle("hidden", loading);
 		buttonSpinner?.classList.toggle("hidden", !loading);
 	};
@@ -149,7 +169,7 @@ const contactInfo = [
 		if (!status || !statusTitle || !statusMessage) return;
 		const isSuccess = type === "success";
 		status.className = `rounded-lg border p-4 ${isSuccess ? "border-green-200 bg-green-50 text-green-800" : "border-red-200 bg-red-50 text-red-800"}`;
-		statusTitle.textContent = isSuccess ? "Solicitud enviada" : "No se ha podido enviar";
+		statusTitle.textContent = isSuccess ? successTitle : errorTitle;
 		statusMessage.textContent = message;
 		status.scrollIntoView({ behavior: "smooth", block: "nearest" });
 	};
@@ -185,15 +205,15 @@ const contactInfo = [
 			const result = contentType.includes("application/json") ? await response.json() : null;
 
 			if (response.ok && result?.ok) {
-				showStatus("success", "Gracias. Te contactaremos lo antes posible.");
+				showStatus("success", successMessage);
 				form.reset();
 				setSourceUrl();
 			} else {
-				showStatus("error", result?.error ?? "Inténtalo de nuevo en unos minutos.");
+				showStatus("error", result?.error ?? fallbackError);
 			}
 		} catch {
 			const isLocal = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
-			showStatus("error", isLocal ? "El formulario necesita un servidor PHP para probarse en local." : "El formulario no está disponible ahora mismo. Inténtalo de nuevo en unos minutos.");
+			showStatus("error", isLocal ? localPhpError : unavailableError);
 		} finally {
 			setLoading(false);
 		}

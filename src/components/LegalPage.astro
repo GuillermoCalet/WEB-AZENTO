@@ -1,0 +1,169 @@
+---
+import Footer from "./Footer.astro";
+import Navbar from "./Navbar.astro";
+import Layout from "../layouts/Layout.astro";
+import { siteCopy, siteSettings, type LegalPageContent } from "../lib/cms";
+
+interface Props {
+  page: LegalPageContent;
+  canonicalPath: string;
+  actionButtonId?: string;
+}
+
+const { page, canonicalPath, actionButtonId } = Astro.props;
+
+const replacements: Record<string, string> = {
+  legalName: siteSettings.legalName,
+  companyName: siteSettings.companyName,
+  cif: siteSettings.legal.cif,
+  address: siteSettings.address,
+  email: siteSettings.email,
+  phone: siteSettings.phoneDisplay,
+  phoneHref: siteSettings.phoneHref,
+  registry: siteSettings.legal.registry,
+  siteUrl: siteSettings.siteUrl.replace(/^https?:\/\//, "").replace(/\/$/, ""),
+};
+
+const interpolate = (value = "") =>
+  Object.entries(replacements).reduce(
+    (text, [key, replacement]) => text.replaceAll(`{{${key}}}`, replacement),
+    value,
+  );
+
+const inlineParts = (value: string) => {
+  const text = interpolate(value);
+  const parts: Array<{ text: string; href?: string }> = [];
+  const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = linkPattern.exec(text))) {
+    if (match.index > lastIndex) {
+      parts.push({ text: text.slice(lastIndex, match.index) });
+    }
+    parts.push({ text: match[1], href: interpolate(match[2]) });
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < text.length) {
+    parts.push({ text: text.slice(lastIndex) });
+  }
+
+  return parts.length ? parts : [{ text }];
+};
+
+const isExternalHref = (href = "") => /^https?:\/\//.test(href);
+const backHomeLabel = siteCopy.legal.backHomeLabel;
+---
+
+<Layout title={page.seoTitle} description={page.seoDescription} canonicalPath={canonicalPath}>
+  <Navbar />
+
+  <main class="pt-24">
+    <section class="bg-gradient-to-br from-azento-700 via-azento-600 to-azento-800 py-16">
+      <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+        <h1 class="mb-4 font-display text-4xl font-semibold text-white sm:text-5xl">
+          {page.title}
+        </h1>
+        <p class="text-lg text-neutral-200/90">
+          {siteCopy.legal.updatedPrefix} {page.updatedDate}
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-neutral-50 py-16 lg:py-24">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="max-w-none rounded-3xl border border-neutral-200 bg-white p-8 shadow-sm lg:p-12">
+          {page.sections.map((section, index) => (
+            <section class={index === 0 ? "" : "mt-10"}>
+              {section.level === "h3" ? (
+                <h3 class="font-display text-xl font-semibold text-azento-700">{section.heading}</h3>
+              ) : (
+                <h2 class:list={["font-display text-2xl font-semibold text-azento-700", index === 0 ? "mt-0" : ""]}>{section.heading}</h2>
+              )}
+
+              {section.paragraphs.map((paragraph) => (
+                <p class="mt-4 leading-relaxed text-azento-600">
+                  {inlineParts(paragraph).map((part) => (
+                    part.href ? (
+                      <a
+                        href={part.href}
+                        target={isExternalHref(part.href) ? "_blank" : undefined}
+                        rel={isExternalHref(part.href) ? "noopener" : undefined}
+                        class="text-accent-600 hover:text-accent-500"
+                      >
+                        {part.text}
+                      </a>
+                    ) : part.text
+                  ))}
+                </p>
+              ))}
+
+              {section.list.length > 0 && (
+                <ul class="mt-4 space-y-2 text-azento-600">
+                  {section.list.map((item) => {
+                    const href = interpolate(item.href ?? "");
+                    return (
+                      <li>
+                        {item.label && <strong>{interpolate(item.label)}: </strong>}
+                        {href ? (
+                          <a
+                            href={href}
+                            target={isExternalHref(href) ? "_blank" : undefined}
+                            rel={isExternalHref(href) ? "noopener" : undefined}
+                            class="text-accent-600 hover:text-accent-500"
+                          >
+                            {interpolate(item.text)}
+                          </a>
+                        ) : (
+                          inlineParts(item.text).map((part) => (
+                            part.href ? (
+                              <a
+                                href={part.href}
+                                target={isExternalHref(part.href) ? "_blank" : undefined}
+                                rel={isExternalHref(part.href) ? "noopener" : undefined}
+                                class="text-accent-600 hover:text-accent-500"
+                              >
+                                {part.text}
+                              </a>
+                            ) : part.text
+                          ))
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </section>
+          ))}
+
+          {actionButtonId && page.actionButtonLabel && (
+            <div class="mt-8 border-t border-neutral-200 pt-8">
+              <button
+                id={actionButtonId}
+                class="inline-flex items-center gap-2 rounded-full bg-azento-600 px-6 py-3 font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-azento-500"
+              >
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {page.actionButtonLabel}
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div class="mt-8 text-center">
+          <a href="/" class="group inline-flex items-center gap-2 font-semibold text-azento-600 transition-colors hover:text-accent-600">
+            <svg class="h-5 w-5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            </svg>
+            {backHomeLabel}
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

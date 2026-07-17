@@ -85,6 +85,236 @@ collections:
               - { label: Imagen social, name: image, widget: image, choose_url: false }
               - { label: Texto alternativo de imagen social, name: imageAlt, widget: string }
 
+      - name: textos_globales
+        label: Textos globales de la web
+        file: src/content/cms/site-copy.json
+        format: json
+        description: Etiquetas, botones, formulario, cookies, footer y textos de interfaz compartidos por toda la web.
+        fields:
+          - label: Navegación
+            name: navigation
+            widget: object
+            fields:
+              - { label: Enlace a servicios, name: servicesLabel, widget: string }
+              - { label: Enlace a proyectos, name: projectsLabel, widget: string }
+              - { label: Enlace a proceso, name: processLabel, widget: string }
+              - { label: Enlace a contacto, name: contactLabel, widget: string }
+              - { label: Botón volver a la página principal, name: backHomeLabel, widget: string }
+              - { label: Botón pedir presupuesto, name: quoteLabel, widget: string }
+              - { label: Accesibilidad abrir menú, name: openMenuLabel, widget: string }
+              - { label: Accesibilidad cerrar menú, name: closeMenuLabel, widget: string }
+          - label: Portada
+            name: home
+            widget: object
+            fields:
+              - { label: Accesibilidad logo, name: logoAriaSuffix, widget: string }
+              - { label: Prefijo para tarjetas, name: discoverAriaPrefix, widget: string }
+              - { label: Contacto teléfono, name: contactPhoneLabel, widget: string }
+              - { label: Contacto email, name: contactEmailLabel, widget: string }
+              - { label: Contacto Instagram, name: contactInstagramLabel, widget: string }
+              - { label: Contacto ubicación, name: contactLocationLabel, widget: string }
+              - { label: Accesibilidad enlaces legales, name: legalNavLabel, widget: string }
+          - label: Páginas de división
+            name: businessPage
+            widget: object
+            fields:
+              - { label: Botón hero presupuesto, name: heroQuoteLabel, widget: string }
+              - { label: Botón hero proyectos, name: heroProjectsLabel, widget: string }
+              - { label: Mensaje sin servicios, name: servicesEmptyText, widget: text }
+              - { label: Mensaje sin proyectos, name: projectsEmptyText, widget: text }
+              - { label: Accesibilidad tarjeta servicio, name: serviceMoreInfoAriaPrefix, widget: string }
+              - { label: Accesibilidad abrir imagen, name: galleryOpenImageAriaPrefix, widget: string }
+              - { label: Accesibilidad cerrar imagen, name: galleryCloseImageAriaLabel, widget: string }
+              - { label: Accesibilidad imagen anterior, name: galleryPreviousImageAriaLabel, widget: string }
+              - { label: Accesibilidad imagen siguiente, name: galleryNextImageAriaLabel, widget: string }
+              - { label: Etiqueta proceso, name: processEyebrow, widget: string }
+              - { label: Etiqueta CTA inferior, name: ctaEyebrow, widget: string }
+              - { label: Título CTA inferior, name: ctaTitle, widget: string }
+          - label: Formulario y contacto
+            name: contact
+            widget: object
+            fields:
+              - { label: Tarjeta teléfono, name: phoneLabel, widget: string }
+              - { label: Tarjeta correo, name: emailLabel, widget: string }
+              - { label: Tarjeta Instagram, name: instagramLabel, widget: string }
+              - { label: Tarjeta ubicación, name: locationLabel, widget: string }
+              - { label: Título formulario, name: formTitle, widget: string }
+              - { label: Aviso campos obligatorios, name: requiredHint, widget: string }
+              - { label: Campo antispam oculto, name: honeypotLabel, widget: string }
+              - { label: Etiqueta nombre, name: nameLabel, widget: string }
+              - { label: Placeholder nombre, name: namePlaceholder, widget: string }
+              - { label: Etiqueta email, name: emailLabelField, widget: string }
+              - { label: Placeholder email, name: emailPlaceholder, widget: string }
+              - { label: Etiqueta teléfono, name: phoneLabelField, widget: string }
+              - { label: Placeholder teléfono, name: phonePlaceholder, widget: string }
+              - { label: Etiqueta servicio, name: serviceLabel, widget: string }
+              - { label: Placeholder servicio, name: servicePlaceholder, widget: string }
+              - { label: Etiqueta mensaje, name: messageLabel, widget: string }
+              - { label: Placeholder mensaje, name: messagePlaceholder, widget: text }
+              - { label: Texto antes del enlace de privacidad, name: privacyPrefix, widget: string }
+              - { label: Texto del enlace de privacidad, name: privacyLinkLabel, widget: string }
+              - { label: Texto después del enlace de privacidad, name: privacySuffix, widget: text }
+              - { label: Botón enviar, name: submitLabel, widget: string }
+              - { label: Botón enviando, name: submittingLabel, widget: string }
+              - { label: Título éxito, name: successTitle, widget: string }
+              - { label: Mensaje éxito, name: successMessage, widget: text }
+              - { label: Título error, name: errorTitle, widget: string }
+              - { label: Error genérico, name: fallbackError, widget: text }
+              - { label: Error PHP local, name: localPhpError, widget: text }
+              - { label: Error formulario no disponible, name: unavailableError, widget: text }
+          - label: Pie de página
+            name: footer
+            widget: object
+            fields:
+              - { label: Título enlaces de división, name: divisionHeading, widget: string }
+              - { label: Título áreas, name: areasHeading, widget: string }
+              - { label: Título legal, name: legalHeading, widget: string }
+              - { label: Elegir área, name: chooseAreaLabel, widget: string }
+              - { label: Privacidad, name: privacyLabel, widget: string }
+              - { label: Aviso legal, name: legalNoticeLabel, widget: string }
+              - { label: Política de cookies, name: cookiesLabel, widget: string }
+              - { label: Configurar cookies, name: cookieSettingsLabel, widget: string }
+              - { label: Derechos reservados, name: rightsLabel, widget: string }
+              - { label: Volver arriba, name: backToTopLabel, widget: string }
+              - { label: Accesibilidad Instagram, name: instagramAriaSuffix, widget: string }
+              - { label: Accesibilidad selección de área, name: areaSelectionAriaSuffix, widget: string }
+          - label: Banner de cookies
+            name: cookies
+            widget: object
+            fields:
+              - { label: Título banner, name: bannerTitle, widget: string }
+              - { label: Descripción banner, name: bannerDescription, widget: text }
+              - { label: Más información, name: moreInfoLabel, widget: string }
+              - { label: Configurar, name: settingsLabel, widget: string }
+              - { label: Rechazar, name: rejectLabel, widget: string }
+              - { label: Aceptar todas, name: acceptAllLabel, widget: string }
+              - { label: Título modal, name: modalTitle, widget: string }
+              - { label: Cerrar modal, name: modalCloseLabel, widget: string }
+              - { label: Cookies necesarias título, name: necessaryTitle, widget: string }
+              - { label: Cookies necesarias descripción, name: necessaryDescription, widget: text }
+              - { label: Cookies necesarias estado, name: necessaryBadge, widget: string }
+              - { label: Cookies analíticas título, name: analyticsTitle, widget: string }
+              - { label: Cookies analíticas descripción, name: analyticsDescription, widget: text }
+              - { label: Guardar preferencias, name: savePreferencesLabel, widget: string }
+          - label: Página de servicio
+            name: serviceDetail
+            widget: object
+            fields:
+              - { label: Breadcrumb inicio, name: homeBreadcrumbLabel, widget: string }
+              - { label: Breadcrumb servicios, name: servicesBreadcrumbLabel, widget: string }
+              - { label: Texto superior hero, name: heroEyebrow, widget: string }
+              - { label: Título incluidos, name: includedTitle, widget: string }
+              - { label: Título interés, name: interestTitle, widget: string }
+              - { label: Descripción interés, name: interestDescription, widget: text }
+              - { label: Contacto directo, name: directContactTitle, widget: string }
+              - { label: Etiqueta galería, name: galleryEyebrow, widget: string }
+              - { label: Título galería, name: galleryTitle, widget: string }
+              - { label: Etiqueta FAQ, name: faqEyebrow, widget: string }
+              - { label: Título FAQ, name: faqTitle, widget: string }
+              - { label: Volver a servicios, name: backToServicesLabel, widget: string }
+              - { label: Botón presupuesto, name: quoteLabel, widget: string }
+          - label: Textos legales comunes
+            name: legal
+            widget: object
+            fields:
+              - { label: Prefijo actualización, name: updatedPrefix, widget: string }
+              - { label: Volver al inicio, name: backHomeLabel, widget: string }
+              - { label: Etiqueta email, name: contactEmailLabel, widget: string }
+              - { label: Etiqueta teléfono, name: contactPhoneLabel, widget: string }
+              - { label: Botón configurar cookies, name: cookieConfigButtonLabel, widget: string }
+
+      - name: textos_legales
+        label: Páginas legales
+        file: src/content/cms/legal-pages.json
+        format: json
+        description: Textos completos de aviso legal, privacidad y cookies. Puedes usar variables como {{legalName}}, {{email}}, {{phone}}, {{siteUrl}}.
+        fields:
+          - label: Aviso legal
+            name: legalNotice
+            widget: object
+            fields:
+              - { label: Título SEO, name: seoTitle, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
+              - { label: Descripción SEO, name: seoDescription, widget: text }
+              - { label: Título de página, name: title, widget: string }
+              - { label: Fecha visible, name: updatedDate, widget: string }
+              - label: Secciones
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Título, name: heading, widget: string }
+                  - { label: Nivel, name: level, widget: select, options: ["h2", "h3"], default: "h2" }
+                  - label: Párrafos
+                    name: paragraphs
+                    widget: list
+                    required: false
+                    field: { label: Párrafo, name: paragraph, widget: text }
+                  - label: Lista
+                    name: list
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Etiqueta en negrita, name: label, widget: string, required: false }
+                      - { label: Texto, name: text, widget: text }
+                      - { label: Enlace, name: href, widget: string, required: false }
+          - label: Política de privacidad
+            name: privacyPolicy
+            widget: object
+            fields:
+              - { label: Título SEO, name: seoTitle, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
+              - { label: Descripción SEO, name: seoDescription, widget: text }
+              - { label: Título de página, name: title, widget: string }
+              - { label: Fecha visible, name: updatedDate, widget: string }
+              - label: Secciones
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Título, name: heading, widget: string }
+                  - { label: Nivel, name: level, widget: select, options: ["h2", "h3"], default: "h2" }
+                  - label: Párrafos
+                    name: paragraphs
+                    widget: list
+                    required: false
+                    field: { label: Párrafo, name: paragraph, widget: text }
+                  - label: Lista
+                    name: list
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Etiqueta en negrita, name: label, widget: string, required: false }
+                      - { label: Texto, name: text, widget: text }
+                      - { label: Enlace, name: href, widget: string, required: false }
+          - label: Política de cookies
+            name: cookiePolicy
+            widget: object
+            fields:
+              - { label: Título SEO, name: seoTitle, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
+              - { label: Descripción SEO, name: seoDescription, widget: text }
+              - { label: Título de página, name: title, widget: string }
+              - { label: Fecha visible, name: updatedDate, widget: string }
+              - { label: Botón de configuración, name: actionButtonLabel, widget: string, required: false }
+              - label: Secciones
+                name: sections
+                widget: list
+                summary: "{{fields.heading}}"
+                fields:
+                  - { label: Título, name: heading, widget: string }
+                  - { label: Nivel, name: level, widget: select, options: ["h2", "h3"], default: "h2" }
+                  - label: Párrafos
+                    name: paragraphs
+                    widget: list
+                    required: false
+                    field: { label: Párrafo, name: paragraph, widget: text }
+                  - label: Lista
+                    name: list
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Etiqueta en negrita, name: label, widget: string, required: false }
+                      - { label: Texto, name: text, widget: text }
+                      - { label: Enlace, name: href, widget: string, required: false }
+
       - name: inicio
         label: Página de inicio
         file: src/content/cms/home.json

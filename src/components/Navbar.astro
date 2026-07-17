@@ -1,6 +1,6 @@
 ---
 import { ArrowLeft, ArrowRight, Menu, X } from "lucide-react";
-import { siteSettings, type BusinessUnitConfig } from "../lib/cms";
+import { siteCopy, siteSettings, type BusinessUnitConfig } from "../lib/cms";
 
 interface Props {
 	unit?: BusinessUnitConfig;
@@ -15,11 +15,12 @@ const {
 } = Astro.props;
 
 const basePath = unit?.slug ?? "/madera-tecnologica";
+const navigation = siteCopy.navigation;
 const navLinks = [
-	{ label: "Servicios", href: `${basePath}#servicios` },
-	{ label: "Proyectos", href: `${basePath}#proyectos` },
-	{ label: "Proceso", href: `${basePath}#proceso` },
-	{ label: "Contacto", href: `${basePath}#contacto` },
+	{ label: navigation.servicesLabel, href: `${basePath}#servicios` },
+	{ label: navigation.projectsLabel, href: `${basePath}#proyectos` },
+	{ label: navigation.processLabel, href: `${basePath}#proceso` },
+	{ label: navigation.contactLabel, href: `${basePath}#contacto` },
 ];
 ---
 
@@ -33,7 +34,7 @@ const navLinks = [
 >
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex h-20 items-center justify-between gap-4">
-			<a href="/" class="logo-link inline-flex shrink-0 rounded-lg bg-white p-1 shadow-md" aria-label={`${siteSettings.companyName}, volver a la selección de área`}>
+			<a href="/" class="logo-link inline-flex shrink-0 rounded-lg bg-white p-1 shadow-md" aria-label={`${siteSettings.companyName}, ${siteCopy.footer.areaSelectionAriaSuffix}`}>
 				<img src={siteSettings.logo.src} alt={siteSettings.logo.alt} class="h-12 w-12 object-contain" />
 			</a>
 
@@ -51,12 +52,12 @@ const navLinks = [
 				{otherUnit && (
 					<a href="/" class="nav-link inline-flex min-h-11 items-center gap-2 rounded-lg border border-current/30 px-4 text-sm font-semibold transition-colors hover:border-accent-400 hover:text-accent-400">
 						<ArrowLeft size={17} aria-hidden="true" />
-						Volver a la página principal
+						{navigation.backHomeLabel}
 					</a>
 				)}
 
 				<a href={`${basePath}#presupuesto`} class="inline-flex min-h-11 items-center gap-2 rounded-lg bg-accent-400 px-5 text-sm font-semibold text-neutral-950 transition-colors hover:bg-accent-300">
-					Pedir presupuesto
+					{navigation.quoteLabel}
 					<ArrowRight size={17} aria-hidden="true" />
 				</a>
 			</div>
@@ -65,9 +66,11 @@ const navLinks = [
 				id="mobile-menu-btn"
 				type="button"
 				class="nav-icon relative flex h-11 w-11 items-center justify-center rounded-lg transition-colors hover:bg-white/10 lg:hidden"
-				aria-label="Abrir menú"
+				aria-label={navigation.openMenuLabel}
 				aria-controls="mobile-menu"
 				aria-expanded="false"
+				data-open-label={navigation.openMenuLabel}
+				data-close-label={navigation.closeMenuLabel}
 			>
 				<span data-menu-open><Menu size={25} aria-hidden="true" /></span>
 				<span class="hidden" data-menu-close><X size={25} aria-hidden="true" /></span>
@@ -91,11 +94,11 @@ const navLinks = [
 				{otherUnit && (
 					<a href="/" class="flex min-h-12 items-center justify-center gap-2 rounded-lg border border-azento-300 px-4 font-semibold text-azento-700">
 						<ArrowLeft size={18} aria-hidden="true" />
-						Volver la página principal
+						{navigation.backHomeLabel}
 					</a>
 				)}
 				<a href={`${basePath}#presupuesto`} class="flex min-h-12 items-center justify-center gap-2 rounded-lg bg-azento-700 px-4 font-semibold text-white">
-					Pedir presupuesto
+					{navigation.quoteLabel}
 					<ArrowRight size={18} aria-hidden="true" />
 				</a>
 			</div>
@@ -131,6 +134,8 @@ const navLinks = [
 	const mobileMenu = document.getElementById("mobile-menu");
 	const openIcon = menuButton?.querySelector<HTMLElement>("[data-menu-open]");
 	const closeIcon = menuButton?.querySelector<HTMLElement>("[data-menu-close]");
+	const openMenuLabel = menuButton?.dataset.openLabel ?? "";
+	const closeMenuLabel = menuButton?.dataset.closeLabel ?? openMenuLabel;
 
 	const updateNavbar = () => {
 		if (navbar?.dataset.transparent === "true") {
@@ -143,7 +148,7 @@ const navLinks = [
 		openIcon?.classList.toggle("hidden", isOpen);
 		closeIcon?.classList.toggle("hidden", !isOpen);
 		menuButton?.setAttribute("aria-expanded", String(isOpen));
-		menuButton?.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+		menuButton?.setAttribute("aria-label", isOpen ? closeMenuLabel : openMenuLabel);
 	};
 
 	window.addEventListener("scroll", updateNavbar, { passive: true });

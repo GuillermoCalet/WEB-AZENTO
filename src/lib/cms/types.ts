@@ -131,3 +131,151 @@ export interface HomePage {
   contactEyebrow: string;
   contactTitle: string;
 }
+
+export interface NavigationCopy {
+  servicesLabel: string;
+  projectsLabel: string;
+  processLabel: string;
+  contactLabel: string;
+  backHomeLabel: string;
+  quoteLabel: string;
+  openMenuLabel: string;
+  closeMenuLabel: string;
+}
+
+export interface SiteCopy {
+  navigation: NavigationCopy;
+  home: {
+    logoAriaSuffix: string;
+    discoverAriaPrefix: string;
+    contactPhoneLabel: string;
+    contactEmailLabel: string;
+    contactInstagramLabel: string;
+    contactLocationLabel: string;
+    legalNavLabel: string;
+  };
+  businessPage: {
+    heroQuoteLabel: string;
+    heroProjectsLabel: string;
+    servicesEmptyText: string;
+    projectsEmptyText: string;
+    serviceMoreInfoAriaPrefix: string;
+    galleryOpenImageAriaPrefix: string;
+    galleryCloseImageAriaLabel: string;
+    galleryPreviousImageAriaLabel: string;
+    galleryNextImageAriaLabel: string;
+    processEyebrow: string;
+    ctaEyebrow: string;
+    ctaTitle: string;
+  };
+  contact: {
+    phoneLabel: string;
+    emailLabel: string;
+    instagramLabel: string;
+    locationLabel: string;
+    formTitle: string;
+    requiredHint: string;
+    honeypotLabel: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    emailLabelField: string;
+    emailPlaceholder: string;
+    phoneLabelField: string;
+    phonePlaceholder: string;
+    serviceLabel: string;
+    servicePlaceholder: string;
+    messageLabel: string;
+    messagePlaceholder: string;
+    privacyPrefix: string;
+    privacyLinkLabel: string;
+    privacySuffix: string;
+    submitLabel: string;
+    submittingLabel: string;
+    successTitle: string;
+    successMessage: string;
+    errorTitle: string;
+    fallbackError: string;
+    localPhpError: string;
+    unavailableError: string;
+  };
+  footer: {
+    divisionHeading: string;
+    areasHeading: string;
+    legalHeading: string;
+    chooseAreaLabel: string;
+    privacyLabel: string;
+    legalNoticeLabel: string;
+    cookiesLabel: string;
+    cookieSettingsLabel: string;
+    rightsLabel: string;
+    backToTopLabel: string;
+    instagramAriaSuffix: string;
+    areaSelectionAriaSuffix: string;
+  };
+  cookies: {
+    bannerTitle: string;
+    bannerDescription: string;
+    moreInfoLabel: string;
+    settingsLabel: string;
+    rejectLabel: string;
+    acceptAllLabel: string;
+    modalTitle: string;
+    modalCloseLabel: string;
+    necessaryTitle: string;
+    necessaryDescription: string;
+    necessaryBadge: string;
+    analyticsTitle: string;
+    analyticsDescription: string;
+    savePreferencesLabel: string;
+  };
+  serviceDetail: {
+    homeBreadcrumbLabel: string;
+    servicesBreadcrumbLabel: string;
+    heroEyebrow: string;
+    includedTitle: string;
+    interestTitle: string;
+    interestDescription: string;
+    directContactTitle: string;
+    galleryEyebrow: string;
+    galleryTitle: string;
+    faqEyebrow: string;
+    faqTitle: string;
+    backToServicesLabel: string;
+    quoteLabel: string;
+  };
+  legal: {
+    updatedPrefix: string;
+    backHomeLabel: string;
+    contactEmailLabel: string;
+    contactPhoneLabel: string;
+    cookieConfigButtonLabel: string;
+  };
+}
+
+export interface LegalListItem {
+  label?: string;
+  text: string;
+  href?: string;
+}
+
+export interface LegalSection {
+  heading: string;
+  level?: "h2" | "h3";
+  paragraphs: string[];
+  list: LegalListItem[];
+}
+
+export interface LegalPageContent {
+  seoTitle: string;
+  seoDescription: string;
+  title: string;
+  updatedDate: string;
+  actionButtonLabel?: string;
+  sections: LegalSection[];
+}
+
+export interface LegalPages {
+  legalNotice: LegalPageContent;
+  privacyPolicy: LegalPageContent;
+  cookiePolicy: LegalPageContent;
+}
