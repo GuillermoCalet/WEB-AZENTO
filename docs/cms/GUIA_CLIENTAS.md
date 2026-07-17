@@ -2,12 +2,21 @@
 
 ## Entrar
 
-1. Abre `https://azentohome.com/admin/`.
+1. Abre `https://azentohome.com/admin/index.html`.
 2. Pulsa «Iniciar sesión con GitHub».
 3. Usa la cuenta gratuita de GitHub que el administrador haya autorizado.
 4. Acepta el acceso solicitado. No necesitas abrir el repositorio, usar Git ni una terminal.
 
 Si el repositorio es privado, el administrador debe darte permiso **solo de lectura**. Nunca necesitas permiso de escritura.
+
+El botón «Guía de uso», situado abajo a la derecha del panel, abre una ayuda resumida sin salir del gestor.
+
+## Local y producción no son lo mismo
+
+- «Modo local · guarda en este equipo», con punto naranja: guardar modifica los archivos del ordenador de pruebas.
+- «Con revisión · publicación protegida», con punto verde: los cambios se guardan en una propuesta y necesitan aprobación.
+
+Las clientas deben utilizar la dirección de producción. El modo local es para pruebas del administrador. Si se ha probado contenido local que no debe conservarse, deja de editar y pide al administrador que restaure los archivos con Git.
 
 ## Qué puedes editar
 
@@ -20,7 +29,7 @@ No modifiques rutas, identificadores internos, CIF ni datos registrales sin conf
 
 ## Cambiar un texto
 
-1. Abre «Contenido de la web».
+1. Abre «Editar la web».
 2. Entra en la página correspondiente.
 3. Cambia el campo indicado.
 4. Pulsa «Guardar». Esto crea o actualiza un borrador; no publica.
@@ -61,7 +70,7 @@ Usa el asa de arrastre del elemento y muévelo a su nueva posición. En proyecto
 4. Mueve el cambio de «Borrador» a «Lista para revisión».
 5. Espera la revisión del administrador.
 
-La clienta no puede publicar. «Lista para revisión» crea una solicitud; no cambia la web pública.
+La clienta no puede publicar. «Lista para revisión» crea una solicitud; no cambia la web pública. El aviso inferior confirma siempre si estás trabajando con revisión.
 
 ## Correcciones, aprobación y publicación
 
@@ -69,6 +78,12 @@ La clienta no puede publicar. «Lista para revisión» crea una solicitud; no ca
 - Si lo rechaza, el cambio se cierra y la web no se modifica.
 - Si lo aprueba, GitHub integra el cambio en `main`; después se compila y publica.
 - El cambio está publicado cuando ya aparece en `https://azentohome.com` y el administrador confirma el despliegue.
+
+## Hacer varias correcciones
+
+Puedes abrir, guardar y corregir el mismo borrador tantas veces como necesites. Después de una aprobación, una corrección posterior es un cambio nuevo y debe enviarse otra vez a revisión.
+
+En modo local, si el botón de publicación queda desactivado tras una prueba, recarga el panel y vuelve a abrir la entrada. Para comprobar textos y diseño localmente basta con guardar y mirar la web; no necesitas simular una publicación cada vez.
 
 ## Si aparece un error
 

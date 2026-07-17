@@ -4,9 +4,14 @@
 
 La web sigue siendo Astro estático. Decap CMS edita archivos JSON del repositorio; producción nunca consulta un SaaS ni necesita un token de lectura. La validación Zod ocurre al cargar la capa CMS y un script adicional comprueba imágenes y relaciones.
 
+La evaluación de julio de 2026 descarta ApostropheCMS para este caso por infraestructura y permisos de medios/publicación. La decisión completa está en `EVALUACION_APOSTROPHE.md`.
+
 ## Componentes
 
 - `public/admin/config.yml`: modelo y UX del panel en español.
+- `public/admin/azento-cms.css`: identidad visual aplicada solo al panel y basada en selectores HTML estables.
+- `public/admin/azento-cms.js`: slugs, validación previa de imágenes, indicador de entorno y avisos no bloqueantes.
+- `public/admin/guia.html`: ayuda responsive disponible desde el propio panel.
 - `src/content/cms/*.json`: fuente de verdad publicada.
 - `src/lib/cms/repository.ts`: única puerta de acceso de páginas y componentes.
 - `src/lib/cms/schemas.ts`: límites de texto, slugs, rutas, estados, listas e imágenes.
@@ -50,6 +55,8 @@ npm run cms:dev
 ```
 
 Abre `http://localhost:4321/admin/index.html`. `local_backend: true` permite que Decap escriba en el repositorio local a través de `decap-server`; no usa OAuth.
+
+El indicador naranja recuerda que cualquier guardado local modifica archivos reales. El flujo local sirve para probar formularios y contenido, pero no reproduce exactamente el fork, PR y permisos de producción.
 
 Controles completos:
 
@@ -137,6 +144,6 @@ Los componentes no conocen GitHub ni Decap; por eso una migración no exige redi
 
 ## Dependencias
 
-Decap se carga en `/admin/` desde un CDN con versión fijada. `decap-server` es la única dependencia nueva de desarrollo. Zod ya estaba presente y se usa para validar los JSON.
+Decap se carga en `/admin/index.html` desde un CDN con versión fijada. La mejora visual usa CSS y JavaScript propios sin dependencias nuevas. `decap-server` es la única dependencia de desarrollo del CMS; Zod valida los JSON.
 
 Tras `npm audit fix` quedan tres avisos transitivos (dos bajos y uno alto) cuya corrección exige Astro 7, un salto mayor fuera del alcance del CMS. Esta web se publica como HTML estático y no ejecuta Astro/Vite en Arsys; además no usa server islands, atributos dinámicos de nombres ni contenido HTML del CMS. Aun así, debe planificarse la migración a Astro 7 en una rama separada y no ejecutar el servidor de desarrollo en redes no confiables.

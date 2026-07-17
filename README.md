@@ -61,6 +61,7 @@ scripts/cms/             Validación de contenido
 ## Documentación
 
 - [Auditoría y decisión](docs/cms/AUDITORIA_Y_DECISION.md)
+- [Evaluación de ApostropheCMS](docs/cms/EVALUACION_APOSTROPHE.md)
 - [Plan de implementación](docs/cms/PLAN_IMPLEMENTACION.md)
 - [Guía técnica](docs/cms/GUIA_TECNICA.md)
 - [Configuración manual](docs/cms/CONFIGURACION_MANUAL.md)
