@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Guía del gestor | AZento Home</title>
+    <style>
+      :root { color-scheme: light; --ink: #26363b; --slate: #435f69; --gold: #c4a882; --paper: #f5f2ed; }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { margin: 0; background: var(--paper); color: var(--ink); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.6; }
+      header { padding: clamp(2.5rem, 7vw, 5.5rem) 1.25rem; background: linear-gradient(135deg, #26363b, #435f69); color: white; }
+      header div, main { width: min(68rem, 100%); margin: auto; }
+      header img { width: 64px; height: 64px; border: 4px solid white; border-radius: 15px; box-shadow: 0 14px 35px #14212655; }
+      h1, h2 { font-family: Georgia, "Times New Roman", serif; line-height: 1.15; }
+      h1 { max-width: 18ch; margin: 1.25rem 0 0.75rem; font-size: clamp(2.2rem, 7vw, 4.5rem); font-weight: 600; }
+      header p { max-width: 48rem; margin: 0; color: #e4eaec; font-size: 1.05rem; }
+      main { padding: clamp(2rem, 6vw, 4.5rem) 1.25rem 6rem; }
+      .notice { padding: 1rem 1.2rem; border-left: 5px solid var(--gold); border-radius: 12px; background: white; box-shadow: 0 12px 35px #26363b12; }
+      .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: 1rem; margin-top: 2rem; }
+      article { padding: 1.35rem; border: 1px solid #435f6922; border-radius: 16px; background: white; box-shadow: 0 12px 35px #26363b0b; }
+      article span { display: inline-grid; width: 2rem; height: 2rem; place-items: center; border-radius: 50%; background: #c4a88233; color: #755c3c; font-weight: 800; }
+      h2 { margin: 0.9rem 0 0.55rem; font-size: 1.45rem; }
+      article p { margin: 0; color: #58696f; }
+      section { margin-top: 3.5rem; }
+      section > h2 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+      ol, ul { padding-left: 1.3rem; }
+      li + li { margin-top: 0.55rem; }
+      code { padding: 0.12rem 0.35rem; border-radius: 5px; background: #26363b10; }
+      .actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+      .button { display: inline-flex; min-height: 2.8rem; align-items: center; padding: 0 1.1rem; border-radius: 999px; background: var(--ink); color: white; font-weight: 750; text-decoration: none; }
+      .button.secondary { border: 1px solid #435f6940; background: white; color: var(--ink); }
+      footer { padding: 1.5rem; background: var(--ink); color: #dfe6e8; text-align: center; font-size: 0.85rem; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <img src="/images/logo_azento.jpg" alt="AZento Home" width="64" height="64" />
+        <h1>Editar la web con tranquilidad</h1>
+        <p>El gestor permite cambiar contenido sin tocar el diseño. En producción, ninguna modificación de una clienta aparece en la web hasta que un administrador la revisa y aprueba.</p>
+      </div>
+    </header>
+    <main>
+      <div class="notice"><strong>Fíjate en el indicador inferior del panel.</strong> En modo local, guardar escribe en los archivos de este ordenador. En producción, los cambios siguen el flujo de borrador y revisión.</div>
+
+      <div class="grid" aria-label="Resumen del flujo editorial">
+        <article><span>1</span><h2>Edita</h2><p>Abre una sección, cambia solo los campos que necesites y revisa los textos alternativos de las imágenes.</p></article>
+        <article><span>2</span><h2>Guarda el borrador</h2><p>Puedes volver a abrirlo y corregirlo tantas veces como necesites antes de enviarlo.</p></article>
+        <article><span>3</span><h2>Envía a revisión</h2><p>El gestor crea una propuesta separada. La web publicada todavía no cambia.</p></article>
+        <article><span>4</span><h2>Espera la aprobación</h2><p>El administrador revisa la vista previa, pide correcciones o aprueba la publicación.</p></article>
+      </div>
+
+      <section>
+        <h2>Tareas habituales</h2>
+        <ol>
+          <li><strong>Cambiar un texto:</strong> entra en «Editar la web», abre la página correspondiente, modifica el campo y guarda.</li>
+          <li><strong>Sustituir una imagen:</strong> pulsa «Elegir imagen», selecciona o sube una nueva y completa su texto alternativo.</li>
+          <li><strong>Añadir un proyecto:</strong> abre «Divisiones, proyectos y servicios», elige la división y añádelo en la lista de proyectos.</li>
+          <li><strong>Reordenar una galería:</strong> arrastra los elementos de la lista. El orden del panel es el orden de la web.</li>
+          <li><strong>Ocultar contenido:</strong> desactiva «Visible» o «Publicado». Es preferible ocultar antes que borrar.</li>
+        </ol>
+      </section>
+
+      <section>
+        <h2>Imágenes</h2>
+        <ul>
+          <li>Formatos admitidos: JPG, PNG y WebP.</li>
+          <li>Tamaño máximo: 3 MB por archivo.</li>
+          <li>Dimensiones: máximo 8000 píxeles por lado y, para fotografías de contenido, al menos 300 píxeles por lado.</li>
+          <li>El texto alternativo debe describir lo que se ve; no uses nombres como «foto1».</li>
+          <li>No subas HEIC/HEIF cambiando solamente su extensión.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Qué no debes modificar</h2>
+        <p>No cambies rutas, identificadores internos, enlaces técnicos o datos legales sin hablar antes con el administrador. El CSS, los tamaños, las posiciones y la estructura no aparecen en el CMS precisamente para proteger el diseño.</p>
+      </section>
+
+      <section>
+        <h2>Pruebas locales</h2>
+        <ol>
+          <li>Ejecuta <code>npm run dev</code>.</li>
+          <li>En otra terminal, ejecuta <code>npm run cms:dev</code>.</li>
+          <li>Abre <code>http://localhost:4321/admin/index.html</code>.</li>
+          <li>Haz una copia o un commit antes de probar si quieres descartar fácilmente los cambios.</li>
+          <li>Para recuperar archivos, pide al administrador que los restaure con Git; no borres carpetas manualmente.</li>
+        </ol>
+      </section>
+
+      <div class="actions">
+        <a class="button" href="/admin/index.html">Volver al gestor</a>
+        <a class="button secondary" href="/" target="_blank" rel="noopener">Ver la web</a>
+      </div>
+    </main>
+    <footer>AZento Home · Guía del gestor de contenidos</footer>
+  </body>
+</html>

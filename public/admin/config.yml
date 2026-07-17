@@ -17,9 +17,6 @@ logo_url: https://azentohome.com/images/logo_azento.jpg
 
 media_folder: public/images/uploads
 public_folder: /images/uploads
-media_library:
-  config:
-    max_file_size: 3145728
 
 slug:
   encoding: ascii
@@ -28,11 +25,14 @@ slug:
 
 collections:
   - name: contenido
-    label: Contenido de la web
-    label_singular: Contenido
+    label: Editar la web
+    label_singular: Sección
+    description: Elige qué parte quieres cambiar. El diseño y la estructura están protegidos.
+    editor:
+      preview: false
     files:
       - name: configuracion
-        label: Configuración general
+        label: 1 · Empresa, contacto y SEO
         file: src/content/cms/site-settings.json
         format: json
         description: Datos de empresa, contacto, logotipos y SEO general.
@@ -45,14 +45,14 @@ collections:
             name: logo
             widget: object
             fields:
-              - { label: Imagen, name: src, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+              - { label: Imagen, name: src, widget: image, choose_url: false }
               - { label: Texto alternativo, name: alt, widget: string, hint: Obligatorio para accesibilidad. }
               - { label: Pie de foto, name: caption, widget: hidden, required: false, default: "" }
           - label: Logo claro decorativo
             name: lightLogo
             widget: object
             fields:
-              - { label: Imagen, name: src, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+              - { label: Imagen, name: src, widget: image, choose_url: false }
               - { label: Texto alternativo, name: alt, widget: hidden, required: false, default: "" }
               - { label: Pie de foto, name: caption, widget: hidden, required: false, default: "" }
           - { label: Teléfono visible, name: phoneDisplay, widget: string, hint: Ejemplo 919 898 717. }
@@ -82,11 +82,11 @@ collections:
             fields:
               - { label: Título, name: title, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
               - { label: Descripción, name: description, widget: text }
-              - { label: Imagen social, name: image, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+              - { label: Imagen social, name: image, widget: image, choose_url: false }
               - { label: Texto alternativo de imagen social, name: imageAlt, widget: string }
 
       - name: inicio
-        label: Página de inicio
+        label: 2 · Página de inicio
         file: src/content/cms/home.json
         format: json
         preview_path: /
@@ -94,7 +94,7 @@ collections:
           - { label: Publicada, name: published, widget: boolean, default: true, hint: Si se desactiva, la compilación se detiene para evitar dejar la portada vacía. }
           - { label: Título SEO, name: seoTitle, widget: string, pattern: [".{1,70}", "Máximo 70 caracteres."] }
           - { label: Descripción SEO, name: seoDescription, widget: text }
-          - { label: Imagen social, name: seoImage, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+          - { label: Imagen social, name: seoImage, widget: image, choose_url: false }
           - { label: Texto superior, name: eyebrow, widget: string }
           - { label: Título principal, name: title, widget: string }
           - { label: Texto introductorio, name: intro, widget: text }
@@ -104,7 +104,7 @@ collections:
           - { label: Título de contacto, name: contactTitle, widget: string }
 
       - name: divisiones
-        label: Divisiones, proyectos y servicios
+        label: 3 · Divisiones, proyectos y servicios
         file: src/content/cms/business-units.json
         format: json
         description: Gestiona las dos páginas principales. El orden de los elementos se cambia arrastrándolos.
@@ -126,12 +126,12 @@ collections:
               - { label: Estilo visual, name: tone, widget: select, options: [{ label: Madera, value: wood }, { label: Reformas, value: reform }], hint: Mantiene la paleta definida en el diseño. }
               - { label: Publicada, name: published, widget: boolean, default: true }
               - { label: Descripción de la tarjeta de inicio, name: selectorDescription, widget: text }
-              - { label: Imagen de la tarjeta de inicio, name: selectorImage, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+              - { label: Imagen de la tarjeta de inicio, name: selectorImage, widget: image, choose_url: false }
               - { label: Texto alternativo de la tarjeta, name: selectorAlt, widget: string }
               - { label: Texto superior del hero, name: heroEyebrow, widget: string }
               - { label: Título principal, name: heroTitle, widget: string }
               - { label: Descripción principal, name: heroDescription, widget: text }
-              - { label: Imagen principal, name: heroImage, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+              - { label: Imagen principal, name: heroImage, widget: image, choose_url: false }
               - { label: Texto alternativo de imagen principal, name: heroAlt, widget: string }
               - { label: Título SEO, name: seoTitle, widget: string }
               - { label: Descripción SEO, name: seoDescription, widget: text }
@@ -163,7 +163,7 @@ collections:
                   - { label: Título, name: title, widget: string }
                   - { label: Identificador, name: slug, widget: string, required: false, hint: Se genera automáticamente si queda vacío. }
                   - { label: Tipo de proyecto, name: category, widget: string }
-                  - { label: Imagen principal, name: image, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+                  - { label: Imagen principal, name: image, widget: image, choose_url: false }
                   - { label: Texto alternativo, name: alt, widget: string, hint: Describe la imagen para una persona que no puede verla. }
                   - { label: Pie de foto, name: caption, widget: string, required: false }
                   - { label: Encuadre, name: objectPosition, widget: select, options: ["center", "center 40%", "center 42%", "center top", "center bottom"], default: center }
@@ -203,7 +203,7 @@ collections:
                   - { label: Nombre visible, name: label, widget: string }
 
       - name: servicios_detallados
-        label: Páginas detalladas de servicios
+        label: 4 · Páginas detalladas de servicios
         file: src/content/cms/detailed-services.json
         format: json
         description: Páginas existentes bajo /servicios/. Se pueden añadir, ocultar, eliminar y reordenar.
@@ -245,7 +245,7 @@ collections:
                 collapsed: true
                 summary: "{{fields.alt}}"
                 fields:
-                  - { label: Imagen, name: src, widget: image, choose_url: false, media_library: { config: { max_file_size: 3145728 } } }
+                  - { label: Imagen, name: src, widget: image, choose_url: false }
                   - { label: Texto alternativo, name: alt, widget: string }
                   - { label: Pie de foto, name: caption, widget: string, required: false }
               - label: Llamadas a la acción
