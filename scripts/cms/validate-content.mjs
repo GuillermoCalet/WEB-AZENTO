@@ -13,6 +13,9 @@ try {
     if (config.backend?.name !== "github") errors.push("admin/config.yml: backend debe ser github");
     if (config.backend?.open_authoring !== true) errors.push("admin/config.yml: Open Authoring debe estar dentro de backend");
     if (config.publish_mode !== "editorial_workflow") errors.push("admin/config.yml: falta Editorial Workflow");
+    if (config.media_library && !config.media_library.name) {
+      errors.push("admin/config.yml: media_library necesita un proveedor con name; el almacenamiento interno se configura sin ese bloque");
+    }
     if (!Array.isArray(config.collections) || config.collections.length === 0) {
       errors.push("admin/config.yml: no hay colecciones");
     }
