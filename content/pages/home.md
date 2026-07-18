@@ -112,11 +112,11 @@ gallerySection:
       image: /images/revestimiento_fachada_porcelanic.JPG
       size: medium
       objectPosition: center
-    - title: Cocina Jardin
+    - title: Cocina Jardín
       category: Reforma Exterior
       location: Madrid
       image: /images/cocina_exterior_premium.jpeg
-      size: small
+      size: medium
       objectPosition: center
     - title: Exterior Relajante
       category: Jardines y Terrazas
