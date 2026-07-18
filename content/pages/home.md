@@ -122,7 +122,7 @@ gallerySection:
       category: Jardines y Terrazas
       location: Madrid
       image: /images/jacuzzi_exterior.jpeg
-      size: small
+      size: medium
       objectPosition: center 40%
   ctaLink:
     label: Más información
